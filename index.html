@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,89 +7,375 @@
   <meta name="description" content="REDLINE PAGES — an independent journal for the Indian motorcycling enthusiast. Machines. Roads. Stories.">
   <meta name="theme-color" content="#141619">
   <title>REDLINE PAGES — Machines. Roads. Stories.</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-  <div class="announcement">AN INDEPENDENT JOURNAL FOR THE INDIAN MOTORCYCLING ENTHUSIAST</div>
+
+  <div class="announcement">
+    AN INDEPENDENT JOURNAL FOR THE INDIAN MOTORCYCLING ENTHUSIAST
+  </div>
+
   <header class="site-header">
-    <a class="wordmark" href="#" aria-label="Redline Pages home">REDLINE <span>PAGES</span><small>MACHINES. ROADS. STORIES.</small></a>
+
+    <a class="wordmark" href="#" aria-label="Redline Pages home">
+      REDLINE <span>PAGES</span>
+      <small>MACHINES. ROADS. STORIES.</small>
+    </a>
+
     <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+
     <nav class="nav">
-      <a href="#latest">Latest</a><a href="#machines">Motorcycles</a><a href="#engineering">Engineering</a><a href="#touring">Touring</a><a href="#about">About</a>
+      <a href="#latest">Latest</a>
+      <a href="#machines">Motorcycles</a>
+      <a href="#engineering">Engineering</a>
+      <a href="#touring">Touring</a>
+      <a href="#rider">About the Rider</a>
     </nav>
+
   </header>
 
+
   <main>
+
+    <!-- HERO SECTION -->
+
     <section class="hero">
+
       <div class="hero-image" role="img" aria-label="Motorcycle on a dramatic mountain road"></div>
       <div class="hero-shade"></div>
+
       <div class="hero-content">
-        <p class="eyebrow"><span class="red-dot"></span> THE INDEPENDENT MOTORCYCLE JOURNAL</p>
+
+        <p class="eyebrow">
+          <span class="red-dot"></span>
+          THE INDEPENDENT MOTORCYCLE JOURNAL
+        </p>
+
         <h1>BEYOND<br>THE <em>REDLINE.</em></h1>
-        <p class="hero-copy">Machines, roads and the stories that connect them. A closer look at the motorcycles shaping India's riding culture.</p>
-        <a class="button button-red" href="#latest">EXPLORE THE JOURNAL <span>↗</span></a>
+
+        <p class="hero-copy">
+          Machines, roads and the stories that connect them.
+          A closer look at the motorcycles shaping India's riding culture.
+        </p>
+
+        <a class="button button-red" href="#latest">
+          EXPLORE THE JOURNAL <span>↗</span>
+        </a>
+
       </div>
+
       <div class="hero-index">VOL. 01 &nbsp; / &nbsp; INDIA</div>
+
     </section>
 
-    <section class="ticker" aria-label="Publication themes"><span>MACHINES</span><i>✳</i><span>ROADS</span><i>✳</i><span>ENGINEERING</span><i>✳</i><span>PEOPLE</span><i>✳</i><span>CULTURE</span></section>
+
+    <!-- PUBLICATION THEMES -->
+
+    <section class="ticker" aria-label="Publication themes">
+      <span>MACHINES</span>
+      <i>✳</i>
+      <span>ROADS</span>
+      <i>✳</i>
+      <span>ENGINEERING</span>
+      <i>✳</i>
+      <span>PEOPLE</span>
+      <i>✳</i>
+      <span>CULTURE</span>
+    </section>
+
+
+    <!-- LATEST STORIES -->
 
     <section class="section section-pad" id="latest">
-      <div class="section-heading"><div><p class="eyebrow">01 / THE JOURNAL</p><h2>Latest <em>stories.</em></h2></div><p class="section-note">Thoughtful reads for people who see more than a machine.</p></div>
+
+      <div class="section-heading">
+
+        <div>
+          <p class="eyebrow">01 / THE JOURNAL</p>
+          <h2>Latest <em>stories.</em></h2>
+        </div>
+
+        <p class="section-note">
+          Thoughtful reads for people who see more than a machine.
+        </p>
+
+      </div>
+
       <div class="filters" id="filters">
+
         <button class="filter active" data-filter="All">ALL STORIES</button>
         <button class="filter" data-filter="Machines">MACHINES</button>
         <button class="filter" data-filter="Engineering">ENGINEERING</button>
         <button class="filter" data-filter="Touring">TOURING</button>
         <button class="filter" data-filter="Industry">INDUSTRY</button>
+
       </div>
+
       <div class="story-grid" id="story-grid"></div>
+
     </section>
+
+
+    <!-- MACHINES -->
 
     <section class="feature-band" id="machines">
+
       <div class="feature-photo"></div>
+
       <div class="feature-copy">
+
         <p class="eyebrow">02 / MACHINES</p>
+
         <h2>Not just numbers.<br><em>Character.</em></h2>
-        <p>Specifications tell you what a motorcycle is. The details tell you why it matters. Explore the engineering, design and decisions behind the machines.</p>
-        <a class="text-link" href="#latest">EXPLORE MOTORCYCLES <span>↗</span></a>
+
+        <p>
+          Specifications tell you what a motorcycle is.
+          The details tell you why it matters.
+          Explore the engineering, design and decisions behind the machines.
+        </p>
+
+        <a class="text-link" href="#latest">
+          EXPLORE MOTORCYCLES <span>↗</span>
+        </a>
+
       </div>
+
     </section>
+
+
+    <!-- ENGINEERING -->
 
     <section class="split-section section-pad" id="engineering">
+
       <div>
+
         <p class="eyebrow">03 / ENGINEERING</p>
+
         <h2>Understand<br>what moves <em>you.</em></h2>
-        <p class="muted">From engine architecture and torque curves to suspension geometry, braking systems and chassis design — make the technical feel accessible.</p>
-        <a class="text-link" href="#latest">READ THE TECHNICAL JOURNAL <span>↗</span></a>
+
+        <p class="muted">
+          From engine architecture and torque curves to suspension geometry,
+          braking systems and chassis design — make the technical feel accessible.
+        </p>
+
+        <a class="text-link" href="#latest">
+          READ THE TECHNICAL JOURNAL <span>↗</span>
+        </a>
+
       </div>
+
       <div class="engineering-card">
+
         <div class="technical-lines"></div>
+
         <span class="card-kicker">THE DETAILS MATTER</span>
+
         <strong>TORQUE<br>≠<br>POWER</strong>
+
         <span class="card-bottom">ENGINEERING NOTES / 001</span>
+
       </div>
+
     </section>
+
+
+    <!-- TOURING -->
 
     <section class="touring" id="touring">
-      <div class="touring-bg"></div><div class="touring-overlay"></div>
-      <div class="touring-content"><p class="eyebrow">04 / THE LONG WAY ROUND</p><h2>Some roads<br>stay with <em>you.</em></h2><p>Routes, rider journals, practical touring guides and the places in between.</p><a class="button button-light" href="#latest">FIND YOUR NEXT READ <span>↗</span></a></div>
+
+      <div class="touring-bg"></div>
+      <div class="touring-overlay"></div>
+
+      <div class="touring-content">
+
+        <p class="eyebrow">04 / THE LONG WAY ROUND</p>
+
+        <h2>Some roads<br>stay with <em>you.</em></h2>
+
+        <p>
+          Routes, rider journals, practical touring guides
+          and the places in between.
+        </p>
+
+        <a class="button button-light" href="#latest">
+          FIND YOUR NEXT READ <span>↗</span>
+        </a>
+
+      </div>
+
     </section>
+
+
+    <!-- THE RIDER BEHIND REDLINE -->
+
+    <section class="rider-bio" id="rider">
+
+      <div class="rider-bio-inner">
+
+        <div class="rider-visual">
+
+          <div class="rider-photo">
+
+            <div class="rider-photo-overlay"></div>
+
+            <span class="rider-photo-label">
+              THE RIDER / THE STORYTELLER
+            </span>
+
+            <span class="rider-number">350</span>
+
+          </div>
+
+          <div class="rider-stamp">
+            BUILT ON<br>
+            ROADS &<br>
+            STORIES.
+          </div>
+
+        </div>
+
+
+        <div class="rider-text">
+
+          <p class="eyebrow">05 / BEHIND THE REDLINE</p>
+
+          <h2>
+            Meet the rider.<br>
+            <em>Rishav aka Jatayiu.</em>
+          </h2>
+
+          <p class="rider-intro">
+            Not just about the destination.
+            Always about the journey.
+          </p>
+
+          <p>
+            I'm Rishav, known on the road as Jatayiu —
+            a motorcycle enthusiast, solo rider and storyteller
+            with an enduring love for machines and the open road.
+          </p>
+
+          <p>
+            My journey has taken me across the winding roads of
+            Uttarakhand, through Himalayan landscapes, unfamiliar
+            towns and some seriously long days in the saddle.
+            From covering 1,400 kilometres in a solo 20-hour ride
+            to exploring the mountains, camping along the way and
+            finding stories beyond the highway, every ride has
+            left something behind.
+          </p>
+
+          <p>
+            My Royal Enfield Classic 350 has been more than just
+            a motorcycle. It's been a companion through countless
+            kilometres, changing landscapes and lessons that
+            no specification sheet can explain.
+          </p>
+
+          <p>
+            Away from the road, I'm fascinated by motorcycle
+            engineering, design, mechanical character and the
+            history behind iconic machines.
+          </p>
+
+          <p>
+            That's what REDLINE PAGES is about — documenting
+            motorcycles, understanding engineering, exploring
+            riding culture and telling the stories that deserve
+            to be told.
+          </p>
+
+          <div class="rider-signature">
+
+            <span>RIDE FAR. STAY CURIOUS.</span>
+
+            <strong>— JATAYIU</strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- NEWSLETTER -->
 
     <section class="newsletter section-pad">
-      <div><p class="eyebrow">THE REDLINE DISPATCH</p><h2>Good stories.<br><em>No noise.</em></h2><p class="muted">A considered round-up of motorcycle stories and industry developments. Join the list when subscriptions go live.</p></div>
-      <form id="newsletter-form" class="newsletter-form"><label for="email">YOUR EMAIL ADDRESS</label><div class="email-row"><input id="email" type="email" placeholder="rider@example.com" required><button type="submit" aria-label="Submit email">↗</button></div><p id="form-message" class="form-message">Newsletter signup is a visual demo for now. Connect a mailing-list provider before collecting subscribers.</p></form>
+
+      <div>
+
+        <p class="eyebrow">THE REDLINE DISPATCH</p>
+
+        <h2>Good stories.<br><em>No noise.</em></h2>
+
+        <p class="muted">
+          A considered round-up of motorcycle stories and industry
+          developments. Join the list when subscriptions go live.
+        </p>
+
+      </div>
+
+      <form id="newsletter-form" class="newsletter-form">
+
+        <label for="email">YOUR EMAIL ADDRESS</label>
+
+        <div class="email-row">
+
+          <input id="email" type="email" placeholder="rider@example.com" required>
+
+          <button type="submit" aria-label="Submit email">↗</button>
+
+        </div>
+
+        <p id="form-message" class="form-message">
+          Newsletter signup is a visual demo for now.
+          Connect a mailing-list provider before collecting subscribers.
+        </p>
+
+      </form>
+
     </section>
+
   </main>
 
+
+  <!-- FOOTER -->
+
   <footer class="footer" id="about">
-    <a class="wordmark footer-mark" href="#">REDLINE <span>PAGES</span><small>MACHINES. ROADS. STORIES.</small></a>
-    <p>An independent motorcycle journal.<br>Built for the curious. Made for the ride.</p>
-    <div class="footer-bottom"><span>© <span id="year"></span> REDLINE PAGES</span><span>INDIA · INDEPENDENT BY DESIGN</span><span>EDITORIAL PROJECT / VOL. 01</span></div>
+
+    <a class="wordmark footer-mark" href="#">
+      REDLINE <span>PAGES</span>
+      <small>MACHINES. ROADS. STORIES.</small>
+    </a>
+
+    <p>
+      An independent motorcycle journal.<br>
+      Built for the curious. Made for the ride.
+    </p>
+
+    <div class="footer-bottom">
+
+      <span>© <span id="year"></span> REDLINE PAGES</span>
+
+      <span>INDIA · INDEPENDENT BY DESIGN</span>
+
+      <span>EDITORIAL PROJECT / VOL. 01</span>
+
+    </div>
+
   </footer>
+
+
   <script src="script.js"></script>
+
 </body>
 </html>
