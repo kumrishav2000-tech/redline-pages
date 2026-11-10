@@ -5,18 +5,696 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="REDLINE PAGES — an independent journal for the Indian motorcycling enthusiast. Machines. Roads. Stories.">
-  <meta name="theme-color" content="#141619">
+  <meta name="theme-color" content="#101113">
   <title>REDLINE PAGES — Machines. Roads. Stories.</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css">
+
+  <style>
+    :root {
+      --rl-red: #ed2929;
+      --rl-black: #101113;
+      --rl-panel: #17191c;
+      --rl-white: #f2f0eb;
+      --rl-muted: #929397;
+      --rl-line: rgba(255,255,255,.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--rl-black);
+      color: var(--rl-white);
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: var(--rl-red);
+      color: white;
+    }
+
+    /* INTRO LOADER */
+
+    .rl-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #101113;
+      display: grid;
+      place-items: center;
+      animation: loaderOut 1s ease 1.8s forwards;
+      pointer-events: none;
+    }
+
+    .rl-loader-inner { text-align: center; }
+
+    .rl-loader-logo {
+      font: 900 clamp(55px, 12vw, 120px)/.8 'Barlow Condensed', sans-serif;
+      letter-spacing: -4px;
+      animation: logoPulse 1.1s ease infinite alternate;
+    }
+
+    .rl-loader-logo span { color: var(--rl-red); }
+
+    .rl-loader-line {
+      width: 180px;
+      height: 2px;
+      background: #333;
+      margin: 25px auto 12px;
+      overflow: hidden;
+    }
+
+    .rl-loader-line::after {
+      content: "";
+      display: block;
+      height: 100%;
+      width: 100%;
+      background: var(--rl-red);
+      transform: translateX(-100%);
+      animation: loading 1.5s ease forwards;
+    }
+
+    .rl-loader small {
+      font: 10px 'Space Mono', monospace;
+      letter-spacing: 4px;
+      color: #888;
+    }
+
+    @keyframes loading { to { transform: translateX(0); } }
+    @keyframes logoPulse { to { opacity: .55; } }
+    @keyframes loaderOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+
+    /* GLOBAL EFFECTS */
+
+    .rl-grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 100;
+      opacity: .045;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+    }
+
+    .rl-progress {
+      position: fixed;
+      z-index: 999;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0;
+      background: var(--rl-red);
+    }
+
+    .announcement {
+      background: var(--rl-red);
+      color: white;
+      font: 10px 'Space Mono', monospace;
+      letter-spacing: 2px;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      backdrop-filter: blur(18px);
+      background: rgba(16,17,19,.92);
+      border-bottom: 1px solid var(--rl-line);
+    }
+
+    .wordmark { letter-spacing: -1px; }
+
+    .wordmark span { color: var(--rl-red); }
+
+    .nav a {
+      transition: color .25s ease;
+    }
+
+    .nav a:hover { color: var(--rl-red); }
+
+    /* HERO */
+
+    .hero {
+      min-height: 88vh;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-image {
+      transform: scale(1.06);
+      animation: heroZoom 12s ease-out forwards;
+    }
+
+    @keyframes heroZoom {
+      to { transform: scale(1); }
+    }
+
+    .hero::after {
+      content: "R";
+      position: absolute;
+      right: -4%;
+      bottom: -24%;
+      z-index: -1;
+      font: 900 75vw/.8 'Barlow Condensed', sans-serif;
+      color: rgba(255,255,255,.025);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      animation: heroReveal 1.1s .5s both;
+    }
+
+    @keyframes heroReveal {
+      from { opacity: 0; transform: translateY(35px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero h1 {
+      font-size: clamp(75px, 13vw, 175px);
+      line-height: .78;
+      letter-spacing: -5px;
+    }
+
+    .hero h1 em { color: var(--rl-red); }
+
+    .red-dot {
+      animation: dotBlink 1.5s infinite;
+    }
+
+    @keyframes dotBlink {
+      50% { opacity: .2; }
+    }
+
+    .button-red {
+      box-shadow: 0 0 0 rgba(237,41,41,0);
+      transition: .3s ease;
+    }
+
+    .button-red:hover {
+      box-shadow: 0 0 35px rgba(237,41,41,.3);
+      transform: translateY(-4px);
+    }
+
+    /* TICKER */
+
+    .ticker {
+      overflow: hidden;
+      white-space: nowrap;
+      justify-content: flex-start;
+      gap: 35px;
+      animation: none;
+    }
+
+    .ticker span {
+      font: 800 24px 'Barlow Condensed', sans-serif;
+    }
+
+    .ticker i { color: var(--rl-red); }
+
+    /* SECTION COMMON */
+
+    .rl-section {
+      padding: 110px 7%;
+      position: relative;
+    }
+
+    .rl-kicker {
+      color: var(--rl-red);
+      font: 11px 'Space Mono', monospace;
+      letter-spacing: 3px;
+      margin-bottom: 18px;
+    }
+
+    .rl-title {
+      font: 800 clamp(55px, 8vw, 105px)/.88 'Barlow Condensed', sans-serif;
+      letter-spacing: -2px;
+      text-transform: uppercase;
+    }
+
+    .rl-title em { color: var(--rl-red); }
+
+    .rl-description {
+      color: var(--rl-muted);
+      line-height: 1.8;
+      max-width: 520px;
+    }
+
+    /* BRAND WALL */
+
+    .brand-section {
+      background: #141619;
+      padding: 65px 0;
+      overflow: hidden;
+      border-top: 1px solid var(--rl-line);
+      border-bottom: 1px solid var(--rl-line);
+    }
+
+    .brand-heading {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .brand-heading p {
+      font: 10px 'Space Mono', monospace;
+      letter-spacing: 3px;
+      color: var(--rl-red);
+    }
+
+    .brand-track {
+      display: flex;
+      width: max-content;
+      animation: brandMove 45s linear infinite;
+    }
+
+    .brand-track:hover { animation-play-state: paused; }
+
+    .brand-item {
+      padding: 10px 35px;
+      font: 900 30px 'Barlow Condensed', sans-serif;
+      letter-spacing: 1px;
+      color: #85868a;
+      white-space: nowrap;
+      transition: color .3s, transform .3s;
+      border-right: 1px solid var(--rl-line);
+    }
+
+    .brand-item:hover {
+      color: white;
+      transform: scale(1.08);
+    }
+
+    .brand-item span { color: var(--rl-red); }
+
+    @keyframes brandMove {
+      to { transform: translateX(-50%); }
+    }
+
+    /* MACHINE ARCHIVE */
+
+    .machine-archive {
+      background: #0e0f11;
+      overflow: hidden;
+    }
+
+    .archive-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-bottom: 55px;
+    }
+
+    .archive-counter {
+      font: 12px 'Space Mono', monospace;
+      color: var(--rl-muted);
+    }
+
+    .archive-counter strong {
+      font-size: 40px;
+      color: var(--rl-red);
+    }
+
+    .archive-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-bottom: 40px;
+    }
+
+    .archive-filter {
+      background: transparent;
+      border: 1px solid var(--rl-line);
+      color: #aaa;
+      padding: 11px 18px;
+      font: 10px 'Space Mono', monospace;
+      cursor: pointer;
+      transition: .25s;
+    }
+
+    .archive-filter:hover,
+    .archive-filter.active {
+      color: white;
+      background: var(--rl-red);
+      border-color: var(--rl-red);
+    }
+
+    .machine-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 18px;
+    }
+
+    .machine-card {
+      min-width: 0;
+      position: relative;
+      background: #17191c;
+      border: 1px solid rgba(255,255,255,.08);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform .4s, border-color .4s, opacity .3s;
+      animation: cardIn .65s both;
+    }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .machine-card:hover {
+      transform: translateY(-9px);
+      border-color: var(--rl-red);
+    }
+
+    .machine-art {
+      position: relative;
+      height: 245px;
+      display: grid;
+      place-items: center;
+      background: #eeece6;
+      overflow: hidden;
+    }
+
+    .machine-art::after {
+      content: "REDLINE / TECHNICAL ARCHIVE";
+      position: absolute;
+      left: 13px;
+      bottom: 12px;
+      font: 8px 'Space Mono', monospace;
+      letter-spacing: 1px;
+      color: #777;
+    }
+
+    .machine-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 12px;
+      filter: grayscale(1) contrast(1.08);
+      transition: transform .6s, filter .6s;
+    }
+
+    .machine-card:hover .machine-art img {
+      transform: scale(1.1);
+      filter: grayscale(.25) contrast(1.1);
+    }
+
+    .sketch-placeholder {
+      position: absolute;
+      z-index: 0;
+      text-align: center;
+      color: #999;
+      font: 11px 'Space Mono', monospace;
+      padding: 15px;
+      pointer-events: none;
+    }
+
+    .machine-art img[src] { position: relative; z-index: 1; }
+
+    .machine-info { padding: 22px; }
+
+    .machine-brand {
+      font: 10px 'Space Mono', monospace;
+      color: var(--rl-red);
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .machine-name {
+      font: 800 34px/.95 'Barlow Condensed', sans-serif;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .machine-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      border-top: 1px solid var(--rl-line);
+      padding-top: 13px;
+      color: #999;
+      font: 9px 'Space Mono', monospace;
+    }
+
+    .machine-arrow {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      width: 35px;
+      height: 35px;
+      display: grid;
+      place-items: center;
+      background: var(--rl-red);
+      color: white;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: .3s;
+    }
+
+    .machine-card:hover .machine-arrow {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* MACHINE DETAIL DIALOG */
+
+    .machine-dialog {
+      width: min(900px, 92vw);
+      max-height: 88vh;
+      overflow-y: auto;
+      border: 1px solid rgba(255,255,255,.15);
+      background: #151719;
+      color: white;
+      padding: 0;
+      margin: auto;
+    }
+
+    .machine-dialog::backdrop {
+      background: rgba(0,0,0,.85);
+      backdrop-filter: blur(9px);
+    }
+
+    .dialog-inner {
+      padding: clamp(25px,5vw,55px);
+    }
+
+    .dialog-close {
+      float: right;
+      background: var(--rl-red);
+      color: white;
+      border: 0;
+      padding: 12px 17px;
+      cursor: pointer;
+    }
+
+    .dialog-title {
+      font: 900 clamp(50px,9vw,90px)/.85 'Barlow Condensed', sans-serif;
+      margin: 25px 0;
+      text-transform: uppercase;
+    }
+
+    .dialog-title em { color: var(--rl-red); }
+
+    .dialog-image {
+      background: #eeece6;
+      width: 100%;
+      height: 340px;
+      object-fit: contain;
+      filter: grayscale(1);
+    }
+
+    .dialog-details {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .dialog-detail {
+      padding: 16px;
+      background: #202327;
+    }
+
+    .dialog-detail small {
+      display: block;
+      color: #999;
+      font: 9px 'Space Mono', monospace;
+      margin-bottom: 9px;
+    }
+
+    .dialog-detail strong {
+      font: 700 21px 'Barlow Condensed', sans-serif;
+    }
+
+    .dialog-description {
+      line-height: 1.8;
+      color: #aaa;
+      margin-top: 25px;
+    }
+
+    /* BLUEPRINT SECTION */
+
+    .blueprint-section {
+      background: #17191c;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 65px;
+      align-items: center;
+    }
+
+    .blueprint-art {
+      min-height: 390px;
+      position: relative;
+      display: grid;
+      place-items: center;
+      background-color: #e9e7df;
+      background-image:
+        linear-gradient(rgba(0,0,0,.055) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,0,0,.055) 1px,transparent 1px);
+      background-size: 25px 25px;
+      overflow: hidden;
+    }
+
+    .blueprint-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: grayscale(1);
+      padding: 20px;
+    }
+
+    .blueprint-label {
+      position: absolute;
+      bottom: 18px;
+      right: 18px;
+      color: var(--rl-red);
+      font: 10px 'Space Mono', monospace;
+    }
+
+    .spec-lines {
+      border-top: 1px solid var(--rl-line);
+      margin-top: 30px;
+    }
+
+    .spec-line {
+      padding: 15px 0;
+      border-bottom: 1px solid var(--rl-line);
+      display: flex;
+      justify-content: space-between;
+      font: 11px 'Space Mono', monospace;
+    }
+
+    .spec-line span:last-child { color: var(--rl-red); }
+
+    /* ORIGINAL SECTION ENHANCEMENTS */
+
+    .feature-band,
+    .touring,
+    .rider-bio {
+      overflow: hidden;
+    }
+
+    .feature-photo,
+    .touring-bg,
+    .rider-photo {
+      transition: transform 1s ease;
+    }
+
+    .feature-band:hover .feature-photo,
+    .touring:hover .touring-bg {
+      transform: scale(1.04);
+    }
+
+    .engineering-card {
+      transition: transform .4s, border-color .4s;
+    }
+
+    .engineering-card:hover {
+      transform: rotate(-1deg) scale(1.02);
+      border-color: var(--rl-red);
+    }
+
+    /* SCROLL REVEALS */
+
+    .rl-reveal {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+
+    .rl-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* FOOTER */
+
+    .footer {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer::before {
+      content: "REDLINE";
+      position: absolute;
+      bottom: -30px;
+      right: -15px;
+      font: 900 20vw/.8 'Barlow Condensed', sans-serif;
+      color: rgba(255,255,255,.025);
+      pointer-events: none;
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width: 900px) {
+      .machine-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .blueprint-section { grid-template-columns: 1fr; }
+    }
+
+    @media(max-width: 580px) {
+      .rl-section { padding: 75px 6%; }
+      .machine-grid { grid-template-columns: 1fr; }
+      .machine-art { height: 270px; }
+      .archive-header { align-items: start; }
+      .dialog-details { grid-template-columns: 1fr 1fr; }
+      .hero h1 { letter-spacing: -2px; }
+      .brand-item { font-size: 24px; padding: 10px 22px; }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      *,*::before,*::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
+
+  <div class="rl-loader">
+    <div class="rl-loader-inner">
+      <div class="rl-loader-logo">REDLINE<span>.</span></div>
+      <div class="rl-loader-line"></div>
+      <small>MACHINES. ROADS. STORIES.</small>
+    </div>
+  </div>
+
+  <div class="rl-grain"></div>
+  <div class="rl-progress" id="rl-progress"></div>
 
   <div class="announcement">
     AN INDEPENDENT JOURNAL FOR THE INDIAN MOTORCYCLING ENTHUSIAST
@@ -34,6 +712,7 @@
     <nav class="nav">
       <a href="#latest">Latest</a>
       <a href="#machines">Motorcycles</a>
+      <a href="#archive">Machine Archive</a>
       <a href="#engineering">Engineering</a>
       <a href="#touring">Touring</a>
       <a href="#rider">About the Rider</a>
@@ -44,7 +723,7 @@
 
   <main>
 
-    <!-- HERO SECTION -->
+    <!-- HERO -->
 
     <section class="hero">
 
@@ -91,7 +770,43 @@
     </section>
 
 
-    <!-- LATEST STORIES -->
+    <!-- BRAND WALL -->
+
+    <section class="brand-section">
+
+      <div class="brand-heading">
+        <p>THE MACHINES. THE MANUFACTURERS. THE LEGACY.</p>
+      </div>
+
+      <div class="brand-track" id="brand-track">
+
+        <div class="brand-item">ROYAL <span>ENFIELD</span></div>
+        <div class="brand-item">HONDA</div>
+        <div class="brand-item">BAJAJ</div>
+        <div class="brand-item">KTM</div>
+        <div class="brand-item">YAMAHA</div>
+        <div class="brand-item">SUZUKI</div>
+        <div class="brand-item">KAWASAKI</div>
+        <div class="brand-item">BMW <span>MOTORRAD</span></div>
+        <div class="brand-item">DUCATI</div>
+        <div class="brand-item">APRILIA</div>
+        <div class="brand-item">TRIUMPH</div>
+        <div class="brand-item">HARLEY-DAVIDSON</div>
+        <div class="brand-item">TVS</div>
+        <div class="brand-item">HERO</div>
+        <div class="brand-item">HUSQVARNA</div>
+        <div class="brand-item">BENELLI</div>
+        <div class="brand-item">JAWA</div>
+        <div class="brand-item">YEZDI</div>
+        <div class="brand-item">CFMOTO</div>
+        <div class="brand-item">MOTO GUZZI</div>
+
+      </div>
+
+    </section>
+
+
+    <!-- LATEST STORIES: ORIGINAL CONTENT -->
 
     <section class="section section-pad" id="latest">
 
@@ -123,7 +838,7 @@
     </section>
 
 
-    <!-- MACHINES -->
+    <!-- MACHINE FEATURE: ORIGINAL CONTENT -->
 
     <section class="feature-band" id="machines">
 
@@ -141,7 +856,7 @@
           Explore the engineering, design and decisions behind the machines.
         </p>
 
-        <a class="text-link" href="#latest">
+        <a class="text-link" href="#archive">
           EXPLORE MOTORCYCLES <span>↗</span>
         </a>
 
@@ -150,7 +865,67 @@
     </section>
 
 
-    <!-- ENGINEERING -->
+    <!-- COMPLETE MOTORCYCLE ARCHIVE -->
+
+    <section class="rl-section machine-archive" id="archive">
+
+      <div class="archive-header">
+
+        <div>
+          <p class="rl-kicker">06 / THE MACHINE ARCHIVE</p>
+          <h2 class="rl-title">ICONS OF<br><em>THE ROAD.</em></h2>
+          <p class="rl-description">
+            Every machine has a story. Explore the engineering,
+            design and character of motorcycles that define generations.
+          </p>
+        </div>
+
+        <div class="archive-counter">
+          <strong id="machine-count">27</strong><br>
+          MACHINES / ARCHIVED
+        </div>
+
+      </div>
+
+      <div class="archive-filters" id="archive-filters">
+        <button class="archive-filter active" data-brand="All">ALL MACHINES</button>
+        <button class="archive-filter" data-brand="Royal Enfield">ROYAL ENFIELD</button>
+        <button class="archive-filter" data-brand="Bajaj">BAJAJ</button>
+        <button class="archive-filter" data-brand="Honda">HONDA</button>
+        <button class="archive-filter" data-brand="KTM">KTM</button>
+        <button class="archive-filter" data-brand="Yamaha">YAMAHA</button>
+        <button class="archive-filter" data-brand="Other">OTHERS</button>
+      </div>
+
+      <div class="machine-grid" id="machine-grid"></div>
+
+      <p class="rl-description" style="margin:40px auto 0;text-align:center;font-size:11px">
+        REDLINE PAGES / MACHINE ARCHIVE / MORE MACHINES TO BE ADDED
+      </p>
+
+    </section>
+
+
+    <!-- MACHINE DETAIL POPUP -->
+
+    <dialog class="machine-dialog" id="machine-dialog">
+      <div class="dialog-inner">
+        <button class="dialog-close" id="dialog-close" aria-label="Close">CLOSE ✕</button>
+        <p class="rl-kicker" id="dialog-brand">MACHINE ARCHIVE</p>
+        <h2 class="dialog-title" id="dialog-title">MACHINE <em>NAME</em></h2>
+        <img class="dialog-image" id="dialog-image" src="" alt="Motorcycle technical illustration">
+        <div class="dialog-details">
+          <div class="dialog-detail"><small>ENGINE</small><strong id="dialog-engine">—</strong></div>
+          <div class="dialog-detail"><small>CONFIGURATION</small><strong id="dialog-config">—</strong></div>
+          <div class="dialog-detail"><small>CLASS</small><strong id="dialog-class">—</strong></div>
+        </div>
+        <p class="dialog-description" id="dialog-description"></p>
+        <p class="rl-kicker" style="margin-top:30px">REDLINE PAGES / MACHINE ARCHIVE</p>
+      </div>
+    </dialog>
+
+
+    <!-- ENGINEERING: ORIGINAL CONTENT, ENHANCED -->
 
     <section class="split-section section-pad" id="engineering">
 
@@ -165,8 +940,8 @@
           braking systems and chassis design — make the technical feel accessible.
         </p>
 
-        <a class="text-link" href="#latest">
-          READ THE TECHNICAL JOURNAL <span>↗</span>
+        <a class="text-link" href="#blueprint">
+          EXPLORE ENGINEERING <span>↗</span>
         </a>
 
       </div>
@@ -186,7 +961,44 @@
     </section>
 
 
-    <!-- TOURING -->
+    <!-- BLUEPRINT / TECHNICAL SKETCH -->
+
+    <section class="rl-section blueprint-section" id="blueprint">
+
+      <div class="blueprint-art">
+        <img
+          src="assets/sketches/classic-350.webp"
+          alt="Royal Enfield Classic 350 technical illustration"
+          loading="lazy"
+          onerror="this.style.display='none'">
+        <span class="blueprint-label">FIG 001 / MACHINE STUDY</span>
+      </div>
+
+      <div>
+
+        <p class="rl-kicker">ENGINEERING / DESIGN / MECHANICS</p>
+
+        <h2 class="rl-title">BEAUTY IN<br><em>THE DETAILS.</em></h2>
+
+        <p class="rl-description">
+          A motorcycle is a collection of engineering decisions.
+          From the geometry of a frame to the movement of a piston,
+          every detail has a purpose.
+        </p>
+
+        <div class="spec-lines">
+          <div class="spec-line"><span>DESIGN</span><span>FORM & FUNCTION</span></div>
+          <div class="spec-line"><span>ENGINE</span><span>POWER & TORQUE</span></div>
+          <div class="spec-line"><span>CHASSIS</span><span>STABILITY & CONTROL</span></div>
+          <div class="spec-line"><span>RIDING</span><span>FEEL & CHARACTER</span></div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- TOURING: ORIGINAL CONTENT -->
 
     <section class="touring" id="touring">
 
@@ -213,7 +1025,7 @@
     </section>
 
 
-    <!-- THE RIDER BEHIND REDLINE -->
+    <!-- RIDER: ORIGINAL CONTENT -->
 
     <section class="rider-bio" id="rider">
 
@@ -307,7 +1119,7 @@
     </section>
 
 
-    <!-- NEWSLETTER -->
+    <!-- NEWSLETTER: ORIGINAL CONTENT -->
 
     <section class="newsletter section-pad">
 
@@ -375,7 +1187,249 @@
   </footer>
 
 
+  <!-- EXISTING STORY SYSTEM -->
+
   <script src="script.js"></script>
+
+
+  <!-- REDLINE INTERACTIONS -->
+
+  <script>
+
+    /* MACHINE DATABASE */
+
+    const machines = [
+
+      {brand:"Royal Enfield",name:"Classic 350",engine:"349 cc",config:"Single cylinder",type:"Roadster",category:"Royal Enfield",image:"classic-350.webp",description:"An enduring modern classic. The Classic 350 brings together traditional design, relaxed riding ergonomics and the unmistakable character of Royal Enfield."},
+
+      {brand:"Royal Enfield",name:"Bullet 350",engine:"349 cc",config:"Single cylinder",type:"Roadster",category:"Royal Enfield",image:"bullet-350.webp",description:"One of motorcycling's most recognisable names, with a long-running legacy of simple, characterful road machines."},
+
+      {brand:"Royal Enfield",name:"Hunter 350",engine:"349 cc",config:"Single cylinder",type:"Urban roadster",category:"Royal Enfield",image:"hunter-350.webp",description:"A compact and accessible roadster designed around urban riding and everyday versatility."},
+
+      {brand:"Royal Enfield",name:"Interceptor 650",engine:"648 cc",config:"Parallel twin",type:"Roadster",category:"Royal Enfield",image:"interceptor-650.webp",description:"A modern interpretation of the classic British-style twin-cylinder roadster."},
+
+      {brand:"Royal Enfield",name:"Continental GT 650",engine:"648 cc",config:"Parallel twin",type:"Cafe racer",category:"Royal Enfield",image:"continental-gt-650.webp",description:"A cafe racer-inspired machine with a committed riding position and classic silhouette."},
+
+      {brand:"Royal Enfield",name:"Himalayan 450",engine:"452 cc",config:"Liquid-cooled single",type:"Adventure",category:"Royal Enfield",image:"himalayan-450.webp",description:"A purpose-built adventure motorcycle designed for long-distance exploration and challenging terrain."},
+
+      {brand:"Royal Enfield",name:"Super Meteor 650",engine:"648 cc",config:"Parallel twin",type:"Cruiser",category:"Royal Enfield",image:"super-meteor-650.webp",description:"A relaxed cruiser with a twin-cylinder engine and touring-oriented character."},
+
+      {brand:"Royal Enfield",name:"Shotgun 650",engine:"648 cc",config:"Parallel twin",type:"Custom roadster",category:"Royal Enfield",image:"shotgun-650.webp",description:"A contemporary custom-inspired motorcycle built around the 650 twin platform."},
+
+      {brand:"Bajaj",name:"Pulsar NS200",engine:"199.5 cc",config:"Single cylinder",type:"Street naked",category:"Bajaj",image:"pulsar-ns200.webp",description:"An important performance-oriented name in the Indian street motorcycle segment."},
+
+      {brand:"Bajaj",name:"Pulsar N250",engine:"249 cc",config:"Single cylinder",type:"Street naked",category:"Bajaj",image:"pulsar-n250.webp",description:"A modern street motorcycle focused on everyday usability and accessible performance."},
+
+      {brand:"Bajaj",name:"Dominar 400",engine:"373 cc",config:"Single cylinder",type:"Sport tourer",category:"Bajaj",image:"dominar-400.webp",description:"A muscular touring-oriented motorcycle known for its highway presence and long-distance focus."},
+
+      {brand:"Bajaj",name:"Pulsar RS200",engine:"199.5 cc",config:"Single cylinder",type:"Sports",category:"Bajaj",image:"pulsar-rs200.webp",description:"A fully faired sports motorcycle from the Pulsar family."},
+
+      {brand:"Honda",name:"H'ness CB350",engine:"348.36 cc",config:"Single cylinder",type:"Classic roadster",category:"Honda",image:"hness-cb350.webp",description:"Honda's modern take on the retro roadster, with classic styling and contemporary engineering."},
+
+      {brand:"Honda",name:"CB350RS",engine:"348.36 cc",config:"Single cylinder",type:"Sport roadster",category:"Honda",image:"cb350rs.webp",description:"A sportier interpretation of Honda's 350 platform."},
+
+      {brand:"Honda",name:"CB650R",engine:"649 cc",config:"Inline four",type:"Naked sports",category:"Honda",image:"cb650r.webp",description:"A middleweight naked motorcycle with a distinctive four-cylinder engine."},
+
+      {brand:"Honda",name:"Africa Twin",engine:"1084 cc",config:"Parallel twin",type:"Adventure",category:"Honda",image:"africa-twin.webp",description:"A globally recognised adventure touring motorcycle with rally-inspired heritage."},
+
+      {brand:"KTM",name:"390 Duke",engine:"398.7 cc",config:"Single cylinder",type:"Street naked",category:"KTM",image:"390-duke.webp",description:"A performance-focused naked motorcycle with aggressive design and modern electronics."},
+
+      {brand:"KTM",name:"390 Adventure",engine:"398.7 cc",config:"Single cylinder",type:"Adventure",category:"KTM",image:"390-adventure.webp",description:"A versatile adventure platform designed for touring and mixed-road riding."},
+
+      {brand:"KTM",name:"RC 390",engine:"373 cc",config:"Single cylinder",type:"Sports",category:"KTM",image:"rc-390.webp",description:"A track-inspired fully faired motorcycle with sharp handling and sporty ergonomics."},
+
+      {brand:"Yamaha",name:"R15",engine:"155 cc",config:"Single cylinder",type:"Sports",category:"Yamaha",image:"yamaha-r15.webp",description:"A popular entry-level sports motorcycle inspired by Yamaha's racing heritage."},
+
+      {brand:"Yamaha",name:"MT-15",engine:"155 cc",config:"Single cylinder",type:"Street naked",category:"Yamaha",image:"yamaha-mt15.webp",description:"A compact naked motorcycle with aggressive styling and everyday versatility."},
+
+      {brand:"Yamaha",name:"R3",engine:"321 cc",config:"Parallel twin",type:"Sports",category:"Yamaha",image:"yamaha-r3.webp",description:"A twin-cylinder lightweight sportbike with supersport-inspired design."},
+
+      {brand:"Other",name:"Hayabusa",engine:"1340 cc",config:"Inline four",type:"Hyper sport",category:"Other",image:"hayabusa.webp",description:"A legendary high-performance motorcycle that became synonymous with speed."},
+
+      {brand:"Other",name:"Ninja ZX-10R",engine:"998 cc",config:"Inline four",type:"Superbike",category:"Other",image:"zx10r.webp",description:"A superbike developed around Kawasaki's WorldSBK racing experience."},
+
+      {brand:"Other",name:"BMW S1000RR",engine:"999 cc",config:"Inline four",type:"Superbike",category:"Other",image:"bmw-s1000rr.webp",description:"BMW Motorrad's flagship superbike with a strong racing pedigree."},
+
+      {brand:"Other",name:"Aprilia RS 457",engine:"457 cc",config:"Parallel twin",type:"Sports",category:"Other",image:"aprilia-rs457.webp",description:"A modern lightweight sportbike with Italian design and racing-inspired character."},
+
+      {brand:"Other",name:"Triumph Speed 400",engine:"398 cc",config:"Single cylinder",type:"Modern classic",category:"Other",image:"speed-400.webp",description:"A modern classic roadster combining British design influences and contemporary engineering."},
+
+      {brand:"Other",name:"Ducati Panigale V4",engine:"1103 cc",config:"V4",type:"Superbike",category:"Other",image:"panigale-v4.webp",description:"An Italian superbike showcasing Ducati's racing-derived technology and design."},
+
+      {brand:"Other",name:"TVS Apache RTR 310",engine:"312 cc",config:"Single cylinder",type:"Street naked",category:"Other",image:"apache-310.webp",description:"A technology-rich street motorcycle from TVS Motor Company."},
+
+      {brand:"Other",name:"Hero XPulse 200 4V",engine:"199.6 cc",config:"Single cylinder",type:"Adventure",category:"Other",image:"xpulse-200.webp",description:"An accessible adventure-oriented motorcycle built for exploring beyond paved roads."}
+
+    ];
+
+
+    /* RENDER MACHINE CARDS */
+
+    const machineGrid = document.getElementById("machine-grid");
+    const machineCount = document.getElementById("machine-count");
+
+    function renderMachines(category = "All") {
+
+      const filtered = category === "All"
+        ? machines
+        : machines.filter(m => m.category === category);
+
+      machineCount.textContent = filtered.length;
+
+      machineGrid.innerHTML = filtered.map((m,index) => {
+
+        const originalIndex = machines.indexOf(m);
+
+        return `
+          <article class="machine-card" data-index="${originalIndex}" tabindex="0" role="button" aria-label="Explore ${m.name}">
+            <div class="machine-art">
+              <span class="sketch-placeholder">AI TECHNICAL SKETCH<br>${m.name.toUpperCase()}</span>
+              <img src="assets/sketches/${m.image}" alt="${m.brand} ${m.name} technical sketch" loading="lazy" onerror="this.style.display='none'">
+              <span class="machine-arrow">↗</span>
+            </div>
+            <div class="machine-info">
+              <p class="machine-brand">${m.brand}</p>
+              <h3 class="machine-name">${m.name}</h3>
+              <div class="machine-meta">
+                <span>${m.engine}</span>
+                <span>${m.type.toUpperCase()}</span>
+              </div>
+            </div>
+          </article>
+        `;
+
+      }).join("");
+
+    }
+
+    renderMachines();
+
+
+    /* FILTERS */
+
+    document.getElementById("archive-filters").addEventListener("click", e => {
+
+      const button = e.target.closest(".archive-filter");
+      if (!button) return;
+
+      document.querySelectorAll(".archive-filter").forEach(b => b.classList.remove("active"));
+      button.classList.add("active");
+
+      renderMachines(button.dataset.brand);
+
+    });
+
+
+    /* MACHINE DETAIL POPUP */
+
+    const dialog = document.getElementById("machine-dialog");
+
+    function openMachine(index) {
+
+      const m = machines[index];
+      if (!m) return;
+
+      document.getElementById("dialog-brand").textContent = m.brand.toUpperCase() + " / MACHINE ARCHIVE";
+
+      document.getElementById("dialog-title").innerHTML =
+        m.name.replace(/(\d+)/g, "<em>$1</em>");
+
+      const dialogImage = document.getElementById("dialog-image");
+      dialogImage.src = "assets/sketches/" + m.image;
+      dialogImage.alt = m.brand + " " + m.name + " technical sketch";
+
+      document.getElementById("dialog-engine").textContent = m.engine;
+      document.getElementById("dialog-config").textContent = m.config;
+      document.getElementById("dialog-class").textContent = m.type;
+      document.getElementById("dialog-description").textContent = m.description;
+
+      dialog.showModal();
+
+    }
+
+    machineGrid.addEventListener("click", e => {
+
+      const card = e.target.closest(".machine-card");
+      if (!card) return;
+
+      openMachine(Number(card.dataset.index));
+
+    });
+
+    machineGrid.addEventListener("keydown", e => {
+
+      if (e.key !== "Enter" && e.key !== " ") return;
+
+      const card = e.target.closest(".machine-card");
+      if (!card) return;
+
+      e.preventDefault();
+      openMachine(Number(card.dataset.index));
+
+    });
+
+    document.getElementById("dialog-close").addEventListener("click", () => {
+      dialog.close();
+    });
+
+    dialog.addEventListener("click", e => {
+      if (e.target === dialog) dialog.close();
+    });
+
+
+    /* BRAND MARQUEE DUPLICATION */
+
+    const brandTrack = document.getElementById("brand-track");
+    brandTrack.innerHTML += brandTrack.innerHTML;
+
+
+    /* SCROLL PROGRESS */
+
+    window.addEventListener("scroll", () => {
+
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollable > 0
+        ? (window.scrollY / scrollable) * 100
+        : 0;
+
+      document.getElementById("rl-progress").style.width = progress + "%";
+
+    }, {passive:true});
+
+
+    /* SCROLL REVEAL */
+
+    const revealObserver = new IntersectionObserver(entries => {
+
+      entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);
+        }
+
+      });
+
+    }, {threshold:0.12});
+
+    document.querySelectorAll(
+      ".section-heading, .feature-copy, .split-section, .rider-text, .newsletter, .archive-header, .blueprint-section"
+    ).forEach(el => {
+
+      el.classList.add("rl-reveal");
+      revealObserver.observe(el);
+
+    });
+
+
+    /* FOOTER YEAR FALLBACK */
+
+    const year = document.getElementById("year");
+    if (year && !year.textContent.trim()) {
+      year.textContent = new Date().getFullYear();
+    }
+
+  </script>
 
 </body>
 </html>
