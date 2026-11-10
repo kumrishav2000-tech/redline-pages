@@ -1,32 +1,24 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <meta name="description" content="REDLINE PAGES — An independent journal exploring motorcycles, engineering, riding culture and the roads that connect them.">
-
 <meta name="theme-color" content="#101113">
 
 <title>REDLINE PAGES — Machines. Roads. Stories.</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,700;0,800;0,900;1,800&family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-
-/* =====================================
-   REDLINE PAGES — DESIGN SYSTEM
-===================================== */
-
 :root {
   --red: #ed2929;
   --black: #101113;
   --surface: #17191c;
   --surface-2: #202327;
+  --surface-3: #2a2e34;
   --white: #f5f4f0;
   --muted: #a4a5a8;
   --line: rgba(255,255,255,.12);
@@ -76,7 +68,7 @@ img {
 }
 
 .container {
-  width: min(var(--container), 88%);
+  width: min(var(--container), 90%);
   margin-inline: auto;
 }
 
@@ -86,17 +78,17 @@ img {
 
 .eyebrow {
   color: var(--red);
-  font: 11px 'Space Mono', monospace;
+  font: 11px/1 'Space Mono', monospace;
   letter-spacing: 2.5px;
   text-transform: uppercase;
 }
 
 .section {
-  padding: 115px 0;
+  padding: 120px 0;
 }
 
 .section-title {
-  font: 800 clamp(55px, 7vw, 100px)/.92 'Barlow Condensed', sans-serif;
+  font: 800 clamp(48px, 6.5vw, 92px)/.92 'Barlow Condensed', sans-serif;
   text-transform: uppercase;
   letter-spacing: -1px;
 }
@@ -108,7 +100,7 @@ img {
 
 .section-description {
   color: var(--muted);
-  max-width: 550px;
+  max-width: 540px;
   line-height: 1.85;
   font-size: 15px;
   margin-top: 22px;
@@ -121,10 +113,7 @@ img {
   margin: 22px 0;
 }
 
-/* =====================================
-   LOADER
-===================================== */
-
+/* LOADER */
 .loader {
   position: fixed;
   inset: 0;
@@ -132,7 +121,7 @@ img {
   background: var(--black);
   display: grid;
   place-items: center;
-  animation: loaderHide .5s ease 1.4s forwards;
+  animation: loaderHide .5s ease 1.2s forwards;
 }
 
 .loader-logo {
@@ -140,9 +129,7 @@ img {
   letter-spacing: -3px;
 }
 
-.loader-logo span {
-  color: var(--red);
-}
+.loader-logo span { color: var(--red); }
 
 .loader p {
   color: var(--muted);
@@ -155,7 +142,7 @@ img {
 .loader-bar {
   height: 2px;
   width: 180px;
-  background: #333;
+  background: #2b2c2f;
   margin: 20px auto;
   overflow: hidden;
 }
@@ -166,15 +153,12 @@ img {
   height: 100%;
   width: 100%;
   background: var(--red);
-  animation: loading 1.2s ease forwards;
+  animation: loading 1.1s ease forwards;
+  transform: translateX(-100%);
 }
 
 @keyframes loading {
   to { transform: translateX(0); }
-}
-
-.loader-bar::after {
-  transform: translateX(-100%);
 }
 
 @keyframes loaderHide {
@@ -184,10 +168,6 @@ img {
     pointer-events: none;
   }
 }
-
-/* =====================================
-   PROGRESS BAR
-===================================== */
 
 .progress {
   position: fixed;
@@ -199,10 +179,6 @@ img {
   background: var(--red);
 }
 
-/* =====================================
-   ANNOUNCEMENT
-===================================== */
-
 .announcement {
   background: var(--red);
   color: white;
@@ -212,27 +188,24 @@ img {
   letter-spacing: 2px;
 }
 
-/* =====================================
-   HEADER
-===================================== */
-
+/* HEADER */
 .header {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(16,17,19,.96);
+  background: rgba(16,17,19,.94);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
 }
 
 .header-inner {
   min-height: 86px;
-  width: min(var(--container), 88%);
+  width: min(var(--container), 90%);
   margin: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 35px;
+  gap: 30px;
 }
 
 .logo {
@@ -241,22 +214,20 @@ img {
   letter-spacing: -1px;
 }
 
-.logo span {
-  color: var(--red);
-}
+.logo span { color: var(--red); }
 
 .logo small {
   display: block;
   color: var(--muted);
   font: 8px 'Space Mono', monospace;
   letter-spacing: 2px;
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .nav {
   display: flex;
   align-items: center;
-  gap: clamp(15px, 2vw, 30px);
+  gap: clamp(14px, 2vw, 28px);
 }
 
 .nav a {
@@ -266,46 +237,39 @@ img {
   transition: color .2s;
 }
 
-.nav a:hover,
-.nav a.active {
-  color: var(--red);
-}
+.nav a:hover, .nav a.active { color: var(--red); }
 
 .menu-toggle {
   display: none;
   background: none;
   border: 1px solid var(--line);
   color: white;
-  padding: 9px 13px;
-  font-size: 20px;
+  padding: 8px 12px;
+  font-size: 18px;
 }
 
-/* =====================================
-   HERO
-===================================== */
-
+/* HERO SECTION WITH RIGHT-SIDE SKETCH CARD */
 .hero {
-  min-height: 690px;
-  height: min(83vh, 900px);
+  min-height: 740px;
   position: relative;
   display: flex;
   align-items: center;
   overflow: hidden;
-  isolation: isolate;
+  padding: 60px 0;
+  background: radial-gradient(circle at 80% 30%, rgba(237,41,41,0.08) 0%, transparent 60%);
 }
 
-.hero-image {
+.hero-bg {
   position: absolute;
   inset: 0;
   z-index: -2;
-  background:
-    url("https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=2200&q=90")
-    center 55% / cover no-repeat;
-  animation: heroZoom 15s ease-out forwards;
+  background: url("https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=2200&q=80") center 60% / cover no-repeat;
+  filter: brightness(0.35) contrast(1.1);
+  transform: scale(1.04);
+  animation: heroZoom 16s ease-out forwards;
 }
 
 @keyframes heroZoom {
-  from { transform: scale(1.08); }
   to { transform: scale(1); }
 }
 
@@ -314,32 +278,24 @@ img {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background:
-    linear-gradient(90deg,
-      rgba(9,10,12,.96) 0%,
-      rgba(9,10,12,.83) 42%,
-      rgba(9,10,12,.30) 100%),
-    linear-gradient(0deg,
-      rgba(9,10,12,.65),
-      transparent 50%);
+  background: linear-gradient(90deg, rgba(16,17,19,0.98) 0%, rgba(16,17,19,0.85) 50%, rgba(16,17,19,0.7) 100%);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
 }
 
 .hero-content {
-  width: min(var(--container), 88%);
-  margin: auto;
-  padding: 80px 0;
   animation: reveal 1s ease .2s both;
 }
 
 @keyframes reveal {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .hero-kicker {
@@ -349,7 +305,7 @@ img {
   color: #dedede;
   font: 11px 'Space Mono', monospace;
   letter-spacing: 2px;
-  margin-bottom: 35px;
+  margin-bottom: 28px;
 }
 
 .hero-kicker span {
@@ -361,7 +317,7 @@ img {
 }
 
 .hero h1 {
-  font: 900 clamp(85px, 12vw, 175px)/.78 'Barlow Condensed', sans-serif;
+  font: 900 clamp(75px, 9.5vw, 145px)/.82 'Barlow Condensed', sans-serif;
   letter-spacing: -3px;
   text-transform: uppercase;
 }
@@ -372,22 +328,30 @@ img {
 }
 
 .hero-description {
-  color: #d1d1d1;
+  color: #ccc;
   font-size: 16px;
-  max-width: 470px;
-  line-height: 1.9;
+  max-width: 480px;
+  line-height: 1.85;
+  margin-top: 30px;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
   margin-top: 35px;
+  flex-wrap: wrap;
 }
 
 .button {
   display: inline-flex;
   align-items: center;
-  gap: 25px;
-  padding: 16px 23px;
-  margin-top: 35px;
+  gap: 18px;
+  padding: 16px 26px;
   font: 11px 'Space Mono', monospace;
   letter-spacing: 1px;
-  transition: .3s;
+  transition: all .25s ease;
+  border: 1px solid transparent;
 }
 
 .button-red {
@@ -398,40 +362,125 @@ img {
 .button-red:hover {
   background: white;
   color: var(--black);
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 }
 
-.hero-index {
-  position: absolute;
-  bottom: 35px;
-  right: 6%;
-  color: #aaa;
+.button-ghost {
+  border-color: var(--line);
+  color: var(--white);
+  background: rgba(255,255,255,0.03);
+}
+
+.button-ghost:hover {
+  border-color: var(--red);
+  color: var(--red);
+  transform: translateY(-2px);
+}
+
+/* HERO RIGHT SIDE TECHNICAL HUD */
+.hero-sketch-card {
+  position: relative;
+  background: linear-gradient(145deg, rgba(23,25,28,0.95), rgba(32,35,39,0.95));
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.7);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  transition: transform .35s, border-color .35s;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-sketch-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--red);
+}
+
+.card-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 12px;
   font: 10px 'Space Mono', monospace;
-  letter-spacing: 2px;
+  color: var(--muted);
 }
 
-/* =====================================
-   CATEGORY TICKER
-===================================== */
+.card-topbar strong {
+  color: var(--red);
+  font-weight: 700;
+}
 
+.sketch-frame {
+  height: 250px;
+  position: relative;
+  margin: 18px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #111316 url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h30v30H0z' fill='none'/%3E%3Cpath d='M0 0h1v30H0zM0 0h30v1H0z' fill='%23ffffff' fill-opacity='0.03'/%3E%3C/svg%3E");
+  border: 1px solid rgba(255,255,255,0.06);
+  overflow: hidden;
+}
+
+.sketch-frame svg {
+  width: 90%;
+  height: 85%;
+  stroke: rgba(255,255,255,0.75);
+  transition: all .4s;
+}
+
+.hero-sketch-card:hover .sketch-frame svg {
+  stroke: var(--red);
+  transform: scale(1.05);
+}
+
+.blueprint-tag {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(16,17,19,0.9);
+  padding: 4px 8px;
+  font: 9px 'Space Mono', monospace;
+  color: var(--muted);
+  border-left: 2px solid var(--red);
+}
+
+.card-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 5px;
+}
+
+.card-foot h4 {
+  font: 800 24px/1 'Barlow Condensed';
+  letter-spacing: 0.5px;
+}
+
+.card-foot span {
+  font: 10px 'Space Mono';
+  color: var(--red);
+}
+
+/* TICKER */
 .ticker {
   overflow: hidden;
-  padding: 24px 0;
+  padding: 22px 0;
+  border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   background: #151619;
 }
 
 .ticker-track {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
   gap: 40px;
   min-width: max-content;
   animation: ticker 35s linear infinite;
 }
 
 .ticker-track span {
-  font: 700 25px 'Barlow Condensed', sans-serif;
+  font: 700 24px 'Barlow Condensed', sans-serif;
   letter-spacing: 2px;
 }
 
@@ -441,23 +490,20 @@ img {
 }
 
 @keyframes ticker {
-  to { transform: translateX(-30%); }
+  to { transform: translateX(-50%); }
 }
 
-/* =====================================
-   BRAND STRIP
-===================================== */
-
+/* BRANDS */
 .brands {
-  padding: 55px 0;
-  background: #141619;
+  padding: 45px 0;
+  background: #131417;
   border-bottom: 1px solid var(--line);
   overflow: hidden;
 }
 
 .brand-heading {
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .brand-heading p {
@@ -472,66 +518,33 @@ img {
   animation: brandMove 45s linear infinite;
 }
 
-.brand-track:hover {
-  animation-play-state: paused;
-}
+.brand-track:hover { animation-play-state: paused; }
 
 .brand-item {
-  font: 800 30px 'Barlow Condensed', sans-serif;
-  color: #77797d;
-  padding: 8px 34px;
+  font: 800 28px 'Barlow Condensed', sans-serif;
+  color: #6a6c70;
+  padding: 6px 32px;
   white-space: nowrap;
   border-right: 1px solid var(--line);
   transition: color .2s;
 }
 
-.brand-item:hover {
-  color: white;
-}
-
-.brand-item span {
-  color: var(--red);
-}
+.brand-item:hover { color: white; }
+.brand-item span { color: var(--red); }
 
 @keyframes brandMove {
   to { transform: translateX(-50%); }
 }
 
-/* =====================================
-   SECTION HEADINGS
-===================================== */
+/* LATEST STORIES */
+.latest { background: var(--black); }
 
 .section-heading {
   display: flex;
   justify-content: space-between;
-  align-items: end;
-  gap: 40px;
-  margin-bottom: 45px;
-}
-
-.section-heading h2 {
-  font: 800 clamp(55px, 7vw, 85px)/.9 'Barlow Condensed';
-  text-transform: uppercase;
-}
-
-.section-heading h2 em {
-  color: var(--red);
-  font-style: normal;
-}
-
-.section-note {
-  max-width: 320px;
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.8;
-}
-
-/* =====================================
-   LATEST STORIES
-===================================== */
-
-.latest {
-  background: var(--black);
+  align-items: flex-end;
+  gap: 30px;
+  margin-bottom: 40px;
 }
 
 .filters {
@@ -542,7 +555,7 @@ img {
 }
 
 .filter {
-  padding: 11px 18px;
+  padding: 10px 18px;
   color: #aaa;
   background: transparent;
   border: 1px solid var(--line);
@@ -550,8 +563,7 @@ img {
   transition: .25s;
 }
 
-.filter:hover,
-.filter.active {
+.filter:hover, .filter.active {
   background: var(--red);
   border-color: var(--red);
   color: white;
@@ -559,56 +571,67 @@ img {
 
 .story-grid {
   display: grid;
-  grid-template-columns: repeat(3,minmax(0,1fr));
-  gap: 25px;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 28px;
 }
 
 .story-card {
   background: var(--surface);
   border: 1px solid var(--line);
   overflow: hidden;
-  transition: .3s;
+  transition: transform .3s, border-color .3s;
+  display: flex;
+  flex-direction: column;
 }
 
 .story-card:hover {
-  transform: translateY(-7px);
+  transform: translateY(-6px);
   border-color: var(--red);
 }
 
-.story-card img {
+.story-card-img {
   width: 100%;
-  height: 255px;
+  height: 240px;
   object-fit: cover;
+  transition: transform .5s;
+}
+
+.story-card:hover .story-card-img {
+  transform: scale(1.05);
 }
 
 .story-card-content {
-  padding: 25px;
+  padding: 24px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .story-card-content h3 {
-  font: 700 32px/1 'Barlow Condensed';
+  font: 700 28px/1.05 'Barlow Condensed';
   margin: 12px 0;
+  text-transform: uppercase;
 }
 
 .story-card-content p {
-  font-size: 13px;
+  font-size: 13.5px;
   color: var(--muted);
-  line-height: 1.8;
+  line-height: 1.75;
+  margin-bottom: 18px;
 }
 
 .story-card-content a {
-  display: inline-block;
+  margin-top: auto;
   color: var(--red);
-  margin-top: 20px;
   font: 10px 'Space Mono', monospace;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
-/* =====================================
-   MACHINE FEATURE
-===================================== */
-
+/* MACHINE FEATURE */
 .feature {
-  min-height: 600px;
+  min-height: 580px;
   position: relative;
   display: flex;
   align-items: center;
@@ -618,71 +641,50 @@ img {
 .feature-image {
   position: absolute;
   inset: 0;
-  background:
-    url("https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=2200&q=85")
-    center / cover no-repeat;
+  background: url("https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=2200&q=85") center/cover no-repeat;
   transition: transform 1s;
 }
 
-.feature:hover .feature-image {
-  transform: scale(1.04);
-}
+.feature:hover .feature-image { transform: scale(1.04); }
 
 .feature::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg,rgba(10,11,13,.96),rgba(10,11,13,.35));
+  background: linear-gradient(90deg, rgba(10,11,13,.96), rgba(10,11,13,.4));
 }
 
 .feature-content {
-  width: min(var(--container),88%);
+  width: min(var(--container),90%);
   margin: auto;
   position: relative;
   z-index: 2;
 }
 
 .feature-content h2 {
-  font: 800 clamp(65px,9vw,115px)/.9 'Barlow Condensed';
+  font: 800 clamp(55px, 8vw, 110px)/.9 'Barlow Condensed';
   text-transform: uppercase;
-  margin-top: 25px;
+  margin-top: 20px;
 }
 
-.feature-content h2 em {
-  color: var(--red);
-  font-style: normal;
-}
+.feature-content h2 em { color: var(--red); font-style: normal; }
 
 .feature-content p {
   max-width: 480px;
   color: #ccc;
-  line-height: 1.9;
-  margin-top: 25px;
+  line-height: 1.85;
+  margin-top: 20px;
 }
 
-.text-link {
-  display: inline-block;
-  color: white;
-  border-bottom: 2px solid var(--red);
-  padding: 10px 0;
-  margin-top: 25px;
-  font: 11px 'Space Mono', monospace;
-}
-
-/* =====================================
-   MACHINE ARCHIVE
-===================================== */
-
-.archive {
-  background: #0d0e10;
-}
+/* ARCHIVE */
+.archive { background: #0c0d0f; }
 
 .archive-header {
   display: flex;
   justify-content: space-between;
-  align-items: end;
+  align-items: flex-end;
   gap: 30px;
-  margin-bottom: 50px;
+  margin-bottom: 45px;
 }
 
 .archive-counter {
@@ -696,11 +698,12 @@ img {
   display: block;
   color: var(--red);
   font: 800 65px 'Barlow Condensed';
+  line-height: 1;
 }
 
 .archive-filters {
   display: flex;
-  gap: 9px;
+  gap: 8px;
   flex-wrap: wrap;
   margin-bottom: 35px;
 }
@@ -709,13 +712,12 @@ img {
   border: 1px solid var(--line);
   background: transparent;
   color: #bbb;
-  padding: 12px 17px;
+  padding: 10px 16px;
   font: 10px 'Space Mono', monospace;
   transition: .2s;
 }
 
-.archive-filter:hover,
-.archive-filter.active {
+.archive-filter:hover, .archive-filter.active {
   background: var(--red);
   color: white;
   border-color: var(--red);
@@ -723,8 +725,8 @@ img {
 
 .machine-grid {
   display: grid;
-  grid-template-columns: repeat(3,minmax(0,1fr));
-  gap: 22px;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 24px;
 }
 
 .machine-card {
@@ -733,58 +735,48 @@ img {
   background: var(--surface);
   border: 1px solid rgba(255,255,255,.08);
   cursor: pointer;
-  transition: transform .3s,border-color .3s;
+  transition: transform .3s, border-color .3s;
 }
 
 .machine-card:hover {
-  transform: translateY(-7px);
+  transform: translateY(-6px);
   border-color: var(--red);
 }
 
 .machine-art {
-  height: 260px;
+  height: 250px;
   position: relative;
-  background: #e9e7df;
-  display: grid;
-  place-items: center;
+  background: #141619;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
+  border-bottom: 1px solid var(--line);
 }
 
 .machine-art img {
   width: 100%;
   height: 100%;
-  padding: 15px;
-  object-fit: contain;
-  filter: grayscale(1);
-  transition: .5s;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.1);
+  transition: transform .5s, filter .5s;
 }
 
 .machine-card:hover .machine-art img {
-  transform: scale(1.08);
-  filter: grayscale(.2);
+  transform: scale(1.06);
+  filter: grayscale(0.2);
 }
 
 .machine-placeholder {
   position: absolute;
   text-align: center;
-  color: #777;
-  font: 11px 'Space Mono', monospace;
+  color: #555;
+  font: 10px 'Space Mono', monospace;
   padding: 20px;
   pointer-events: none;
 }
 
-.machine-art img:not([src=""]) {
-  position: relative;
-  z-index: 1;
-}
-
-.machine-art img.broken {
-  display: none;
-}
-
-.machine-info {
-  padding: 23px;
-}
+.machine-info { padding: 22px; }
 
 .machine-brand {
   color: var(--red);
@@ -794,14 +786,14 @@ img {
 }
 
 .machine-name {
-  font: 800 36px/.95 'Barlow Condensed';
+  font: 800 32px/.95 'Barlow Condensed';
   text-transform: uppercase;
-  margin: 12px 0 18px;
+  margin: 10px 0 16px;
 }
 
 .machine-meta {
   border-top: 1px solid var(--line);
-  padding-top: 14px;
+  padding-top: 12px;
   display: flex;
   justify-content: space-between;
   gap: 10px;
@@ -814,31 +806,18 @@ img {
   top: 15px;
   right: 15px;
   background: var(--red);
-  padding: 9px 12px;
+  padding: 7px 11px;
   z-index: 3;
   color: white;
   opacity: 0;
-  transition: .3s;
+  transition: .25s;
 }
 
-.machine-card:hover .machine-arrow {
-  opacity: 1;
-}
+.machine-card:hover .machine-arrow { opacity: 1; }
 
-.archive-end {
-  text-align: center;
-  margin-top: 50px;
-  color: var(--muted);
-  font: 10px 'Space Mono', monospace;
-  letter-spacing: 2px;
-}
-
-/* =====================================
-   MACHINE DIALOG
-===================================== */
-
+/* DIALOG */
 .machine-dialog {
-  width: min(850px,92vw);
+  width: min(850px, 92vw);
   max-height: 88vh;
   margin: auto;
   padding: 0;
@@ -852,112 +831,200 @@ img {
   backdrop-filter: blur(8px);
 }
 
-.dialog-inner {
-  padding: clamp(25px,5vw,50px);
-}
+.dialog-inner { padding: clamp(24px, 5vw, 45px); }
 
 .dialog-close {
   float: right;
   border: 0;
   background: var(--red);
   color: white;
-  padding: 11px 16px;
+  padding: 10px 15px;
+  font-weight: 700;
 }
 
 .dialog-title {
   clear: both;
-  font: 900 clamp(50px,9vw,90px)/.9 'Barlow Condensed';
+  font: 900 clamp(42px, 8vw, 80px)/.9 'Barlow Condensed';
   text-transform: uppercase;
-  margin: 30px 0;
+  margin: 24px 0;
 }
 
-.dialog-title em {
-  color: var(--red);
-  font-style: normal;
-}
+.dialog-title em { color: var(--red); font-style: normal; }
 
 .dialog-image {
   width: 100%;
-  height: 320px;
-  object-fit: contain;
-  background: #e9e7df;
-  padding: 15px;
+  height: 340px;
+  object-fit: cover;
+  background: #141619;
+  border: 1px solid var(--line);
 }
 
 .dialog-details {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
-  margin-top: 20px;
+  margin-top: 22px;
 }
 
 .dialog-detail {
-  background: #24272b;
-  padding: 18px;
+  background: #202327;
+  padding: 16px;
+  border-left: 2px solid var(--red);
 }
 
 .dialog-detail small {
   display: block;
   color: var(--muted);
   font: 9px 'Space Mono', monospace;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .dialog-detail strong {
-  font: 700 22px 'Barlow Condensed';
+  font: 700 20px 'Barlow Condensed';
 }
 
 .dialog-description {
   color: #bbb;
-  line-height: 1.9;
-  margin-top: 25px;
+  line-height: 1.85;
+  margin-top: 24px;
+  font-size: 14.5px;
 }
 
-/* =====================================
-   ENGINEERING
-===================================== */
-
-.engineering {
-  background: var(--surface);
-}
+/* ENGINEERING & DUAL-VIEW BLUEPRINT SECTION */
+.engineering { background: var(--surface); }
 
 .engineering-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  gap: 80px;
+  gap: 60px;
 }
 
-.engineering-art {
-  min-height: 420px;
-  background:
-    linear-gradient(rgba(0,0,0,.05) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,0,0,.05) 1px,transparent 1px),
-    #e9e7df;
-  background-size: 25px 25px;
+.technical-box {
+  border: 1px solid var(--line);
+  padding: 45px;
+  position: relative;
+  background: linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.technical-box strong {
+  display: block;
+  font: 900 clamp(65px, 10vw, 130px)/.85 'Barlow Condensed';
+  margin: 28px 0;
+}
+
+.technical-box strong span { color: var(--red); }
+
+/* DUAL VIEW CLASSIC 350 SHOWCASE */
+.blueprint-section {
+  background: #111215;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.blueprint-layout {
   display: grid;
-  place-items: center;
-  overflow: hidden;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 50px;
+  align-items: center;
 }
 
-.engineering-art img {
+.viewer-container {
+  background: #181a1e;
+  border: 1px solid var(--line);
+  position: relative;
+  padding: 24px;
+}
+
+.viewer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--line);
+}
+
+.view-toggle-btns {
+  display: flex;
+  gap: 8px;
+}
+
+.toggle-btn {
+  padding: 7px 14px;
+  font: 10px 'Space Mono', monospace;
+  background: transparent;
+  color: #aaa;
+  border: 1px solid var(--line);
+  transition: all .2s;
+}
+
+.toggle-btn.active {
+  background: var(--red);
+  color: white;
+  border-color: var(--red);
+}
+
+.viewer-screen {
+  height: 380px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0f1012;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.view-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity .4s ease;
+  pointer-events: none;
+}
+
+.view-layer.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.view-layer img {
   width: 100%;
-  height: 420px;
-  object-fit: contain;
-  padding: 25px;
-  filter: grayscale(1);
+  height: 100%;
+  object-fit: cover;
+}
+
+.view-layer svg {
+  width: 90%;
+  height: 90%;
+  stroke: var(--red);
+}
+
+.blueprint-annotations {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font: 9px 'Space Mono', monospace;
+  color: var(--muted);
+  line-height: 1.8;
 }
 
 .spec-list {
   border-top: 1px solid var(--line);
-  margin-top: 30px;
+  margin-top: 25px;
 }
 
 .spec-row {
   display: flex;
   justify-content: space-between;
   gap: 15px;
-  padding: 17px 0;
+  padding: 16px 0;
   border-bottom: 1px solid var(--line);
   font: 10px 'Space Mono', monospace;
 }
@@ -967,45 +1034,9 @@ img {
   text-align: right;
 }
 
-/* =====================================
-   ENGINEERING FEATURE
-===================================== */
-
-.technical {
-  background: #111315;
-}
-
-.technical-box {
-  border: 1px solid var(--line);
-  padding: 55px;
-  position: relative;
-  background:
-    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
-  background-size: 35px 35px;
-}
-
-.technical-box strong {
-  display: block;
-  font: 900 clamp(75px,12vw,155px)/.8 'Barlow Condensed';
-  margin: 35px 0;
-}
-
-.technical-box strong span {
-  color: var(--red);
-}
-
-.technical-bottom {
-  font: 10px 'Space Mono', monospace;
-  color: var(--muted);
-}
-
-/* =====================================
-   TOURING
-===================================== */
-
+/* TOURING */
 .touring {
-  min-height: 620px;
+  min-height: 600px;
   position: relative;
   display: flex;
   align-items: center;
@@ -1015,65 +1046,54 @@ img {
 .touring-image {
   position: absolute;
   inset: 0;
-  background:
-    url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90")
-    center / cover no-repeat;
+  background: url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90") center / cover no-repeat;
 }
 
 .touring::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg,rgba(10,11,13,.95),rgba(10,11,13,.35));
+  background: linear-gradient(90deg, rgba(10,11,13,.95), rgba(10,11,13,.35));
 }
 
 .touring-content {
-  width: min(var(--container),88%);
+  width: min(var(--container), 90%);
   margin: auto;
   position: relative;
   z-index: 2;
 }
 
 .touring-content h2 {
-  font: 900 clamp(75px,11vw,135px)/.83 'Barlow Condensed';
+  font: 900 clamp(65px, 9.5vw, 125px)/.85 'Barlow Condensed';
   text-transform: uppercase;
-  margin-top: 25px;
+  margin-top: 20px;
 }
 
-.touring-content h2 em {
-  color: var(--red);
-  font-style: normal;
-}
+.touring-content h2 em { color: var(--red); font-style: normal; }
 
 .touring-content p {
   color: #ddd;
-  max-width: 450px;
-  margin-top: 25px;
-  line-height: 1.9;
+  max-width: 460px;
+  margin-top: 22px;
+  line-height: 1.85;
 }
 
-/* =====================================
-   RIDER PROFILE
-===================================== */
-
-.rider {
-  background: var(--surface);
-}
+/* RIDER PROFILE */
+.rider { background: var(--surface); }
 
 .rider-layout {
   display: grid;
   grid-template-columns: .9fr 1.1fr;
-  gap: 80px;
+  gap: 70px;
   align-items: center;
 }
 
 .rider-image {
-  min-height: 550px;
+  min-height: 520px;
   position: relative;
-  background:
-    linear-gradient(0deg,rgba(0,0,0,.7),transparent 55%),
-    url("https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1000&q=85")
-    center / cover;
+  background: linear-gradient(0deg, rgba(0,0,0,.7), transparent 55%),
+              url("https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1000&q=85") center / cover;
+  border: 1px solid var(--line);
 }
 
 .rider-image::after {
@@ -1081,39 +1101,36 @@ img {
   position: absolute;
   bottom: 15px;
   left: 20px;
-  font: 900 150px/.8 'Barlow Condensed';
-  color: rgba(255,255,255,.17);
+  font: 900 130px/.8 'Barlow Condensed';
+  color: rgba(255,255,255,.15);
 }
 
 .rider-stamp {
   position: absolute;
   top: 20px;
   right: 20px;
-  padding: 15px;
+  padding: 14px 18px;
   background: var(--red);
   font: 11px 'Space Mono', monospace;
-  line-height: 1.7;
+  line-height: 1.6;
 }
 
 .rider-copy h2 {
-  font: 800 clamp(50px,6vw,76px)/.92 'Barlow Condensed';
-  margin: 20px 0 25px;
+  font: 800 clamp(44px, 5.5vw, 70px)/.95 'Barlow Condensed';
+  margin: 18px 0 22px;
 }
 
-.rider-copy h2 em {
-  color: var(--red);
-  font-style: normal;
-}
+.rider-copy h2 em { color: var(--red); font-style: normal; }
 
 .rider-copy p {
   color: #bcbec0;
   font-size: 14px;
-  line-height: 1.95;
-  margin-bottom: 18px;
+  line-height: 1.9;
+  margin-bottom: 16px;
 }
 
 .rider-intro {
-  font-size: 18px !important;
+  font-size: 17px !important;
   color: white !important;
 }
 
@@ -1127,39 +1144,29 @@ img {
   font: 10px 'Space Mono', monospace;
 }
 
-.signature strong {
-  color: var(--red);
-}
+.signature strong { color: var(--red); }
 
-/* =====================================
-   NEWSLETTER
-===================================== */
-
-.newsletter {
-  background: #111315;
-}
+/* NEWSLETTER */
+.newsletter { background: #111315; }
 
 .newsletter-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 70px;
+  gap: 60px;
   align-items: center;
 }
 
 .newsletter h2 {
-  font: 800 clamp(60px,8vw,95px)/.9 'Barlow Condensed';
-  margin-top: 20px;
+  font: 800 clamp(50px, 7vw, 85px)/.9 'Barlow Condensed';
+  margin-top: 18px;
 }
 
-.newsletter h2 em {
-  color: var(--red);
-  font-style: normal;
-}
+.newsletter h2 em { color: var(--red); font-style: normal; }
 
 .newsletter p {
   color: var(--muted);
-  margin-top: 20px;
-  max-width: 450px;
+  margin-top: 18px;
+  max-width: 440px;
   line-height: 1.8;
 }
 
@@ -1171,13 +1178,13 @@ img {
 
 .email-row {
   display: flex;
-  border-bottom: 1px solid #666;
+  border-bottom: 1px solid #555;
 }
 
 .email-row input {
   flex: 1;
   min-width: 0;
-  padding: 17px 5px;
+  padding: 16px 5px;
   color: white;
   background: transparent;
   border: 0;
@@ -1188,35 +1195,34 @@ img {
   background: var(--red);
   color: white;
   border: 0;
-  padding: 0 25px;
-  font-size: 22px;
+  padding: 0 22px;
+  font-size: 20px;
 }
 
 .form-message {
   font-size: 11px !important;
+  margin-top: 10px;
+  color: var(--muted);
 }
 
-/* =====================================
-   FOOTER
-===================================== */
-
+/* FOOTER */
 .footer {
   background: #090a0b;
-  padding: 70px 0 25px;
+  padding: 60px 0 25px;
 }
 
 .footer-top {
   display: flex;
   justify-content: space-between;
-  align-items: start;
+  align-items: flex-start;
   gap: 40px;
-  padding-bottom: 65px;
+  padding-bottom: 55px;
 }
 
 .footer-description {
   color: var(--muted);
   font-size: 13px;
-  line-height: 1.9;
+  line-height: 1.8;
 }
 
 .footer-bottom {
@@ -1226,18 +1232,15 @@ img {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 15px;
-  color: #858585;
+  color: #777;
   font: 9px 'Space Mono', monospace;
   letter-spacing: 1px;
 }
 
-/* =====================================
-   REVEAL ANIMATIONS
-===================================== */
-
+/* REVEAL */
 .reveal {
   opacity: 0;
-  transform: translateY(25px);
+  transform: translateY(22px);
   transition: opacity .7s, transform .7s;
 }
 
@@ -1246,55 +1249,28 @@ img {
   transform: translateY(0);
 }
 
-/* =====================================
-   RESPONSIVE DESIGN
-===================================== */
-
+/* RESPONSIVENESS */
 @media(max-width:1050px) {
-
-  .nav {
-    gap: 15px;
+  .hero-grid,
+  .blueprint-layout,
+  .rider-layout,
+  .engineering-layout,
+  .newsletter-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
   }
-
-  .nav a {
-    font-size: 11px;
-  }
-
   .machine-grid,
   .story-grid {
-    grid-template-columns: repeat(2,minmax(0,1fr));
+    grid-template-columns: repeat(2, minmax(0,1fr));
   }
-
-  .rider-layout,
-  .engineering-layout {
-    gap: 45px;
-  }
-
 }
 
 @media(max-width:760px) {
-
-  .container,
-  .header-inner {
-    width: 90%;
-  }
-
-  .section {
-    padding: 80px 0;
-  }
-
-  .header-inner {
-    min-height: 75px;
-  }
-
-  .menu-toggle {
-    display: block;
-  }
-
+  .menu-toggle { display: block; }
   .nav {
     display: none;
     position: absolute;
-    top: 75px;
+    top: 86px;
     left: 0;
     width: 100%;
     padding: 25px 5%;
@@ -1302,127 +1278,18 @@ img {
     border-bottom: 1px solid var(--line);
     flex-direction: column;
     align-items: stretch;
-    gap: 0;
   }
-
-  .nav.open {
-    display: flex;
-  }
-
+  .nav.open { display: flex; }
   .nav a {
-    padding: 14px 0;
+    padding: 12px 0;
     border-bottom: 1px solid var(--line);
-    font-size: 13px;
   }
-
-  .hero {
-    min-height: 620px;
-    height: 78vh;
-  }
-
-  .hero::before {
-    background: linear-gradient(90deg,rgba(9,10,12,.93),rgba(9,10,12,.55));
-  }
-
-  .hero h1 {
-    font-size: clamp(75px,14vw,115px);
-  }
-
-  .section-heading,
-  .archive-header {
-    align-items: start;
-    flex-direction: column;
-  }
-
-  .archive-counter {
-    text-align: left;
-  }
-
-  .rider-layout,
-  .engineering-layout,
-  .newsletter-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .rider-image {
-    min-height: 430px;
-  }
-
-  .feature {
-    min-height: 520px;
-  }
-
-}
-
-@media(max-width:520px) {
-
-  .announcement {
-    font-size: 8px;
-    letter-spacing: 1px;
-  }
-
-  .logo {
-    font-size: 30px;
-  }
-
-  .hero h1 {
-    font-size: 76px;
-    letter-spacing: -2px;
-  }
-
-  .hero-description {
-    font-size: 14px;
-  }
-
   .machine-grid,
   .story-grid {
     grid-template-columns: 1fr;
   }
-
-  .machine-art {
-    height: 260px;
-  }
-
-  .dialog-details {
-    grid-template-columns: 1fr;
-  }
-
-  .dialog-image {
-    height: 240px;
-  }
-
-  .technical-box {
-    padding: 30px 20px;
-  }
-
-  .technical-box strong {
-    font-size: 75px;
-  }
-
-  .footer-top {
-    flex-direction: column;
-  }
-
-  .footer-bottom {
-    flex-direction: column;
-  }
-
+  .dialog-details { grid-template-columns: 1fr; }
 }
-
-/* =====================================
-   ACCESSIBILITY
-===================================== */
-
-@media(prefers-reduced-motion:reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    animation-duration: .01ms !important;
-    transition-duration: .01ms !important;
-  }
-}
-
 </style>
 </head>
 
@@ -1443,69 +1310,109 @@ img {
 </div>
 
 <header class="header">
-
   <div class="header-inner">
-
     <a href="#" class="logo">
       REDLINE <span>PAGES</span>
       <small>MACHINES. ROADS. STORIES.</small>
     </a>
 
-    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-      ☰
-    </button>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
 
     <nav class="nav" id="nav">
       <a href="#latest">Latest Stories</a>
       <a href="#machines">Machines</a>
       <a href="#archive">Archive</a>
+      <a href="#blueprint">Classic 350 Blueprint</a>
       <a href="#engineering">Engineering</a>
       <a href="#touring">Touring</a>
       <a href="#rider">About</a>
     </nav>
-
   </div>
-
 </header>
 
 <main>
 
-<!-- HERO -->
-
+<!-- HERO WITH CLICKABLE RIGHT-SIDE TECHNICAL SKETCH HUD -->
 <section class="hero">
+  <div class="hero-bg"></div>
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <p class="hero-kicker">
+          <span></span>
+          THE INDEPENDENT MOTORCYCLE JOURNAL
+        </p>
 
-  <div class="hero-image"></div>
+        <h1>
+          BEYOND<br>
+          THE <em>REDLINE.</em>
+        </h1>
 
-  <div class="hero-content">
+        <p class="hero-description">
+          Machines, roads and the stories that connect them. Exploring the engineering, design character and riders shaping India's motorcycling landscape.
+        </p>
 
-    <p class="hero-kicker">
-      <span></span>
-      THE INDEPENDENT MOTORCYCLE JOURNAL
-    </p>
+        <div class="hero-actions">
+          <a href="#latest" class="button button-red">
+            EXPLORE THE JOURNAL <span>↗</span>
+          </a>
+          <a href="#blueprint" class="button button-ghost">
+            VIEW BLUEPRINT HUD <span>↓</span>
+          </a>
+        </div>
+      </div>
 
-    <h1>
-      BEYOND<br>
-      THE <em>REDLINE.</em>
-    </h1>
+      <!-- RIGHT SIDE CLICKABLE SKETCH HUD -->
+      <a href="#blueprint" class="hero-sketch-card" title="Click to view full Classic 350 Blueprint">
+        <div class="card-topbar">
+          <span>SCHEMATIC / RE-350</span>
+          <strong>CLICK TO INSPECT ↗</strong>
+        </div>
 
-    <p class="hero-description">
-      Machines, roads and the stories that connect them.
-      Exploring the engineering, culture and people shaping
-      India's motorcycling landscape.
-    </p>
+        <div class="sketch-frame">
+          <!-- Vector Motorcycle Wireframe Blueprint -->
+          <svg viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Wheels & Discs -->
+            <circle cx="85" cy="165" r="50" stroke-width="2.5" stroke-dasharray="4 2"/>
+            <circle cx="85" cy="165" r="32" stroke-width="1.5"/>
+            <circle cx="85" cy="165" r="8" stroke-width="2"/>
+            <circle cx="315" cy="165" r="50" stroke-width="2.5" stroke-dasharray="4 2"/>
+            <circle cx="315" cy="165" r="32" stroke-width="1.5"/>
+            <circle cx="315" cy="165" r="8" stroke-width="2"/>
+            <!-- Spokes -->
+            <path d="M85 115 L85 215 M35 165 L135 165 M50 130 L120 200 M50 200 L120 130" stroke-width="0.8" opacity="0.6"/>
+            <path d="M315 115 L315 215 M265 165 L365 165 M280 130 L350 200 M280 200 L350 130" stroke-width="0.8" opacity="0.6"/>
+            <!-- Frame, Engine & Tank Outline -->
+            <path d="M85 165 L130 90 L210 90 L260 120 L315 165" stroke-width="2.5"/>
+            <path d="M130 90 L120 70 L140 65 L170 70" stroke-width="2"/>
+            <!-- Fuel Tank Tear Drop -->
+            <path d="M140 68 C160 55, 210 55, 220 85 C190 92, 160 90, 140 68 Z" stroke-width="2"/>
+            <!-- Engine Block J-Series -->
+            <rect x="160" y="115" width="65" height="55" rx="6" stroke-width="2"/>
+            <path d="M165 125 H220 M165 135 H220 M165 145 H220 M165 155 H220" stroke-width="1.2"/>
+            <!-- Exhaust Pipe Sweep -->
+            <path d="M195 170 L210 185 L330 185" stroke-width="2.8"/>
+            <!-- Classic Seat Contour -->
+            <path d="M220 85 C240 85, 260 100, 275 102 C255 110, 235 105, 220 85 Z" stroke-width="2"/>
+            <!-- Front Fork & Handlebar -->
+            <path d="M85 165 L130 50 L115 45" stroke-width="2.8"/>
+          </svg>
+          <div class="blueprint-tag">CLASSIC 350 / J-SERIES</div>
+        </div>
 
-    <a href="#latest" class="button button-red">
-      EXPLORE THE JOURNAL <span>↗</span>
-    </a>
-
+        <div class="card-foot">
+          <div>
+            <div class="eyebrow" style="font-size: 9px;">ROYAL ENFIELD ARCHIVE</div>
+            <h4>CLASSIC 350 DUAL-SPEC</h4>
+          </div>
+          <span>INSPECT ↗</span>
+        </div>
+      </a>
+    </div>
   </div>
-
-  <div class="hero-index">VOL. 01 / INDIA</div>
-
 </section>
 
 <!-- TICKER -->
-
 <section class="ticker">
   <div class="ticker-track">
     <span>MACHINES</span><i>✳</i>
@@ -1522,15 +1429,11 @@ img {
 </section>
 
 <!-- BRANDS -->
-
 <section class="brands">
-
   <div class="brand-heading">
     <p>THE MANUFACTURERS. THE MACHINES. THE LEGACY.</p>
   </div>
-
   <div class="brand-track" id="brand-track">
-
     <div class="brand-item">ROYAL <span>ENFIELD</span></div>
     <div class="brand-item">HONDA</div>
     <div class="brand-item">BAJAJ</div>
@@ -1544,30 +1447,21 @@ img {
     <div class="brand-item">TRIUMPH</div>
     <div class="brand-item">TVS</div>
     <div class="brand-item">HERO</div>
-
   </div>
-
 </section>
 
-<!-- LATEST STORIES -->
-
+<!-- LATEST STORIES SECTION (NOW FULLY LOADED) -->
 <section class="section latest" id="latest">
-
   <div class="container">
-
     <div class="section-heading reveal">
-
       <div>
         <p class="eyebrow">01 / THE JOURNAL</p>
         <div class="red-line"></div>
-        <h2>THE LATEST <em>STORIES.</em></h2>
+        <h2 class="section-title">THE LATEST <em>STORIES.</em></h2>
       </div>
-
-      <p class="section-note">
-        Thoughtful reads for people who see more than a machine.
-        Discover the stories behind the motorcycles.
+      <p class="section-description">
+        Thoughtful reads for people who see more than just a machine. Discover the stories, journeys, and engineering philosophy behind the handlebars.
       </p>
-
     </div>
 
     <div class="filters" id="filters">
@@ -1575,75 +1469,44 @@ img {
       <button class="filter" data-filter="Machines">MACHINES</button>
       <button class="filter" data-filter="Engineering">ENGINEERING</button>
       <button class="filter" data-filter="Touring">TOURING</button>
-      <button class="filter" data-filter="Industry">INDUSTRY</button>
+      <button class="filter" data-filter="Culture">CULTURE</button>
     </div>
 
     <div class="story-grid" id="story-grid"></div>
-
   </div>
-
 </section>
 
-<!-- MACHINE FEATURE -->
-
+<!-- FEATURE STRIP -->
 <section class="feature" id="machines">
-
   <div class="feature-image"></div>
-
   <div class="feature-content">
-
     <p class="eyebrow">02 / THE MACHINES</p>
-
-    <h2>
-      NOT JUST<br>
-      NUMBERS.<br>
-      <em>CHARACTER.</em>
-    </h2>
-
+    <h2>NOT JUST<br>NUMBERS.<br><em>CHARACTER.</em></h2>
     <p>
-      Specifications tell you what a motorcycle is.
-      The details tell you why it matters.
-      Explore the engineering, design and decisions
-      behind the machines.
+      Specifications tell you what a motorcycle produces on paper. The mechanical nuances tell you why it makes you feel alive. Explore the engineering, frame dynamics, and decisions behind icons.
     </p>
-
-    <a href="#archive" class="text-link">
+    <a href="#archive" class="button button-red" style="margin-top: 25px;">
       EXPLORE THE MACHINE ARCHIVE ↗
     </a>
-
   </div>
-
 </section>
 
-<!-- ARCHIVE -->
-
+<!-- MACHINE ARCHIVE -->
 <section class="section archive" id="archive">
-
   <div class="container">
-
     <div class="archive-header reveal">
-
       <div>
         <p class="eyebrow">03 / THE MACHINE ARCHIVE</p>
         <div class="red-line"></div>
-
-        <h2 class="section-title">
-          ICONS OF<br>
-          <em>THE ROAD.</em>
-        </h2>
-
+        <h2 class="section-title">ICONS OF<br><em>THE ROAD.</em></h2>
         <p class="section-description">
-          Every machine has a story. Explore the design,
-          engineering and character of motorcycles that
-          define generations.
+          Every machine holds a pedigree. Explore the design, chassis dynamics, and character of motorcycles that define generations.
         </p>
       </div>
-
       <div class="archive-counter">
-        <strong id="machine-count">0</strong>
+        <strong id="machine-count">30</strong>
         MACHINES ARCHIVED
       </div>
-
     </div>
 
     <div class="archive-filters" id="archive-filters">
@@ -1658,688 +1521,489 @@ img {
 
     <div class="machine-grid" id="machine-grid"></div>
 
-    <p class="archive-end">
+    <p class="archive-end" style="margin-top: 50px; text-align: center; color: var(--muted); font: 10px 'Space Mono', monospace; letter-spacing: 2px;">
       REDLINE PAGES / MACHINE ARCHIVE / ALWAYS EVOLVING
     </p>
-
   </div>
-
 </section>
 
-<!-- MACHINE DIALOG -->
-
-<dialog class="machine-dialog" id="machine-dialog">
-
-  <div class="dialog-inner">
-
-    <button class="dialog-close" id="dialog-close">CLOSE ✕</button>
-
-    <p class="eyebrow" id="dialog-brand">MACHINE ARCHIVE</p>
-
-    <h2 class="dialog-title" id="dialog-title">MACHINE NAME</h2>
-
-    <img class="dialog-image" id="dialog-image" alt="Motorcycle">
-
-    <div class="dialog-details">
-
-      <div class="dialog-detail">
-        <small>ENGINE</small>
-        <strong id="dialog-engine">—</strong>
+<!-- FULL BLUEPRINT & PHOTO DUAL VIEWER SECTION -->
+<section class="section blueprint-section" id="blueprint">
+  <div class="container blueprint-layout">
+    <div class="viewer-container reveal">
+      <div class="viewer-header">
+        <div>
+          <span class="eyebrow">BLUEPRINT & PHOTO LAB</span>
+          <h3 style="font: 800 28px 'Barlow Condensed'; text-transform: uppercase; margin-top: 4px;">CLASSIC 350 (J-PLATFORM)</h3>
+        </div>
+        <div class="view-toggle-btns">
+          <button class="toggle-btn active" id="btn-show-sketch">TECHNICAL SKETCH</button>
+          <button class="toggle-btn" id="btn-show-photo">REAL PHOTO</button>
+        </div>
       </div>
 
-      <div class="dialog-detail">
-        <small>CONFIGURATION</small>
-        <strong id="dialog-config">—</strong>
+      <div class="viewer-screen">
+        <!-- Sketch View -->
+        <div class="view-layer active" id="layer-sketch">
+          <svg viewBox="0 0 500 300" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 90%; height: 90%;">
+            <!-- Wheels -->
+            <circle cx="110" cy="205" r="62" stroke="#ed2929" stroke-width="2.5" stroke-dasharray="6 3"/>
+            <circle cx="110" cy="205" r="40" stroke="#f5f4f0" stroke-width="1.5"/>
+            <circle cx="110" cy="205" r="10" stroke="#ed2929" stroke-width="2"/>
+
+            <circle cx="390" cy="205" r="62" stroke="#ed2929" stroke-width="2.5" stroke-dasharray="6 3"/>
+            <circle cx="390" cy="205" r="40" stroke="#f5f4f0" stroke-width="1.5"/>
+            <circle cx="390" cy="205" r="10" stroke="#ed2929" stroke-width="2"/>
+
+            <!-- Spokes -->
+            <path d="M110 143 L110 267 M48 205 L172 205 M66 161 L154 249 M66 249 L154 161" stroke="#f5f4f0" stroke-width="1" opacity="0.4"/>
+            <path d="M390 143 L390 267 M328 205 L452 205 M346 161 L434 249 M346 249 L434 161" stroke="#f5f4f0" stroke-width="1" opacity="0.4"/>
+
+            <!-- Chassis Spine & Fork -->
+            <path d="M110 205 L165 70 L145 60" stroke="#f5f4f0" stroke-width="3"/>
+            <path d="M165 70 L260 75 L330 140 L390 205" stroke="#f5f4f0" stroke-width="3"/>
+
+            <!-- J-Series Engine Geometry -->
+            <rect x="200" y="140" width="85" height="70" rx="8" stroke="#ed2929" stroke-width="2.5"/>
+            <path d="M208 152 H277 M208 165 H277 M208 178 H277 M208 191 H277" stroke="#ed2929" stroke-width="1.5"/>
+
+            <!-- Classic Teardrop Tank -->
+            <path d="M175 75 C205 55, 265 55, 275 95 C235 105, 195 102, 175 75 Z" stroke="#f5f4f0" stroke-width="2.5" fill="rgba(237,41,41,0.08)"/>
+
+            <!-- Swept Exhaust System -->
+            <path d="M245 210 L265 230 L415 230" stroke="#f5f4f0" stroke-width="3.5"/>
+
+            <!-- Sprung Saddle -->
+            <path d="M275 95 C300 95, 330 115, 345 118 C320 130, 295 120, 275 95 Z" stroke="#f5f4f0" stroke-width="2.5"/>
+          </svg>
+          <div class="blueprint-annotations">
+            CAD REF: RE-J1-349<br>
+            CHASSIS: TWIN DOWNTUBE SPINE<br>
+            BORE × STROKE: 72 × 85.8 mm
+          </div>
+        </div>
+
+        <!-- Real Photo View -->
+        <div class="view-layer" id="layer-photo">
+          <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1200&q=85" alt="Royal Enfield Classic 350 on road">
+        </div>
       </div>
-
-      <div class="dialog-detail">
-        <small>CLASS</small>
-        <strong id="dialog-class">—</strong>
-      </div>
-
-    </div>
-
-    <p class="dialog-description" id="dialog-description"></p>
-
-  </div>
-
-</dialog>
-
-<!-- ENGINEERING -->
-
-<section class="section engineering" id="engineering">
-
-  <div class="container engineering-layout">
-
-    <div class="reveal">
-
-      <p class="eyebrow">04 / ENGINEERING</p>
-      <div class="red-line"></div>
-
-      <h2 class="section-title">
-        UNDERSTAND<br>
-        WHAT MOVES<br>
-        <em>YOU.</em>
-      </h2>
-
-      <p class="section-description">
-        From engine architecture and torque curves to
-        suspension geometry, braking systems and chassis
-        design. Making motorcycle engineering accessible.
-      </p>
-
-      <a href="#blueprint" class="text-link">
-        EXPLORE ENGINEERING ↗
-      </a>
-
-    </div>
-
-    <div class="technical-box reveal">
-
-      <p class="eyebrow">THE DETAILS MATTER</p>
-
-      <strong>
-        TORQUE<br>
-        <span>≠</span><br>
-        POWER
-      </strong>
-
-      <div class="technical-bottom">
-        ENGINEERING NOTES / 001
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-<!-- BLUEPRINT -->
-
-<section class="section" id="blueprint">
-
-  <div class="container engineering-layout">
-
-    <div class="engineering-art">
-      <img
-        src="assets/sketches/classic-350.webp"
-        alt="Classic 350 engineering illustration"
-        loading="lazy"
-        onerror="this.style.display='none'">
     </div>
 
     <div class="reveal">
-
       <p class="eyebrow">DESIGN / MECHANICS / ENGINEERING</p>
-
       <div class="red-line"></div>
-
-      <h2 class="section-title">
-        BEAUTY IN<br>
-        <em>THE DETAILS.</em>
-      </h2>
-
+      <h2 class="section-title">BEAUTY IN<br><em>THE DETAILS.</em></h2>
       <p class="section-description">
-        A motorcycle is a collection of engineering decisions.
-        From the geometry of a frame to the movement of a piston,
-        every detail has a purpose.
+        The Royal Enfield Classic 350 balances old-world British thumper silhouette with modern counterbalanced smoothness. Toggle between the CAD blueprint sketch and the live road capture to inspect how mechanical architecture becomes rider emotion.
       </p>
 
       <div class="spec-list">
-
         <div class="spec-row">
-          <span>DESIGN</span>
-          <span>FORM & FUNCTION</span>
+          <span>POWERTRAIN</span>
+          <span>349cc SOHC J-SERIES SINGLE</span>
         </div>
-
         <div class="spec-row">
-          <span>ENGINE</span>
-          <span>POWER & TORQUE</span>
+          <span>OUTPUT</span>
+          <span>20.2 BHP @ 6100 RPM</span>
         </div>
-
         <div class="spec-row">
-          <span>CHASSIS</span>
-          <span>STABILITY & CONTROL</span>
+          <span>TORQUE SPREAD</span>
+          <span>27 NM @ 4000 RPM FLAT CURVE</span>
         </div>
-
         <div class="spec-row">
-          <span>RIDING</span>
-          <span>FEEL & CHARACTER</span>
+          <span>FRAME ARCHITECTURE</span>
+          <span>TWIN DOWNTUBE SPINE FRAME</span>
         </div>
-
       </div>
+    </div>
+  </div>
+</section>
 
+<!-- ENGINEERING -->
+<section class="section engineering" id="engineering">
+  <div class="container engineering-layout">
+    <div class="reveal">
+      <p class="eyebrow">04 / ENGINEERING</p>
+      <div class="red-line"></div>
+      <h2 class="section-title">UNDERSTAND<br>WHAT MOVES<br><em>YOU.</em></h2>
+      <p class="section-description">
+        From primary balancer shafts eliminating unwanted resonance to rake, trail angles, and stroke ratios that dictate straight-line stability over rough mountain tarmac.
+      </p>
+      <a href="#blueprint" class="button button-red" style="margin-top: 25px;">
+        EXPLORE J-SERIES SPECS ↗
+      </a>
     </div>
 
+    <div class="technical-box reveal">
+      <p class="eyebrow">THE DETAILS MATTER</p>
+      <strong>TORQUE<br><span>≠</span><br>POWER</strong>
+      <div class="technical-bottom" style="font: 10px 'Space Mono', monospace; color: var(--muted);">
+        ENGINEERING NOTES / 001 — PEAK THRUST VS. RPM DYNAMICS
+      </div>
+    </div>
   </div>
-
 </section>
 
 <!-- TOURING -->
-
 <section class="touring" id="touring">
-
   <div class="touring-image"></div>
-
   <div class="touring-content">
-
     <p class="eyebrow">05 / THE LONG WAY ROUND</p>
-
-    <h2>
-      SOME ROADS<br>
-      STAY WITH<br>
-      <em>YOU.</em>
-    </h2>
-
+    <h2>SOME ROADS<br>STAY WITH<br><em>YOU.</em></h2>
     <p>
-      Rider journals, routes, touring guides and the
-      places in between. Because the best stories
-      rarely happen at the destination.
+      High-altitude passes of Uttarakhand, misty valleys, gravel trails, and endless highway stretches where fuel, patience, and machine rhythm are all that exist.
     </p>
-
-    <a href="#latest" class="button button-red">
-      FIND YOUR NEXT READ ↗
-    </a>
-
+    <a href="#latest" class="button button-red">FIND YOUR NEXT READ ↗</a>
   </div>
-
 </section>
 
 <!-- RIDER PROFILE -->
-
 <section class="section rider" id="rider">
-
   <div class="container rider-layout">
-
     <div class="rider-image">
-      <div class="rider-stamp">
-        BUILT ON<br>
-        ROADS &<br>
-        STORIES.
-      </div>
+      <div class="rider-stamp">BUILT ON<br>ROADS &<br>STORIES.</div>
     </div>
 
     <div class="rider-copy reveal">
-
       <p class="eyebrow">06 / BEHIND THE REDLINE</p>
-
       <div class="red-line"></div>
-
-      <h2>
-        MEET THE RIDER.<br>
-        <em>RISHAV AKA JATAYIU.</em>
-      </h2>
-
-      <p class="rider-intro">
-        Not just about the destination.
-        Always about the journey.
-      </p>
-
+      <h2>MEET THE RIDER.<br><em>RISHAV AKA JATAYIU.</em></h2>
+      <p class="rider-intro">Not just about the destination. Always about the journey.</p>
       <p>
-        I'm Rishav, known on the road as Jatayiu —
-        a motorcycle enthusiast, solo rider and storyteller
-        with an enduring love for machines and the open road.
+        I'm Rishav, known on the road as Jatayiu — a motorcycle enthusiast, solo long-distance rider, and storyteller with an enduring respect for classic mechanics and open horizons.
       </p>
-
       <p>
-        My journey has taken me across the winding roads of
-        Uttarakhand, through Himalayan landscapes, unfamiliar
-        towns and some seriously long days in the saddle.
-        From covering 1,400 kilometres in a solo 20-hour ride
-        to exploring the mountains and camping along the way,
-        every ride has left something behind.
+        My rides have spanned sweeping alpine twisties across Uttarakhand, remote passes, and demanding endurance trips including a solo 1,400-kilometre, 20-hour push.
       </p>
-
       <p>
-        My Royal Enfield Classic 350 has been more than just
-        a motorcycle. It's been a companion through countless
-        kilometres, changing landscapes and lessons that
-        no specification sheet can explain.
+        My Royal Enfield Classic 350 has served as an unflinching companion through every storm, altitude change, and high-mileage day. REDLINE PAGES is where engineering insight and road stories unite.
       </p>
-
-      <p>
-        Away from the road, I'm fascinated by motorcycle
-        engineering, design, mechanical character and the
-        history behind iconic machines.
-      </p>
-
-      <p>
-        That's what REDLINE PAGES is about — documenting
-        motorcycles, understanding engineering, exploring
-        riding culture and telling stories that deserve
-        to be told.
-      </p>
-
       <div class="signature">
         <span>RIDE FAR. STAY CURIOUS.</span>
         <strong>— JATAYIU</strong>
       </div>
-
     </div>
-
   </div>
-
 </section>
 
 <!-- NEWSLETTER -->
-
 <section class="section newsletter">
-
   <div class="container newsletter-layout">
-
     <div>
-
       <p class="eyebrow">THE REDLINE DISPATCH</p>
-
-      <h2>
-        GOOD STORIES.<br>
-        <em>NO NOISE.</em>
-      </h2>
-
+      <h2>GOOD STORIES.<br><em>NO NOISE.</em></h2>
       <p>
-        A considered round-up of motorcycle stories,
-        engineering insights and industry developments.
-        Join the list when subscriptions go live.
+        A curated dispatch of deep-dive motorcycle reviews, technical breakdowns, and touring dispatches directly to your inbox.
       </p>
-
     </div>
 
     <form class="newsletter-form" id="newsletter-form">
-
       <label for="email">YOUR EMAIL ADDRESS</label>
-
       <div class="email-row">
-
-        <input
-          id="email"
-          type="email"
-          placeholder="rider@example.com"
-          required>
-
+        <input id="email" type="email" placeholder="rider@example.com" required>
         <button type="submit">↗</button>
-
       </div>
-
-      <p class="form-message" id="form-message">
-        Newsletter subscriptions are not active yet.
-      </p>
-
+      <p class="form-message" id="form-message">Newsletter subscriptions are not active yet.</p>
     </form>
-
   </div>
-
 </section>
 
 </main>
 
+<!-- MACHINE DETAIL DIALOG -->
+<dialog class="machine-dialog" id="machine-dialog">
+  <div class="dialog-inner">
+    <button class="dialog-close" id="dialog-close">CLOSE ✕</button>
+    <p class="eyebrow" id="dialog-brand">MACHINE ARCHIVE</p>
+    <h2 class="dialog-title" id="dialog-title">MACHINE NAME</h2>
+    <img class="dialog-image" id="dialog-image" alt="Motorcycle">
+
+    <div class="dialog-details">
+      <div class="dialog-detail">
+        <small>ENGINE</small>
+        <strong id="dialog-engine">—</strong>
+      </div>
+      <div class="dialog-detail">
+        <small>CONFIGURATION</small>
+        <strong id="dialog-config">—</strong>
+      </div>
+      <div class="dialog-detail">
+        <small>CLASS</small>
+        <strong id="dialog-class">—</strong>
+      </div>
+    </div>
+    <p class="dialog-description" id="dialog-description"></p>
+  </div>
+</dialog>
+
 <!-- FOOTER -->
-
 <footer class="footer">
-
   <div class="container">
-
     <div class="footer-top">
-
       <div>
         <a href="#" class="logo">
           REDLINE <span>PAGES</span>
           <small>MACHINES. ROADS. STORIES.</small>
         </a>
       </div>
-
       <p class="footer-description">
         An independent motorcycle journal.<br>
         Built for the curious. Made for the ride.<br>
         India.
       </p>
-
     </div>
-
     <div class="footer-bottom">
-
       <span>© <span id="year"></span> REDLINE PAGES</span>
-
       <span>INDIA · INDEPENDENT BY DESIGN</span>
-
       <span>EDITORIAL PROJECT / VOL. 01</span>
-
     </div>
-
   </div>
-
 </footer>
 
-<script src="script.js"></script>
-
 <script>
-
-/* =====================================
-   MACHINE DATABASE
-===================================== */
-
-const machines = [
-
-{brand:"Royal Enfield",name:"Classic 350",engine:"349 cc",config:"Single cylinder",type:"Roadster",category:"Royal Enfield",image:"classic-350.webp",description:"An enduring modern classic. The Classic 350 brings together traditional design, relaxed riding ergonomics and the unmistakable character of Royal Enfield."},
-
-{brand:"Royal Enfield",name:"Bullet 350",engine:"349 cc",config:"Single cylinder",type:"Roadster",category:"Royal Enfield",image:"bullet-350.webp",description:"One of motorcycling's most recognisable names, with a long-running legacy of simple, characterful road machines."},
-
-{brand:"Royal Enfield",name:"Hunter 350",engine:"349 cc",config:"Single cylinder",type:"Urban roadster",category:"Royal Enfield",image:"hunter-350.webp",description:"A compact roadster designed around urban riding and everyday versatility."},
-
-{brand:"Royal Enfield",name:"Interceptor 650",engine:"648 cc",config:"Parallel twin",type:"Roadster",category:"Royal Enfield",image:"interceptor-650.webp",description:"A modern interpretation of the classic twin-cylinder roadster."},
-
-{brand:"Royal Enfield",name:"Continental GT 650",engine:"648 cc",config:"Parallel twin",type:"Cafe racer",category:"Royal Enfield",image:"continental-gt-650.webp",description:"A cafe racer-inspired machine with a committed riding position and classic silhouette."},
-
-{brand:"Royal Enfield",name:"Himalayan 450",engine:"452 cc",config:"Liquid-cooled single",type:"Adventure",category:"Royal Enfield",image:"himalayan-450.webp",description:"A purpose-built adventure motorcycle designed for long-distance exploration."},
-
-{brand:"Royal Enfield",name:"Super Meteor 650",engine:"648 cc",config:"Parallel twin",type:"Cruiser",category:"Royal Enfield",image:"super-meteor-650.webp",description:"A relaxed cruiser with a twin-cylinder engine and touring-oriented character."},
-
-{brand:"Royal Enfield",name:"Shotgun 650",engine:"648 cc",config:"Parallel twin",type:"Custom roadster",category:"Royal Enfield",image:"shotgun-650.webp",description:"A contemporary custom-inspired motorcycle built around the 650 twin platform."},
-
-{brand:"Bajaj",name:"Pulsar NS200",engine:"199.5 cc",config:"Single cylinder",type:"Street naked",category:"Bajaj",image:"pulsar-ns200.webp",description:"An important performance-oriented name in the Indian street motorcycle segment."},
-
-{brand:"Bajaj",name:"Pulsar N250",engine:"249 cc",config:"Single cylinder",type:"Street naked",category:"Bajaj",image:"pulsar-n250.webp",description:"A modern street motorcycle focused on everyday usability."},
-
-{brand:"Bajaj",name:"Dominar 400",engine:"373 cc",config:"Single cylinder",type:"Sport tourer",category:"Bajaj",image:"dominar-400.webp",description:"A muscular touring-oriented motorcycle known for highway performance."},
-
-{brand:"Bajaj",name:"Pulsar RS200",engine:"199.5 cc",config:"Single cylinder",type:"Sports",category:"Bajaj",image:"pulsar-rs200.webp",description:"A fully faired sports motorcycle from the Pulsar family."},
-
-{brand:"Honda",name:"H'ness CB350",engine:"348.36 cc",config:"Single cylinder",type:"Classic roadster",category:"Honda",image:"hness-cb350.webp",description:"Honda's modern take on the retro roadster."},
-
-{brand:"Honda",name:"CB350RS",engine:"348.36 cc",config:"Single cylinder",type:"Sport roadster",category:"Honda",image:"cb350rs.webp",description:"A sportier interpretation of Honda's 350 platform."},
-
-{brand:"Honda",name:"CB650R",engine:"649 cc",config:"Inline four",type:"Naked sports",category:"Honda",image:"cb650r.webp",description:"A middleweight naked motorcycle with a distinctive four-cylinder engine."},
-
-{brand:"Honda",name:"Africa Twin",engine:"1084 cc",config:"Parallel twin",type:"Adventure",category:"Honda",image:"africa-twin.webp",description:"A globally recognised adventure touring motorcycle."},
-
-{brand:"KTM",name:"390 Duke",engine:"398.7 cc",config:"Single cylinder",type:"Street naked",category:"KTM",image:"390-duke.webp",description:"A performance-focused naked motorcycle with aggressive design."},
-
-{brand:"KTM",name:"390 Adventure",engine:"398.7 cc",config:"Single cylinder",type:"Adventure",category:"KTM",image:"390-adventure.webp",description:"A versatile adventure platform designed for touring and mixed-road riding."},
-
-{brand:"KTM",name:"RC 390",engine:"373 cc",config:"Single cylinder",type:"Sports",category:"KTM",image:"rc-390.webp",description:"A track-inspired fully faired motorcycle."},
-
-{brand:"Yamaha",name:"R15",engine:"155 cc",config:"Single cylinder",type:"Sports",category:"Yamaha",image:"yamaha-r15.webp",description:"A popular entry-level sports motorcycle inspired by Yamaha's racing heritage."},
-
-{brand:"Yamaha",name:"MT-15",engine:"155 cc",config:"Single cylinder",type:"Street naked",category:"Yamaha",image:"yamaha-mt15.webp",description:"A compact naked motorcycle with aggressive styling."},
-
-{brand:"Yamaha",name:"R3",engine:"321 cc",config:"Parallel twin",type:"Sports",category:"Yamaha",image:"yamaha-r3.webp",description:"A twin-cylinder lightweight sportbike."},
-
-{brand:"Other",name:"Hayabusa",engine:"1340 cc",config:"Inline four",type:"Hyper sport",category:"Other",image:"hayabusa.webp",description:"A legendary high-performance motorcycle synonymous with speed."},
-
-{brand:"Other",name:"Ninja ZX-10R",engine:"998 cc",config:"Inline four",type:"Superbike",category:"Other",image:"zx10r.webp",description:"A superbike developed around Kawasaki's WorldSBK racing experience."},
-
-{brand:"Other",name:"BMW S1000RR",engine:"999 cc",config:"Inline four",type:"Superbike",category:"Other",image:"bmw-s1000rr.webp",description:"BMW Motorrad's flagship superbike."},
-
-{brand:"Other",name:"Aprilia RS 457",engine:"457 cc",config:"Parallel twin",type:"Sports",category:"Other",image:"aprilia-rs457.webp",description:"A modern lightweight sportbike with Italian design."},
-
-{brand:"Other",name:"Triumph Speed 400",engine:"398 cc",config:"Single cylinder",type:"Modern classic",category:"Other",image:"speed-400.webp",description:"A modern classic roadster combining British design influences."},
-
-{brand:"Other",name:"Ducati Panigale V4",engine:"1103 cc",config:"V4",type:"Superbike",category:"Other",image:"panigale-v4.webp",description:"An Italian superbike showcasing Ducati's racing-derived technology."},
-
-{brand:"Other",name:"TVS Apache RTR 310",engine:"312 cc",config:"Single cylinder",type:"Street naked",category:"Other",image:"apache-310.webp",description:"A technology-rich street motorcycle from TVS."},
-
-{brand:"Other",name:"Hero XPulse 200 4V",engine:"199.6 cc",config:"Single cylinder",type:"Adventure",category:"Other",image:"xpulse-200.webp",description:"An accessible adventure motorcycle built for exploring beyond paved roads."}
-
+/* STORIES DATABASE */
+const stories = [
+  {
+    category: "Machines",
+    title: "The Anatomy of the Thumper: Why Single Cylinders Endure",
+    desc: "From British singles to modern counterbalanced motors, the low-end mechanical rhythm of a big single has a character multi-cylinders simply cannot replicate.",
+    img: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80",
+    link: "#blueprint"
+  },
+  {
+    category: "Touring",
+    title: "1,400 Kilometres in 20 Hours: Lessons from Saddle Time",
+    desc: "Pushing limits across the northern plains and into the mountains. When exhaustion sets in, physical rhythm and focus take over.",
+    img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80",
+    link: "#touring"
+  },
+  {
+    category: "Engineering",
+    title: "Torque Over Horsepower: Real World Usability in the Hills",
+    desc: "Why dyno sheets mislead, and why low-down torque spread between 2,500 and 4,000 RPM matters more on mountain hairpins than top-end speed.",
+    img: "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=800&q=80",
+    link: "#engineering"
+  },
+  {
+    category: "Culture",
+    title: "Wrenching as Meditation: Maintaining What You Ride",
+    desc: "Understanding valve tappets, drive chain slack, and cable lubrication creates an unbreakable psychological bond between machine and pilot.",
+    img: "https://images.unsplash.com/photo-1486496572940-2bb2321f30ab?auto=format&fit=crop&w=800&q=80",
+    link: "#rider"
+  },
+  {
+    category: "Machines",
+    title: "The Twin-Cylinder Renaissance: Interceptor & GT 650",
+    desc: "How Royal Enfield redefined accessible middleweight motorcycling across international borders with its 270-degree parallel twin platform.",
+    img: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=800&q=80",
+    link: "#archive"
+  },
+  {
+    category: "Engineering",
+    title: "Chassis Flex vs Rigid Spars: Finding Feel Over Bumps",
+    desc: "Ultra-stiff track frames often fail on real-world Indian tarmac. Here is how controlled flex preserves rider stamina and traction.",
+    img: "https://images.unsplash.com/photo-1558981420-87aa9dad1c89?auto=format&fit=crop&w=800&q=80",
+    link: "#engineering"
+  }
 ];
 
+/* RENDER STORIES */
+const storyGrid = document.getElementById("story-grid");
+function renderStories(filter = "All") {
+  const filtered = filter === "All" ? stories : stories.filter(s => s.category === filter);
+  storyGrid.innerHTML = filtered.map(s => `
+    <article class="story-card">
+      <div style="overflow:hidden;">
+        <img class="story-card-img" src="${s.img}" alt="${s.title}" loading="lazy">
+      </div>
+      <div class="story-card-content">
+        <span class="eyebrow">${s.category}</span>
+        <h3>${s.title}</h3>
+        <p>${s.desc}</p>
+        <a href="${s.link}">READ STORY <span>↗</span></a>
+      </div>
+    </article>
+  `).join("");
+}
+renderStories();
 
-/* =====================================
-   RENDER ARCHIVE
-===================================== */
+/* STORIES FILTERS */
+document.getElementById("filters").addEventListener("click", e => {
+  const btn = e.target.closest(".filter");
+  if (!btn) return;
+  document.querySelectorAll(".filter").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  renderStories(btn.dataset.filter);
+});
 
+/* MACHINES DATABASE (30 MACHINES WITH CDN IMAGES) */
+const machines = [
+  {brand:"Royal Enfield",name:"Classic 350",engine:"349 cc",config:"Single cylinder",type:"Roadster",category:"Royal Enfield",image:"https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80",description:"An enduring icon. The J-series Classic 350 balances traditional design with balanced smoothness and relaxed cruising ergonomics."},
+  {brand:"Royal Enfield",name:"Bullet 350",engine:"349 cc",config:"Single cylinder",type:"Roadster",category:"Royal Enfield",image:"https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=800&q=80",description:"The longest continuous running motorcycle model in history, bringing pure nostalgia and timeless simplicity."},
+  {brand:"Royal Enfield",name:"Hunter 350",engine:"349 cc",config:"Single cylinder",type:"Urban roadster",category:"Royal Enfield",image:"https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=800&q=80",description:"A nimble roadster tuned for flickability in dense urban streets without losing low-end punch."},
+  {brand:"Royal Enfield",name:"Interceptor 650",engine:"648 cc",config:"Parallel twin",type:"Roadster",category:"Royal Enfield",image:"https://images.unsplash.com/photo-1558981420-87aa9dad1c89?auto=format&fit=crop&w=800&q=80",description:"A modern interpretation of 1960s British parallel twins featuring a 270-degree crossplane crank."},
+  {brand:"Royal Enfield",name:"Continental GT 650",engine:"648 cc",config:"Parallel twin",type:"Cafe racer",category:"Royal Enfield",image:"https://images.unsplash.com/photo-1558980394-4c7c9299fe96?auto=format&fit=crop&w=800&q=80",description:"Clip-ons, rearsets, and a sculpted fuel tank create an authentic cafe racer profile."},
+  {brand:"Royal Enfield",name:"Himalayan 450",engine:"452 cc",config:"Liquid-cooled single",type:"Adventure",category:"Royal Enfield",image:"https://images.unsplash.com/photo-1508974239320-0a029497e820?auto=format&fit=crop&w=800&q=80",description:"The Sherpa 450 engine marks Royal Enfield's technological evolution into DOHC liquid cooling."},
+  {brand:"Royal Enfield",name:"Super Meteor 650",engine:"648 cc",config:"Parallel twin",type:"Cruiser",category:"Royal Enfield",image:"https://images.unsplash.com/photo-1558981359-219d6364c9c8?auto=format&fit=crop&w=800&q=80",description:"Low-slung touring cruiser built on a dedicated chassis with upside-down Showa forks."},
+  {brand:"Royal Enfield",name:"Shotgun 650",engine:"648 cc",config:"Parallel twin",type:"Custom roadster",category:"Royal Enfield",image:"https://images.unsplash.com/photo-1558980664-769d59546b3d?auto=format&fit=crop&w=800&q=80",description:"Neo-retro custom bobber aesthetic built around the versatile 648cc twin-cylinder heart."},
+  {brand:"Bajaj",name:"Pulsar NS200",engine:"199.5 cc",config:"Single cylinder",type:"Street naked",category:"Bajaj",image:"https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=800&q=80",description:"Perimeter chassis and high-revving triple-spark motor that set Indian streetfighter standards."},
+  {brand:"Bajaj",name:"Pulsar N250",engine:"249 cc",config:"Single cylinder",type:"Street naked",category:"Bajaj",image:"https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=800&q=80",description:"Refined quarter-litre oil-cooled roadster built for predictable commuting and torque delivery."},
+  {brand:"Bajaj",name:"Dominar 400",engine:"373 cc",config:"Single cylinder",type:"Sport tourer",category:"Bajaj",image:"https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80",description:"Heavyweight highway tourer with factory touring accessories and beam chassis stability."},
+  {brand:"Bajaj",name:"Pulsar RS200",engine:"199.5 cc",config:"Single cylinder",type:"Sports",category:"Bajaj",image:"https://images.unsplash.com/photo-1558981420-87aa9dad1c89?auto=format&fit=crop&w=800&q=80",description:"Aerodynamic fairing with projector lamps tailored for wind protection on highways."},
+  {brand:"Honda",name:"H'ness CB350",engine:"348.36 cc",config:"Single cylinder",type:"Classic roadster",category:"Honda",image:"https://images.unsplash.com/photo-1558980394-4c7c9299fe96?auto=format&fit=crop&w=800&q=80",description:"Japanese precision applied to the classic retro roadster genre with assist-and-slipper clutch."},
+  {brand:"Honda",name:"CB350RS",engine:"348.36 cc",config:"Single cylinder",type:"Sport roadster",category:"Honda",image:"https://images.unsplash.com/photo-1508974239320-0a029497e820?auto=format&fit=crop&w=800&q=80",description:"Tucked tail light, block-pattern rubber, and aggressive ergonomics for a modern scrambler look."},
+  {brand:"Honda",name:"CB650R",engine:"649 cc",config:"Inline four",type:"Naked sports",category:"Honda",image:"https://images.unsplash.com/photo-1558981359-219d6364c9c8?auto=format&fit=crop&w=800&q=80",description:"Neo Sports Café design showcasing cascading exhaust headers and an screaming inline-four."},
+  {brand:"Honda",name:"Africa Twin",engine:"1084 cc",config:"Parallel twin",type:"Adventure",category:"Honda",image:"https://images.unsplash.com/photo-1558980664-769d59546b3d?auto=format&fit=crop&w=800&q=80",description:"Dakar-tested globe trotter featuring rugged long-travel suspension and DCT gearbox option."},
+  {brand:"KTM",name:"390 Duke",engine:"398.7 cc",config:"Single cylinder",type:"Street naked",category:"KTM",image:"https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=800&q=80",description:"Uncompromising naked hooligan with class-leading power-to-weight and aggressive geometry."},
+  {brand:"KTM",name:"390 Adventure",engine:"398.7 cc",config:"Single cylinder",type:"Adventure",category:"KTM",image:"https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=800&q=80",description:"Cornering ABS, off-road traction control, and WP Apex suspension ready for trail duty."},
+  {brand:"KTM",name:"RC 390",engine:"373 cc",config:"Single cylinder",type:"Sports",category:"KTM",image:"https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80",description:"Track weapon with full Moto3 ergonomics, adjustable clip-ons, and razor-sharp flickability."},
+  {brand:"Yamaha",name:"R15",engine:"155 cc",config:"Single cylinder",type:"Sports",category:"Yamaha",image:"https://images.unsplash.com/photo-1558981420-87aa9dad1c89?auto=format&fit=crop&w=800&q=80",description:"Variable Valve Actuation and Deltabox aluminum swingarm make it a supreme supersport learner."},
+  {brand:"Yamaha",name:"MT-15",engine:"155 cc",config:"Single cylinder",type:"Street naked",category:"Yamaha",image:"https://images.unsplash.com/photo-1558980394-4c7c9299fe96?auto=format&fit=crop&w=800&q=80",description:"Dark Side of Japan styling distilled into a featherweight, punchy street fighter."},
+  {brand:"Yamaha",name:"R3",engine:"321 cc",config:"Parallel twin",type:"Sports",category:"Yamaha",image:"https://images.unsplash.com/photo-1508974239320-0a029497e820?auto=format&fit=crop&w=800&q=80",description:"High-revving parallel twin with tractable daily usability and confidence-inspiring chassis."},
+  {brand:"Other",name:"Hayabusa",engine:"1340 cc",config:"Inline four",type:"Hyper sport",category:"Other",image:"https://images.unsplash.com/photo-1558981359-219d6364c9c8?auto=format&fit=crop&w=800&q=80",description:"Legendary hyperbike engineered for aerodynamic stability beyond 300 km/h."},
+  {brand:"Other",name:"Ninja ZX-10R",engine:"998 cc",config:"Inline four",type:"Superbike",category:"Other",image:"https://images.unsplash.com/photo-1558980664-769d59546b3d?auto=format&fit=crop&w=800&q=80",description:"WorldSBK championship-winning liter class machine with comprehensive electronic aids."},
+  {brand:"Other",name:"BMW S1000RR",engine:"999 cc",config:"Inline four",type:"Superbike",category:"Other",image:"https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=800&q=80",description:"ShiftCam variable valve timing delivers ferocious pull right up to the 14,000 RPM ceiling."},
+  {brand:"Other",name:"Aprilia RS 457",engine:"457 cc",config:"Parallel twin",type:"Sports",category:"Other",image:"https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=800&q=80",description:"Twin-cylinder Italian precision engineered specifically around A2 license power thresholds."},
+  {brand:"Other",name:"Triumph Speed 400",engine:"398 cc",config:"Single cylinder",type:"Modern classic",category:"Other",image:"https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80",description:"Hinckley design pedigree packed into an accessible, beautifully finished roadster."},
+  {brand:"Other",name:"Ducati Panigale V4",engine:"1103 cc",config:"V4",type:"Superbike",category:"Other",image:"https://images.unsplash.com/photo-1558981420-87aa9dad1c89?auto=format&fit=crop&w=800&q=80",description:"Desmosedici Stradale V4 engine directly derived from Ducati MotoGP racing prototypes."},
+  {brand:"Other",name:"TVS Apache RTR 310",engine:"312 cc",config:"Single cylinder",type:"Street naked",category:"Other",image:"https://images.unsplash.com/photo-1558980394-4c7c9299fe96?auto=format&fit=crop&w=800&q=80",description:"Technology powerhouse featuring climate-controlled seats and dynamic race telemetry."},
+  {brand:"Other",name:"Hero XPulse 200 4V",engine:"199.6 cc",config:"Single cylinder",type:"Adventure",category:"Other",image:"https://images.unsplash.com/photo-1508974239320-0a029497e820?auto=format&fit=crop&w=800&q=80",description:"The everyman trail explorer with 21-inch front spoke rim and long-travel offroad suspension."}
+];
+
+/* RENDER ARCHIVE */
 const machineGrid = document.getElementById("machine-grid");
 const machineCount = document.getElementById("machine-count");
 
 function renderMachines(category = "All") {
-
-  const filtered = category === "All"
-    ? machines
-    : machines.filter(m => m.category === category);
-
+  const filtered = category === "All" ? machines : machines.filter(m => m.category === category);
   machineCount.textContent = filtered.length;
-
   machineGrid.innerHTML = filtered.map(m => {
-
-    const index = machines.indexOf(m);
-
+    const idx = machines.indexOf(m);
     return `
-      <article class="machine-card"
-        data-index="${index}"
-        tabindex="0"
-        role="button"
-        aria-label="Explore ${m.name}">
-
+      <article class="machine-card" data-index="${idx}" tabindex="0" role="button" aria-label="Explore ${m.name}">
         <div class="machine-art">
-
-          <span class="machine-placeholder">
-            TECHNICAL ARCHIVE<br>
-            ${m.name.toUpperCase()}
-          </span>
-
-          <img
-            src="assets/sketches/${m.image}"
-            alt="${m.brand} ${m.name}"
-            loading="lazy"
-            onerror="this.classList.add('broken')">
-
+          <span class="machine-placeholder">ARCHIVE REF: ${m.name.toUpperCase()}</span>
+          <img src="${m.image}" alt="${m.brand} ${m.name}" loading="lazy">
           <span class="machine-arrow">↗</span>
-
         </div>
-
         <div class="machine-info">
-
           <p class="machine-brand">${m.brand}</p>
-
           <h3 class="machine-name">${m.name}</h3>
-
           <div class="machine-meta">
             <span>${m.engine}</span>
             <span>${m.type.toUpperCase()}</span>
           </div>
-
         </div>
-
       </article>
     `;
-
   }).join("");
-
 }
-
 renderMachines();
 
-
-/* =====================================
-   ARCHIVE FILTERS
-===================================== */
-
+/* ARCHIVE FILTER LISTENER */
 document.getElementById("archive-filters").addEventListener("click", e => {
-
-  const button = e.target.closest(".archive-filter");
-
-  if (!button) return;
-
-  document.querySelectorAll(".archive-filter").forEach(b => {
-    b.classList.remove("active");
-  });
-
-  button.classList.add("active");
-
-  renderMachines(button.dataset.brand);
-
+  const btn = e.target.closest(".archive-filter");
+  if (!btn) return;
+  document.querySelectorAll(".archive-filter").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  renderMachines(btn.dataset.brand);
 });
 
-
-/* =====================================
-   MACHINE DETAIL POPUP
-===================================== */
-
+/* MODAL DETAILS */
 const dialog = document.getElementById("machine-dialog");
-
-function openMachine(index) {
-
-  const m = machines[index];
-
+function openMachine(idx) {
+  const m = machines[idx];
   if (!m) return;
-
-  document.getElementById("dialog-brand").textContent =
-    m.brand.toUpperCase() + " / MACHINE ARCHIVE";
-
+  document.getElementById("dialog-brand").textContent = m.brand.toUpperCase() + " / SPECIFICATION SHEET";
   document.getElementById("dialog-title").textContent = m.name;
-
-  document.getElementById("dialog-image").src =
-    "assets/sketches/" + m.image;
-
+  document.getElementById("dialog-image").src = m.image;
   document.getElementById("dialog-engine").textContent = m.engine;
-
   document.getElementById("dialog-config").textContent = m.config;
-
   document.getElementById("dialog-class").textContent = m.type;
-
   document.getElementById("dialog-description").textContent = m.description;
-
   dialog.showModal();
-
 }
 
 machineGrid.addEventListener("click", e => {
-
   const card = e.target.closest(".machine-card");
-
   if (card) openMachine(Number(card.dataset.index));
-
 });
 
 machineGrid.addEventListener("keydown", e => {
-
-  if (e.key !== "Enter" && e.key !== " ") return;
-
-  const card = e.target.closest(".machine-card");
-
-  if (!card) return;
-
-  e.preventDefault();
-
-  openMachine(Number(card.dataset.index));
-
+  if (e.key === "Enter" || e.key === " ") {
+    const card = e.target.closest(".machine-card");
+    if (card) { e.preventDefault(); openMachine(Number(card.dataset.index)); }
+  }
 });
 
-document.getElementById("dialog-close").addEventListener("click", () => {
-  dialog.close();
+document.getElementById("dialog-close").addEventListener("click", () => dialog.close());
+dialog.addEventListener("click", e => { if (e.target === dialog) dialog.close(); });
+
+/* DUAL VIEW SKETCH / PHOTO TOGGLE */
+const btnSketch = document.getElementById("btn-show-sketch");
+const btnPhoto = document.getElementById("btn-show-photo");
+const layerSketch = document.getElementById("layer-sketch");
+const layerPhoto = document.getElementById("layer-photo");
+
+btnSketch.addEventListener("click", () => {
+  btnSketch.classList.add("active");
+  btnPhoto.classList.remove("active");
+  layerSketch.classList.add("active");
+  layerPhoto.classList.remove("active");
 });
 
-dialog.addEventListener("click", e => {
-  if (e.target === dialog) dialog.close();
+btnPhoto.addEventListener("click", () => {
+  btnPhoto.classList.add("active");
+  btnSketch.classList.remove("active");
+  layerPhoto.classList.add("active");
+  layerSketch.classList.remove("active");
 });
 
-
-/* =====================================
-   BRAND MARQUEE
-===================================== */
-
+/* BRAND TICKER DUPLICATION */
 const brandTrack = document.getElementById("brand-track");
-
 brandTrack.innerHTML += brandTrack.innerHTML;
 
-
-/* =====================================
-   MOBILE MENU
-===================================== */
-
+/* MOBILE MENU */
 const menuToggle = document.getElementById("menu-toggle");
 const nav = document.getElementById("nav");
-
 menuToggle.addEventListener("click", () => {
-
-  const isOpen = nav.classList.toggle("open");
-
-  menuToggle.setAttribute("aria-expanded", isOpen);
-
-  menuToggle.textContent = isOpen ? "✕" : "☰";
-
+  const open = nav.classList.toggle("open");
+  menuToggle.textContent = open ? "✕" : "☰";
 });
 
 nav.querySelectorAll("a").forEach(link => {
-
   link.addEventListener("click", () => {
-
     nav.classList.remove("open");
-
-    menuToggle.setAttribute("aria-expanded", "false");
-
     menuToggle.textContent = "☰";
-
   });
-
 });
 
-
-/* =====================================
-   SCROLL PROGRESS
-===================================== */
-
+/* PROGRESS BAR */
 window.addEventListener("scroll", () => {
-
-  const total =
-    document.documentElement.scrollHeight - window.innerHeight;
-
-  const percentage = total > 0
-    ? (window.scrollY / total) * 100
-    : 0;
-
-  document.getElementById("progress").style.width =
-    percentage + "%";
-
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = total > 0 ? (window.scrollY / total) * 100 : 0;
+  document.getElementById("progress").style.width = pct + "%";
 }, { passive: true });
 
-
-/* =====================================
-   SCROLL REVEALS
-===================================== */
-
+/* INTERSECTION REVEALS */
 const observer = new IntersectionObserver(entries => {
-
   entries.forEach(entry => {
-
     if (entry.isIntersecting) {
-
       entry.target.classList.add("visible");
-
       observer.unobserve(entry.target);
-
     }
-
   });
+}, { threshold: 0.1 });
+document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
 
-}, { threshold: .12 });
-
-document.querySelectorAll(".reveal").forEach(el => {
-  observer.observe(el);
-});
-
-
-/* =====================================
-   FOOTER YEAR
-===================================== */
-
-document.getElementById("year").textContent =
-  new Date().getFullYear();
-
-
-/* =====================================
-   NEWSLETTER DEMO
-===================================== */
-
+/* YEAR & FORM */
+document.getElementById("year").textContent = new Date().getFullYear();
 document.getElementById("newsletter-form").addEventListener("submit", e => {
-
   e.preventDefault();
-
-  document.getElementById("form-message").textContent =
-    "Newsletter subscriptions are not active yet. Please check back soon.";
-
+  document.getElementById("form-message").textContent = "Newsletter registrations are opening soon. Thank you for subscribing!";
 });
-
 </script>
 
 </body>
 </html>
-
