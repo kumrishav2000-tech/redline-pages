@@ -8,7 +8,7 @@ const stories = [
 ];
 const grid = document.querySelector("#story-grid");
 function renderStories(filter="All"){
-  const items = filter==="All" ? stories : stories.filter(s=>s.category===filter);
+  const items = filter==="All" ? stories : stories.filter(s=>s.category===filter); 
   grid.innerHTML = items.map(s=>`<article class="story-card"><div class="story-image" style="background-image:url('${s.image}')"></div><div class="story-body"><div class="story-meta">${s.tag} &nbsp; / &nbsp; ${s.read}</div><h3>${s.title}</h3><p>${s.excerpt}</p><a class="read-link" href="articles/classic-350.html">READ THE STORY ↗</a></div></article>`).join("");
 }
 renderStories();
