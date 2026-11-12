@@ -1,711 +1,241 @@
-
-/* =========================================
-   REDLINE PAGES — MAIN JAVASCRIPT
-   Stories • Motorcycle Archive • Interactions
-========================================= */
-
-/* -----------------------------------------
-   1. STORIES
------------------------------------------ */
-
+/* STORIES DATABASE */
 const stories = [
   {
     category: "Machines",
-    title: "The Royal Enfield Classic 350: An Indian Icon",
-    excerpt: "From its origins and early production to the modern J-Series Classic. Explore the motorcycle's journey through history.",
-    image: "https://www.royalenfield.com/content/dam/royal-enfield/motorcycles/new-classic-350/revamp/gallery/thumbnail/desktop/gallery_1.jpg",
-    tag: "MOTORCYCLE HISTORY",
-    read: "12 MIN READ",
-    link: "articles/classic-350.html"
-  },
-  {
-    category: "Machines",
-    title: "The middleweight adventure question",
-    excerpt: "What makes a motorcycle genuinely capable beyond the spec sheet? A look at the choices that shape the modern ADV.",
-    image: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=80",
-    tag: "MACHINE NOTES",
-    read: "6 MIN READ",
-    link: "#"
-  },
-  {
-    category: "Engineering",
-    title: "Torque, power and the feel of an engine",
-    excerpt: "Two numbers appear on every spec sheet. Here's what they mean on the road, and why neither tells the whole story.",
-    image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=900&q=80",
-    tag: "TECHNICAL EXPLAINER",
-    read: "5 MIN READ",
-    link: "#"
+    title: "The Anatomy of the Thumper: Why Single Cylinders Endure",
+    desc: "From British singles to modern counterbalanced motors, the low-end mechanical rhythm of a big single has a character multi-cylinders simply cannot replicate.",
+    img: "assets/classic-350-detail.webp",
+    link: "#blueprint"
   },
   {
     category: "Touring",
-    title: "The art of planning a long motorcycle ride",
-    excerpt: "Distance is only one part of the plan. Think fuel, fatigue, weather, road conditions and the space to adapt.",
-    image: "https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=900&q=80",
-    tag: "RIDE JOURNAL",
-    read: "8 MIN READ",
-    link: "#"
-  },
-  {
-    category: "Industry",
-    title: "Reading the Indian motorcycle market",
-    excerpt: "A practical guide to understanding segments, positioning, pricing and the shifts worth watching.",
-    image: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=80",
-    tag: "INDUSTRY WATCH",
-    read: "7 MIN READ",
-    link: "#"
-  },
-  {
-    category: "Machines",
-    title: "What makes a motorcycle touring-worthy?",
-    excerpt: "Ergonomics, range, wind protection, luggage and service support: the details that matter after 300 kilometres.",
-    image: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=80",
-    tag: "BUYER'S NOTE",
-    read: "7 MIN READ",
-    link: "#"
+    title: "1,400 Kilometres in 20 Hours: Lessons from Saddle Time",
+    desc: "Pushing limits across the northern plains and into the mountains. When exhaustion sets in, physical rhythm and focus take over.",
+    img: "assets/jatayiu-classic-350-rider.webp",
+    link: "#touring"
   },
   {
     category: "Engineering",
-    title: "Suspension: the conversation between road and rider",
-    excerpt: "A clear introduction to forks, shock absorbers, damping and why setup changes the ride.",
-    image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=900&q=80",
-    tag: "ENGINEERING",
-    read: "6 MIN READ",
-    link: "#"
+    title: "Torque Over Horsepower: Real World Usability in the Hills",
+    desc: "Why dyno sheets mislead, and why low-down torque spread between 2,500 and 4,000 RPM matters more on mountain hairpins than top-end speed.",
+    img: "assets/classic-350-forest-stop.webp",
+    link: "#engineering"
+  },
+  {
+    category: "Culture",
+    title: "Wrenching as Meditation: Maintaining What You Ride",
+    desc: "Understanding valve tappets, drive chain slack, and cable lubrication creates an unbreakable psychological bond between machine and pilot.",
+    img: "assets/jatayiu-rider-portrait.webp",
+    link: "#rider"
+  },
+  {
+    category: "Machines",
+    title: "The Twin-Cylinder Renaissance: Interceptor & GT 650",
+    desc: "How Royal Enfield redefined accessible middleweight motorcycling across international borders with its 270-degree parallel twin platform.",
+    img: "assets/classic-350-mountain-overlook.webp",
+    link: "#archive"
+  },
+  {
+    category: "Engineering",
+    title: "Chassis Flex vs Rigid Spars: Finding Feel Over Bumps",
+    desc: "Ultra-stiff track frames often fail on real-world Indian tarmac. Here is how controlled flex preserves rider stamina and traction.",
+    img: "assets/himalayan-peak-landscape.webp",
+    link: "#engineering"
   }
 ];
 
-const storyGrid = document.querySelector("#story-grid");
-
+/* RENDER STORIES */
+const storyGrid = document.getElementById("story-grid");
 function renderStories(filter = "All") {
-  if (!storyGrid) return;
-
-  const items = filter === "All"
-    ? stories
-    : stories.filter(story => story.category === filter);
-
-  storyGrid.innerHTML = items.map(story => `
+  const filtered = filter === "All" ? stories : stories.filter(s => s.category === filter);
+  storyGrid.innerHTML = filtered.map(s => `
     <article class="story-card">
-      <div
-        class="story-image"
-        style="background-image:url('${story.image}')"
-        role="img"
-        aria-label="${story.title}">
+      <div style="overflow:hidden;">
+        <img class="story-card-img" src="${s.img}" alt="${s.title}" loading="lazy">
       </div>
-
-      <div class="story-body">
-        <div class="story-meta">
-          ${story.tag} &nbsp; / &nbsp; ${story.read}
-        </div>
-
-        <h3>${story.title}</h3>
-        <p>${story.excerpt}</p>
-
-        <a class="read-link" href="${story.link}">
-          READ THE STORY ↗
-        </a>
+      <div class="story-card-content">
+        <span class="eyebrow">${s.category}</span>
+        <h3>${s.title}</h3>
+        <p>${s.desc}</p>
+        <a href="${s.link}">READ STORY <span>↗</span></a>
       </div>
     </article>
   `).join("");
 }
-
 renderStories();
 
-document.querySelectorAll(".filter").forEach(button => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll(".filter").forEach(item => {
-      item.classList.remove("active");
-    });
-
-    button.classList.add("active");
-    renderStories(button.dataset.filter || "All");
-  });
+/* STORIES FILTERS */
+document.getElementById("filters").addEventListener("click", e => {
+  const btn = e.target.closest(".filter");
+  if (!btn) return;
+  document.querySelectorAll(".filter").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  renderStories(btn.dataset.filter);
 });
 
-
-/* -----------------------------------------
-   2. MOTORCYCLE ARCHIVE
------------------------------------------ */
-
-const motorcycles = [
-  {
-    brand: "Royal Enfield",
-    name: "Classic 350",
-    slug: "classic-350",
-    engine: "349 cc",
-    config: "Single-cylinder, 4-stroke",
-    class: "Modern Classic",
-    description: "The modern expression of a timeless silhouette. The Classic 350 carries forward the unmistakable proportions, relaxed character and unmistakable identity that have defined generations of Royal Enfield motorcycles."
-  },
-  {
-    brand: "Royal Enfield",
-    name: "Bullet 350",
-    slug: "bullet-350",
-    engine: "349 cc",
-    config: "Single-cylinder, 4-stroke",
-    class: "Roadster",
-    description: "One of motorcycling's longest-running nameplates. The Bullet remains rooted in a simple philosophy: a recognisable silhouette, a steady thump and an unhurried riding experience."
-  },
-  {
-    brand: "Royal Enfield",
-    name: "Hunter 350",
-    slug: "hunter-350",
-    engine: "349 cc",
-    config: "Single-cylinder, 4-stroke",
-    class: "Urban Roadster",
-    description: "A compact and contemporary roadster built around the J-series platform, with a shorter wheelbase and a more agile personality for urban riding."
-  },
-  {
-    brand: "Royal Enfield",
-    name: "Interceptor 650",
-    slug: "interceptor-650",
-    engine: "648 cc",
-    config: "Parallel twin",
-    class: "Roadster",
-    description: "A modern interpretation of the classic British twin-cylinder roadster. Its accessible performance and clean design helped bring the middleweight twin back into the spotlight."
-  },
-  {
-    brand: "Royal Enfield",
-    name: "Continental GT 650",
-    slug: "continental-gt-650",
-    engine: "648 cc",
-    config: "Parallel twin",
-    class: "Cafe Racer",
-    description: "Inspired by the café racer culture of the 1960s, the Continental GT combines a committed riding position with a distinctive tank, clip-on-style ergonomics and twin-cylinder character."
-  },
-  {
-    brand: "Royal Enfield",
-    name: "Himalayan 450",
-    slug: "himalayan-450",
-    engine: "452 cc",
-    config: "Liquid-cooled single-cylinder",
-    class: "Adventure Tourer",
-    description: "A new-generation Himalayan developed around long-distance travel and changing terrain, with a liquid-cooled engine and a purpose-built adventure platform."
-  },
-  {
-    brand: "Royal Enfield",
-    name: "Super Meteor 650",
-    slug: "super-meteor-650",
-    engine: "648 cc",
-    config: "Parallel twin",
-    class: "Cruiser",
-    description: "A laid-back cruiser built around Royal Enfield's 650 twin platform, with a low stance, forward-set foot controls and a relaxed touring character."
-  },
-  {
-    brand: "Royal Enfield",
-    name: "Shotgun 650",
-    slug: "shotgun-650",
-    engine: "648 cc",
-    config: "Parallel twin",
-    class: "Custom Roadster",
-    description: "A factory custom-inspired motorcycle with a modular design language, distinctive proportions and the familiar 650 twin-cylinder engine."
-  },
-  {
-    brand: "Bajaj",
-    name: "Pulsar NS200",
-    slug: "pulsar-ns200",
-    engine: "199.5 cc",
-    config: "Liquid-cooled single-cylinder",
-    class: "Streetfighter",
-    description: "A key motorcycle in the evolution of the Indian performance commuter. The NS200 brought liquid cooling, a perimeter frame and aggressive streetfighter styling to its segment."
-  },
-  {
-    brand: "Bajaj",
-    name: "Pulsar N250",
-    slug: "pulsar-n250",
-    engine: "249 cc",
-    config: "Oil-cooled single-cylinder",
-    class: "Naked Street",
-    description: "A contemporary Pulsar designed around accessible torque, everyday usability and a muscular naked-bike stance."
-  },
-  {
-    brand: "Bajaj",
-    name: "Dominar 400",
-    slug: "dominar-400",
-    engine: "373 cc",
-    config: "Liquid-cooled single-cylinder",
-    class: "Sport Tourer",
-    description: "Bajaj's performance-oriented touring machine, combining a powerful single-cylinder engine with a substantial chassis and long-distance equipment."
-  },
-  {
-    brand: "Bajaj",
-    name: "Pulsar RS200",
-    slug: "pulsar-rs200",
-    engine: "199.5 cc",
-    config: "Liquid-cooled single-cylinder",
-    class: "Fully-faired Sport",
-    description: "The fully-faired member of the NS family, designed to bring an aggressive sportbike silhouette and everyday performance together."
-  },
-  {
-    brand: "Honda",
-    name: "H'ness CB350",
-    slug: "hness-cb350",
-    engine: "348.36 cc",
-    config: "Air-cooled single-cylinder",
-    class: "Modern Classic",
-    description: "Honda's modern classic roadster, blending traditional proportions with contemporary engineering and a refined single-cylinder character."
-  },
-  {
-    brand: "Honda",
-    name: "CB350RS",
-    slug: "cb350rs",
-    engine: "348.36 cc",
-    config: "Air-cooled single-cylinder",
-    class: "Sport Roadster",
-    description: "A sportier interpretation of Honda's 350 platform, with revised styling and a more contemporary roadster identity."
-  },
-  {
-    brand: "Honda",
-    name: "CB650R",
-    slug: "cb650r",
-    engine: "649 cc",
-    config: "Inline-four",
-    class: "Neo Sports Café",
-    description: "Honda's middleweight naked motorcycle pairs a compact neo-retro design with the distinctive sound and character of an inline-four engine."
-  },
-  {
-    brand: "Honda",
-    name: "Africa Twin",
-    slug: "africa-twin",
-    engine: "1084 cc",
-    config: "Parallel twin",
-    class: "Adventure Tourer",
-    description: "A flagship adventure motorcycle carrying forward the Africa Twin name through long-distance capability, off-road intent and a versatile parallel-twin platform."
-  },
-  {
-    brand: "KTM",
-    name: "390 Duke",
-    slug: "390-duke",
-    engine: "399 cc",
-    config: "Liquid-cooled single-cylinder",
-    class: "Naked Streetfighter",
-    description: "A sharp-edged lightweight streetfighter known for its aggressive design, responsive performance and distinctive orange identity."
-  },
-  {
-    brand: "KTM",
-    name: "390 Adventure",
-    slug: "390-adventure",
-    engine: "399 cc",
-    config: "Liquid-cooled single-cylinder",
-    class: "Adventure Tourer",
-    description: "A compact adventure platform designed to bring accessible performance and touring versatility to riders looking beyond the city."
-  },
-  {
-    brand: "KTM",
-    name: "RC 390",
-    slug: "rc-390",
-    engine: "373 cc",
-    config: "Liquid-cooled single-cylinder",
-    class: "Fully-faired Sport",
-    description: "A track-inspired single-cylinder sport motorcycle with committed ergonomics, full fairing and a strong connection to KTM's racing identity."
-  },
-  {
-    brand: "Yamaha",
-    name: "R15",
-    slug: "yamaha-r15",
-    engine: "155 cc",
-    config: "Liquid-cooled single-cylinder",
-    class: "Sport",
-    description: "A lightweight sportbike that introduced many Indian riders to supersport-inspired design, liquid cooling and a high-revving engine character."
-  },
-  {
-    brand: "Yamaha",
-    name: "MT-15",
-    slug: "mt-15",
-    engine: "155 cc",
-    config: "Liquid-cooled single-cylinder",
-    class: "Hyper Naked",
-    description: "A compact naked motorcycle from Yamaha's MT family, built around an upright riding position and an aggressive street-focused design."
-  },
-  {
-    brand: "Yamaha",
-    name: "R3",
-    slug: "yamaha-r3",
-    engine: "321 cc",
-    config: "Parallel twin",
-    class: "Sport",
-    description: "A lightweight twin-cylinder sportbike with a supersport-inspired silhouette and an approachable performance character."
-  },
-  {
-    brand: "Suzuki",
-    name: "Hayabusa",
-    slug: "hayabusa",
-    engine: "1340 cc",
-    config: "Inline-four",
-    class: "Hyperbike",
-    description: "An icon of high-speed motorcycling. The Hayabusa became famous for its aerodynamic design and extraordinary straight-line performance."
-  },
-  {
-    brand: "Kawasaki",
-    name: "Ninja ZX-10R",
-    slug: "ninja-zx10r",
-    engine: "998 cc",
-    config: "Inline-four",
-    class: "Superbike",
-    description: "A litre-class superbike developed with a strong connection to WorldSBK competition, combining aerodynamic design and track-focused engineering."
-  },
-  {
-    brand: "BMW Motorrad",
-    name: "S 1000 RR",
-    slug: "bmw-s1000rr",
-    engine: "999 cc",
-    config: "Inline-four",
-    class: "Superbike",
-    description: "BMW Motorrad's high-performance superbike, recognised for its asymmetric design heritage, advanced electronics and racing-derived engineering."
-  },
-  {
-    brand: "Aprilia",
-    name: "RS 457",
-    slug: "aprilia-rs457",
-    engine: "457 cc",
-    config: "Parallel twin",
-    class: "Sport",
-    description: "A modern lightweight sportbike carrying Aprilia's racing design language into the middleweight entry segment."
-  },
-  {
-    brand: "Triumph",
-    name: "Speed 400",
-    slug: "triumph-speed-400",
-    engine: "398 cc",
-    config: "Liquid-cooled single-cylinder",
-    class: "Modern Roadster",
-    description: "A modern roadster that brings Triumph's classic design cues into a compact, accessible motorcycle platform."
-  },
-  {
-    brand: "Ducati",
-    name: "Panigale V4",
-    slug: "ducati-panigale-v4",
-    engine: "1103 cc",
-    config: "90-degree V4",
-    class: "Superbike",
-    description: "Ducati's flagship V4 superbike, bringing racing-derived aerodynamics, advanced electronics and Italian design into a road-going package."
-  },
-  {
-    brand: "TVS",
-    name: "Apache RTR 310",
-    slug: "tvs-apache-rtr-310",
-    engine: "312.12 cc",
-    config: "Liquid-cooled single-cylinder",
-    class: "Streetfighter",
-    description: "A technology-focused naked motorcycle from TVS, with a distinctive design and a platform developed with performance in mind."
-  },
-  {
-    brand: "Hero",
-    name: "XPulse 200 4V",
-    slug: "hero-xpulse-200-4v",
-    engine: "199.6 cc",
-    config: "Oil-cooled single-cylinder",
-    class: "Dual Sport",
-    description: "An accessible dual-sport motorcycle built around practical off-road ability, long-travel suspension and everyday usability."
-  }
+/* MACHINES DATABASE (30 MACHINES WITH CDN IMAGES) */
+const machines = [
+  {brand:"Royal Enfield",name:"Classic 350",engine:"349 cc",config:"Single cylinder",type:"Roadster",category:"Royal Enfield",image:"assets/classic-350-detail.webp",description:"An enduring icon. The J-series Classic 350 balances traditional design with balanced smoothness and relaxed cruising ergonomics."},
+  {brand:"Royal Enfield",name:"Bullet 350",engine:"349 cc",config:"Single cylinder",type:"Roadster",category:"Royal Enfield",image:"https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=800&q=80",description:"The longest continuous running motorcycle model in history, bringing pure nostalgia and timeless simplicity."},
+  {brand:"Royal Enfield",name:"Hunter 350",engine:"349 cc",config:"Single cylinder",type:"Urban roadster",category:"Royal Enfield",image:"https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=800&q=80",description:"A nimble roadster tuned for flickability in dense urban streets without losing low-end punch."},
+  {brand:"Royal Enfield",name:"Interceptor 650",engine:"648 cc",config:"Parallel twin",type:"Roadster",category:"Royal Enfield",image:"https://images.unsplash.com/photo-1558981420-87aa9dad1c89?auto=format&fit=crop&w=800&q=80",description:"A modern interpretation of 1960s British parallel twins featuring a 270-degree crossplane crank."},
+  {brand:"Royal Enfield",name:"Continental GT 650",engine:"648 cc",config:"Parallel twin",type:"Cafe racer",category:"Royal Enfield",image:"https://images.unsplash.com/photo-1558980394-4c7c9299fe96?auto=format&fit=crop&w=800&q=80",description:"Clip-ons, rearsets, and a sculpted fuel tank create an authentic cafe racer profile."},
+  {brand:"Royal Enfield",name:"Himalayan 450",engine:"452 cc",config:"Liquid-cooled single",type:"Adventure",category:"Royal Enfield",image:"https://images.unsplash.com/photo-1508974239320-0a029497e820?auto=format&fit=crop&w=800&q=80",description:"The Sherpa 450 engine marks Royal Enfield's technological evolution into DOHC liquid cooling."},
+  {brand:"Royal Enfield",name:"Super Meteor 650",engine:"648 cc",config:"Parallel twin",type:"Cruiser",category:"Royal Enfield",image:"https://images.unsplash.com/photo-1558981359-219d6364c9c8?auto=format&fit=crop&w=800&q=80",description:"Low-slung touring cruiser built on a dedicated chassis with upside-down Showa forks."},
+  {brand:"Royal Enfield",name:"Shotgun 650",engine:"648 cc",config:"Parallel twin",type:"Custom roadster",category:"Royal Enfield",image:"https://images.unsplash.com/photo-1558980664-769d59546b3d?auto=format&fit=crop&w=800&q=80",description:"Neo-retro custom bobber aesthetic built around the versatile 648cc twin-cylinder heart."},
+  {brand:"Bajaj",name:"Pulsar NS200",engine:"199.5 cc",config:"Single cylinder",type:"Street naked",category:"Bajaj",image:"https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=800&q=80",description:"Perimeter chassis and high-revving triple-spark motor that set Indian streetfighter standards."},
+  {brand:"Bajaj",name:"Pulsar N250",engine:"249 cc",config:"Single cylinder",type:"Street naked",category:"Bajaj",image:"https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=800&q=80",description:"Refined quarter-litre oil-cooled roadster built for predictable commuting and torque delivery."},
+  {brand:"Bajaj",name:"Dominar 400",engine:"373 cc",config:"Single cylinder",type:"Sport tourer",category:"Bajaj",image:"https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80",description:"Heavyweight highway tourer with factory touring accessories and beam chassis stability."},
+  {brand:"Bajaj",name:"Pulsar RS200",engine:"199.5 cc",config:"Single cylinder",type:"Sports",category:"Bajaj",image:"https://images.unsplash.com/photo-1558981420-87aa9dad1c89?auto=format&fit=crop&w=800&q=80",description:"Aerodynamic fairing with projector lamps tailored for wind protection on highways."},
+  {brand:"Honda",name:"H'ness CB350",engine:"348.36 cc",config:"Single cylinder",type:"Classic roadster",category:"Honda",image:"https://images.unsplash.com/photo-1558980394-4c7c9299fe96?auto=format&fit=crop&w=800&q=80",description:"Japanese precision applied to the classic retro roadster genre with assist-and-slipper clutch."},
+  {brand:"Honda",name:"CB350RS",engine:"348.36 cc",config:"Single cylinder",type:"Sport roadster",category:"Honda",image:"https://images.unsplash.com/photo-1508974239320-0a029497e820?auto=format&fit=crop&w=800&q=80",description:"Tucked tail light, block-pattern rubber, and aggressive ergonomics for a modern scrambler look."},
+  {brand:"Honda",name:"CB650R",engine:"649 cc",config:"Inline four",type:"Naked sports",category:"Honda",image:"https://images.unsplash.com/photo-1558981359-219d6364c9c8?auto=format&fit=crop&w=800&q=80",description:"Neo Sports Café design showcasing cascading exhaust headers and an screaming inline-four."},
+  {brand:"Honda",name:"Africa Twin",engine:"1084 cc",config:"Parallel twin",type:"Adventure",category:"Honda",image:"https://images.unsplash.com/photo-1558980664-769d59546b3d?auto=format&fit=crop&w=800&q=80",description:"Dakar-tested globe trotter featuring rugged long-travel suspension and DCT gearbox option."},
+  {brand:"KTM",name:"390 Duke",engine:"398.7 cc",config:"Single cylinder",type:"Street naked",category:"KTM",image:"https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=800&q=80",description:"Uncompromising naked hooligan with class-leading power-to-weight and aggressive geometry."},
+  {brand:"KTM",name:"390 Adventure",engine:"398.7 cc",config:"Single cylinder",type:"Adventure",category:"KTM",image:"https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=800&q=80",description:"Cornering ABS, off-road traction control, and WP Apex suspension ready for trail duty."},
+  {brand:"KTM",name:"RC 390",engine:"373 cc",config:"Single cylinder",type:"Sports",category:"KTM",image:"https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80",description:"Track weapon with full Moto3 ergonomics, adjustable clip-ons, and razor-sharp flickability."},
+  {brand:"Yamaha",name:"R15",engine:"155 cc",config:"Single cylinder",type:"Sports",category:"Yamaha",image:"https://images.unsplash.com/photo-1558981420-87aa9dad1c89?auto=format&fit=crop&w=800&q=80",description:"Variable Valve Actuation and Deltabox aluminum swingarm make it a supreme supersport learner."},
+  {brand:"Yamaha",name:"MT-15",engine:"155 cc",config:"Single cylinder",type:"Street naked",category:"Yamaha",image:"https://images.unsplash.com/photo-1558980394-4c7c9299fe96?auto=format&fit=crop&w=800&q=80",description:"Dark Side of Japan styling distilled into a featherweight, punchy street fighter."},
+  {brand:"Yamaha",name:"R3",engine:"321 cc",config:"Parallel twin",type:"Sports",category:"Yamaha",image:"https://images.unsplash.com/photo-1508974239320-0a029497e820?auto=format&fit=crop&w=800&q=80",description:"High-revving parallel twin with tractable daily usability and confidence-inspiring chassis."},
+  {brand:"Other",name:"Hayabusa",engine:"1340 cc",config:"Inline four",type:"Hyper sport",category:"Other",image:"https://images.unsplash.com/photo-1558981359-219d6364c9c8?auto=format&fit=crop&w=800&q=80",description:"Legendary hyperbike engineered for aerodynamic stability beyond 300 km/h."},
+  {brand:"Other",name:"Ninja ZX-10R",engine:"998 cc",config:"Inline four",type:"Superbike",category:"Other",image:"https://images.unsplash.com/photo-1558980664-769d59546b3d?auto=format&fit=crop&w=800&q=80",description:"WorldSBK championship-winning liter class machine with comprehensive electronic aids."},
+  {brand:"Other",name:"BMW S1000RR",engine:"999 cc",config:"Inline four",type:"Superbike",category:"Other",image:"https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=800&q=80",description:"ShiftCam variable valve timing delivers ferocious pull right up to the 14,000 RPM ceiling."},
+  {brand:"Other",name:"Aprilia RS 457",engine:"457 cc",config:"Parallel twin",type:"Sports",category:"Other",image:"https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=800&q=80",description:"Twin-cylinder Italian precision engineered specifically around A2 license power thresholds."},
+  {brand:"Other",name:"Triumph Speed 400",engine:"398 cc",config:"Single cylinder",type:"Modern classic",category:"Other",image:"https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80",description:"Hinckley design pedigree packed into an accessible, beautifully finished roadster."},
+  {brand:"Other",name:"Ducati Panigale V4",engine:"1103 cc",config:"V4",type:"Superbike",category:"Other",image:"https://images.unsplash.com/photo-1558981420-87aa9dad1c89?auto=format&fit=crop&w=800&q=80",description:"Desmosedici Stradale V4 engine directly derived from Ducati MotoGP racing prototypes."},
+  {brand:"Other",name:"TVS Apache RTR 310",engine:"312 cc",config:"Single cylinder",type:"Street naked",category:"Other",image:"https://images.unsplash.com/photo-1558980394-4c7c9299fe96?auto=format&fit=crop&w=800&q=80",description:"Technology powerhouse featuring climate-controlled seats and dynamic race telemetry."},
+  {brand:"Other",name:"Hero XPulse 200 4V",engine:"199.6 cc",config:"Single cylinder",type:"Adventure",category:"Other",image:"https://images.unsplash.com/photo-1508974239320-0a029497e820?auto=format&fit=crop&w=800&q=80",description:"The everyman trail explorer with 21-inch front spoke rim and long-travel offroad suspension."}
 ];
 
-const machineGrid = document.querySelector("#machine-grid");
-const archiveFilters = document.querySelector("#archive-filters");
+/* RENDER ARCHIVE */
+const machineGrid = document.getElementById("machine-grid");
+const machineCount = document.getElementById("machine-count");
 
-function renderMachines(filter = "All") {
-  if (!machineGrid) return;
-
-  const filteredMachines = filter === "All"
-    ? motorcycles
-    : motorcycles.filter(bike => bike.brand === filter);
-
-  machineGrid.innerHTML = filteredMachines.map(bike => {
-    const index = motorcycles.indexOf(bike);
-
+function renderMachines(category = "All") {
+  const filtered = category === "All" ? machines : machines.filter(m => m.category === category);
+  machineCount.textContent = filtered.length;
+  machineGrid.innerHTML = filtered.map(m => {
+    const idx = machines.indexOf(m);
     return `
-      <article class="machine-card" data-index="${index}">
-        <button
-          class="machine-open"
-          type="button"
-          aria-label="Explore ${bike.brand} ${bike.name}">
-
-          <div class="machine-art">
-            <img
-              src="assets/sketches/${bike.slug}.webp"
-              alt="${bike.brand} ${bike.name} technical illustration"
-              loading="lazy"
-              onerror="this.style.display='none'; this.parentElement.classList.add('sketch-missing');">
-
-            <span class="machine-art-label">REDLINE ARCHIVE / ${String(index + 1).padStart(2, "0")}</span>
-            <span class="machine-art-fallback">ILLUSTRATION<br>COMING SOON</span>
+      <article class="machine-card" data-index="${idx}" tabindex="0" role="button" aria-label="Explore ${m.name}">
+        <div class="machine-art">
+          <span class="machine-placeholder">ARCHIVE REF: ${m.name.toUpperCase()}</span>
+          <img src="${m.image}" alt="${m.brand} ${m.name}" loading="lazy">
+          <span class="machine-arrow">↗</span>
+        </div>
+        <div class="machine-info">
+          <p class="machine-brand">${m.brand}</p>
+          <h3 class="machine-name">${m.name}</h3>
+          <div class="machine-meta">
+            <span>${m.engine}</span>
+            <span>${m.type.toUpperCase()}</span>
           </div>
-
-          <div class="machine-info">
-            <span class="machine-brand">${bike.brand}</span>
-            <h3>${bike.name}</h3>
-            <div class="machine-spec">
-              <span>${bike.engine}</span>
-              <span>${bike.class}</span>
-            </div>
-            <span class="machine-explore">EXPLORE MACHINE ↗</span>
-          </div>
-        </button>
+        </div>
       </article>
     `;
   }).join("");
-
-  const count = document.querySelector("#machine-count");
-  if (count) count.textContent = String(filteredMachines.length);
-
-  machineGrid.querySelectorAll(".machine-card").forEach(card => {
-    card.addEventListener("click", () => {
-      const bike = motorcycles[Number(card.dataset.index)];
-      openMachineDialog(bike);
-    });
-  });
 }
-
-if (archiveFilters) {
-  archiveFilters.querySelectorAll("[data-brand]").forEach(button => {
-    button.addEventListener("click", () => {
-      archiveFilters.querySelectorAll("[data-brand]").forEach(item => {
-        item.classList.remove("active");
-      });
-
-      button.classList.add("active");
-      renderMachines(button.dataset.brand || "All");
-    });
-  });
-}
-
 renderMachines();
 
+/* ARCHIVE FILTER LISTENER */
+document.getElementById("archive-filters").addEventListener("click", e => {
+  const btn = e.target.closest(".archive-filter");
+  if (!btn) return;
+  document.querySelectorAll(".archive-filter").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  renderMachines(btn.dataset.brand);
+});
 
-/* -----------------------------------------
-   3. MOTORCYCLE DETAIL DIALOG
------------------------------------------ */
-
-const machineDialog = document.querySelector("#machine-dialog");
-
-function openMachineDialog(bike) {
-  if (!machineDialog || !bike) return;
-
-  const setText = (selector, value) => {
-    const element = machineDialog.querySelector(selector);
-    if (element) element.textContent = value;
-  };
-
-  setText("#dialog-brand", bike.brand);
-  setText("#dialog-title", bike.name);
-  setText("#dialog-engine", bike.engine);
-  setText("#dialog-config", bike.config);
-  setText("#dialog-class", bike.class);
-  setText("#dialog-description", bike.description);
-
-  const dialogImage = machineDialog.querySelector("#dialog-image");
-
-  if (dialogImage) {
-    dialogImage.src = `assets/sketches/${bike.slug}.webp`;
-    dialogImage.alt = `${bike.brand} ${bike.name} technical illustration`;
-    dialogImage.onerror = () => {
-      dialogImage.style.display = "none";
-    };
-    dialogImage.onload = () => {
-      dialogImage.style.display = "block";
-    };
-  }
-
-  if (typeof machineDialog.showModal === "function") {
-    machineDialog.showModal();
-  } else {
-    machineDialog.setAttribute("open", "");
-  }
+/* MODAL DETAILS */
+const dialog = document.getElementById("machine-dialog");
+function openMachine(idx) {
+  const m = machines[idx];
+  if (!m) return;
+  document.getElementById("dialog-brand").textContent = m.brand.toUpperCase() + " / SPECIFICATION SHEET";
+  document.getElementById("dialog-title").textContent = m.name;
+  document.getElementById("dialog-image").src = m.image;
+  document.getElementById("dialog-engine").textContent = m.engine;
+  document.getElementById("dialog-config").textContent = m.config;
+  document.getElementById("dialog-class").textContent = m.type;
+  document.getElementById("dialog-description").textContent = m.description;
+  dialog.showModal();
 }
 
-const dialogClose = document.querySelector("#dialog-close");
+machineGrid.addEventListener("click", e => {
+  const card = e.target.closest(".machine-card");
+  if (card) openMachine(Number(card.dataset.index));
+});
 
-if (dialogClose) {
-  dialogClose.addEventListener("click", () => {
-    if (machineDialog && typeof machineDialog.close === "function") {
-      machineDialog.close();
-    } else if (machineDialog) {
-      machineDialog.removeAttribute("open");
-    }
-  });
-}
-
-if (machineDialog) {
-  machineDialog.addEventListener("click", event => {
-    if (event.target === machineDialog) {
-      machineDialog.close();
-    }
-  });
-}
-
-
-/* -----------------------------------------
-   4. MANUFACTURER MARQUEE
------------------------------------------ */
-
-const brandTrack = document.querySelector("#brand-track");
-
-if (brandTrack && !brandTrack.dataset.cloned) {
-  brandTrack.innerHTML += brandTrack.innerHTML;
-  brandTrack.dataset.cloned = "true";
-}
-
-
-/* -----------------------------------------
-   5. MOBILE NAVIGATION
------------------------------------------ */
-
-const menuButton = document.querySelector(".menu-toggle");
-const navigation = document.querySelector(".nav");
-
-if (menuButton && navigation) {
-  menuButton.setAttribute("aria-expanded", "false");
-
-  menuButton.addEventListener("click", () => {
-    const isOpen = navigation.classList.toggle("open");
-
-    menuButton.setAttribute("aria-expanded", String(isOpen));
-    menuButton.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
-  });
-
-  navigation.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", () => {
-      navigation.classList.remove("open");
-      menuButton.setAttribute("aria-expanded", "false");
-      menuButton.setAttribute("aria-label", "Open menu");
-    });
-  });
-
-  document.addEventListener("click", event => {
-    if (
-      navigation.classList.contains("open") &&
-      !navigation.contains(event.target) &&
-      !menuButton.contains(event.target)
-    ) {
-      navigation.classList.remove("open");
-      menuButton.setAttribute("aria-expanded", "false");
-    }
-  });
-}
-
-
-/* -----------------------------------------
-   6. FOOTER YEAR
------------------------------------------ */
-
-const yearElement = document.querySelector("#year");
-
-if (yearElement) {
-  yearElement.textContent = new Date().getFullYear();
-}
-
-
-/* -----------------------------------------
-   7. NEWSLETTER DEMO
------------------------------------------ */
-
-const newsletterForm = document.querySelector("#newsletter-form");
-const formMessage = document.querySelector("#form-message");
-
-if (newsletterForm) {
-  newsletterForm.addEventListener("submit", event => {
-    event.preventDefault();
-
-    if (formMessage) {
-      formMessage.textContent =
-        "Demo only: no email was stored. Connect a mailing-list service before launch.";
-    }
-  });
-}
-
-
-/* -----------------------------------------
-   8. SCROLL PROGRESS BAR
------------------------------------------ */
-
-const progressBar = document.querySelector("#rl-progress");
-
-function updateScrollProgress() {
-  if (!progressBar) return;
-
-  const scrollableHeight =
-    document.documentElement.scrollHeight - window.innerHeight;
-
-  const progress = scrollableHeight > 0
-    ? (window.scrollY / scrollableHeight) * 100
-    : 0;
-
-  progressBar.style.width = `${progress}%`;
-}
-
-window.addEventListener("scroll", updateScrollProgress, { passive: true });
-window.addEventListener("resize", updateScrollProgress);
-updateScrollProgress();
-
-
-/* -----------------------------------------
-   9. SCROLL REVEAL ANIMATIONS
------------------------------------------ */
-
-const revealElements = document.querySelectorAll(".rl-reveal");
-
-if ("IntersectionObserver" in window && revealElements.length) {
-  const revealObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {
-    threshold: 0.12,
-    rootMargin: "0px 0px -35px 0px"
-  });
-
-  revealElements.forEach(element => {
-    revealObserver.observe(element);
-  });
-} else {
-  revealElements.forEach(element => {
-    element.classList.add("is-visible");
-  });
-}
-
-
-/* -----------------------------------------
-   10. PAGE INTRO / LOADER
------------------------------------------ */
-
-window.addEventListener("load", () => {
-  document.body.classList.add("page-loaded");
-
-  const loader = document.querySelector(".rl-loader");
-
-  if (loader) {
-    loader.classList.add("loader-finished");
-
-    window.setTimeout(() => {
-      loader.remove();
-    }, 900);
+machineGrid.addEventListener("keydown", e => {
+  if (e.key === "Enter" || e.key === " ") {
+    const card = e.target.closest(".machine-card");
+    if (card) { e.preventDefault(); openMachine(Number(card.dataset.index)); }
   }
 });
 
+document.getElementById("dialog-close").addEventListener("click", () => dialog.close());
+dialog.addEventListener("click", e => { if (e.target === dialog) dialog.close(); });
 
-/* -----------------------------------------
-   11. ACCESSIBILITY: ESCAPE CLOSES DIALOG
------------------------------------------ */
+/* DUAL VIEW SKETCH / PHOTO TOGGLE */
+const btnSketch = document.getElementById("btn-show-sketch");
+const btnPhoto = document.getElementById("btn-show-photo");
+const layerSketch = document.getElementById("layer-sketch");
+const layerPhoto = document.getElementById("layer-photo");
 
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape" && machineDialog?.open) {
-    machineDialog.close();
-  }
+btnSketch.addEventListener("click", () => {
+  btnSketch.classList.add("active");
+  btnPhoto.classList.remove("active");
+  layerSketch.classList.add("active");
+  layerPhoto.classList.remove("active");
 });
 
+btnPhoto.addEventListener("click", () => {
+  btnPhoto.classList.add("active");
+  btnSketch.classList.remove("active");
+  layerPhoto.classList.add("active");
+  layerSketch.classList.remove("active");
+});
 
-/* -----------------------------------------
-   12. REDLINE CONSOLE SIGNATURE
------------------------------------------ */
+/* BRAND TICKER DUPLICATION */
+const brandTrack = document.getElementById("brand-track");
+brandTrack.innerHTML += brandTrack.innerHTML;
 
-console.log(
-  "%c REDLINE PAGES ",
-  "background:#c65b42;color:#fff;font-weight:800;padding:8px 12px;font-size:14px;"
-);
+/* MOBILE MENU */
+const menuToggle = document.getElementById("menu-toggle");
+const nav = document.getElementById("nav");
+menuToggle.addEventListener("click", () => {
+  const open = nav.classList.toggle("open");
+  menuToggle.textContent = open ? "✕" : "☰";
+});
 
-console.log(
-  "%c MACHINES. ROADS. STORIES. ",
-  "color:#c65b42;font-weight:700;letter-spacing:3px;"
-);
+nav.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    nav.classList.remove("open");
+    menuToggle.textContent = "☰";
+  });
+});
+
+/* PROGRESS BAR */
+window.addEventListener("scroll", () => {
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = total > 0 ? (window.scrollY / total) * 100 : 0;
+  document.getElementById("progress").style.width = pct + "%";
+}, { passive: true });
+
+/* INTERSECTION REVEALS */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+/* YEAR & FORM */
+document.getElementById("year").textContent = new Date().getFullYear();
+document.getElementById("newsletter-form").addEventListener("submit", e => {
+  e.preventDefault();
+  document.getElementById("form-message").textContent = "Newsletter registrations are opening soon. Thank you for subscribing!";
+});
