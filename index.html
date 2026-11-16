@@ -1,1460 +1,556 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <meta name="description" content="REDLINE PAGES — An independent journal exploring motorcycles, engineering, riding culture and the roads that connect them.">
-
-<meta name="theme-color" content="#101113">
-
+<meta name="theme-color" content="#0a0a0c">
 <title>REDLINE PAGES — Machines. Roads. Stories.</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-
-/* =====================================
-   REDLINE PAGES — DESIGN SYSTEM
-===================================== */
-
-:root {
-  --red: #ed2929;
-  --black: #101113;
-  --surface: #17191c;
-  --surface-2: #202327;
-  --white: #f5f4f0;
-  --muted: #a4a5a8;
-  --line: rgba(255,255,255,.12);
-  --container: 1440px;
+/* =====================================================
+   REDLINE PAGES — FUNK EDITION
+   created by Jatayiu
+===================================================== */
+:root{
+  --red:#ff2a2a;
+  --pink:#ff2e93;
+  --acid:#c8ff00;
+  --cyan:#00e5ff;
+  --black:#0a0a0c;
+  --surface:#15171a;
+  --surface-2:#1d2024;
+  --white:#f5f4f0;
+  --muted:#a4a5a8;
+  --line:rgba(255,255,255,.12);
+  --container:1440px;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --ease-io:cubic-bezier(.76,0,.24,1);
 }
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body.locked{overflow:hidden;height:100vh}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+button{cursor:pointer}
+img{display:block;max-width:100%}
+::selection{background:var(--acid);color:#000}
+.container{width:min(var(--container),88%);margin-inline:auto}
+.eyebrow{color:var(--red);font:11px 'Space Mono',monospace;letter-spacing:2.5px;text-transform:uppercase}
+.section{padding:120px 0;position:relative}
+.section-title{font:800 clamp(55px,7vw,100px)/.92 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:-1px}
+.section-title em,.section-heading h2 em{color:var(--red);font-style:normal;background:linear-gradient(90deg,var(--red),var(--pink),var(--red));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flow 4s linear infinite}
+@keyframes flow{to{background-position:200% 0}}
+.section-description{color:var(--muted);max-width:550px;line-height:1.85;font-size:15px;margin-top:22px}
+.red-line{width:55px;height:3px;background:var(--red);margin:22px 0;transform-origin:left;box-shadow:0 0 18px var(--red)}
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* =====================================================
+   NOISE + CURSOR + PROGRESS
+===================================================== */
+body::after{
+  content:"";position:fixed;inset:-50%;width:200%;height:200%;z-index:9990;pointer-events:none;opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 1s steps(6) infinite;
 }
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 100px;
+@keyframes grain{
+  0%{transform:translate(0,0)}20%{transform:translate(-4%,3%)}40%{transform:translate(3%,-5%)}
+  60%{transform:translate(-5%,-2%)}80%{transform:translate(4%,4%)}100%{transform:translate(0,0)}
 }
+.progress{position:fixed;z-index:2000;top:0;left:0;width:0;height:3px;background:linear-gradient(90deg,var(--red),var(--pink),var(--acid));box-shadow:0 0 14px var(--red)}
 
-body {
-  background: var(--black);
-  color: var(--white);
-  font-family: 'DM Sans', sans-serif;
-  overflow-x: hidden;
-  line-height: 1.6;
+.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:99999;display:none}
+.has-cursor .cursor-dot,.has-cursor .cursor-ring{display:block}
+.has-cursor,.has-cursor a,.has-cursor button{cursor:none}
+.cursor-dot{width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:var(--acid)}
+.cursor-ring{width:42px;height:42px;margin:-21px 0 0 -21px;border-radius:50%;border:1.5px solid #fff;mix-blend-mode:difference;transition:width .3s var(--ease),height .3s var(--ease),margin .3s var(--ease),background .3s}
+.cursor-ring.hot{width:86px;height:86px;margin:-43px 0 0 -43px;background:#fff}
+
+/* =====================================================
+   ENTRY GATE
+===================================================== */
+#gate{
+  position:fixed;inset:0;z-index:10000;background:var(--black);display:grid;place-items:center;overflow:hidden;
+  transition:transform 1.1s var(--ease-io),opacity .9s ease .1s,filter .9s;
 }
-
-a {
-  color: inherit;
-  text-decoration: none;
+#gate.out{opacity:0;transform:scale(1.7);filter:blur(16px);pointer-events:none}
+#gate canvas{position:absolute;inset:0;width:100%;height:100%}
+#gate::before{ /* vignette + scanlines */
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 3px),
+    radial-gradient(ellipse at center,transparent 35%,rgba(0,0,0,.85) 100%);
 }
+.gate-hud{position:absolute;z-index:3;font:10px 'Space Mono',monospace;letter-spacing:3px;color:#8d8f94;opacity:0;animation:fadeUp 1s var(--ease) forwards}
+.gate-hud.tl{top:28px;left:32px;animation-delay:.4s}
+.gate-hud.tr{top:28px;right:32px;animation-delay:.55s}
+.gate-hud.bl{bottom:28px;left:32px;animation-delay:.7s}
+.gate-hud.br{bottom:28px;right:32px;animation-delay:.85s}
+.gate-hud b{color:var(--red);font-weight:400}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 
-button, input {
-  font: inherit;
-}
+.gate-ui{position:relative;z-index:3;text-align:center;padding:0 5%}
+.gate-pre{font:11px 'Space Mono',monospace;letter-spacing:8px;color:var(--acid);opacity:0;animation:preIn 1.4s var(--ease) .3s forwards}
+@keyframes preIn{from{opacity:0;letter-spacing:30px;filter:blur(8px)}to{opacity:1;letter-spacing:8px;filter:none}}
+.gate-title{font:900 clamp(70px,17vw,250px)/.8 'Barlow Condensed',sans-serif;letter-spacing:-4px;text-transform:uppercase;margin:26px 0 8px;display:flex;justify-content:center;flex-wrap:wrap}
+.gate-title .g{display:inline-block;opacity:0;transform:translateY(-120px) rotateX(90deg) scale(1.4);filter:blur(18px);
+  animation:dropIn 1.1s var(--ease) forwards;animation-delay:calc(.5s + var(--i)*.09s);
+  color:transparent;-webkit-text-stroke:2px #fff;transition:color .3s}
+.gate-title .g:nth-child(odd){-webkit-text-stroke-color:var(--red)}
+.gate-title .g.dot{color:var(--acid);-webkit-text-stroke:0}
+.gate-title:hover .g{color:#fff}
+@keyframes dropIn{to{opacity:1;transform:none;filter:none}}
+.gate-title.flick{animation:flicker 5s linear 2.6s infinite}
+@keyframes flicker{0%,92%,100%{opacity:1}93%{opacity:.4}94%{opacity:1}96%{opacity:.6}97%{opacity:1}}
 
-button {
-  cursor: pointer;
-}
+.boot{font:11px 'Space Mono',monospace;color:#8d8f94;line-height:2;height:66px;margin-bottom:26px;text-align:left;display:inline-block}
+.boot span{display:block;opacity:0;white-space:nowrap;overflow:hidden;animation:typeIn .8s steps(34) forwards}
+.boot span:nth-child(1){animation-delay:1.5s}
+.boot span:nth-child(2){animation-delay:2s}
+.boot span:nth-child(3){animation-delay:2.5s}
+.boot i{color:var(--acid);font-style:normal}
+@keyframes typeIn{from{opacity:1;max-width:0}to{opacity:1;max-width:40ch}}
 
-img {
-  display: block;
-  max-width: 100%;
-}
+.ignite{position:relative;width:150px;height:150px;border-radius:50%;border:2px solid var(--red);background:rgba(255,42,42,.06);color:#fff;
+  font:800 24px 'Barlow Condensed',sans-serif;letter-spacing:4px;display:inline-grid;place-items:center;margin:0 auto;
+  opacity:0;transform:scale(.3);animation:popIn 1s var(--ease) 3s forwards;transition:background .3s,box-shadow .3s,color .3s}
+@keyframes popIn{to{opacity:1;transform:scale(1)}}
+.ignite::before,.ignite::after{content:"";position:absolute;inset:-2px;border-radius:50%;border:1.5px solid var(--red);animation:ripple 2.4s ease-out infinite}
+.ignite::after{animation-delay:1.2s}
+@keyframes ripple{from{transform:scale(1);opacity:.9}to{transform:scale(2.3);opacity:0}}
+.ignite:hover,.ignite:focus-visible{background:var(--red);box-shadow:0 0 60px var(--red),inset 0 0 30px rgba(255,255,255,.25);outline:none}
+.ignite small{display:block;font:9px 'Space Mono',monospace;letter-spacing:2px;color:#ffb3b3;margin-top:-6px}
+.gate-hint{font:10px 'Space Mono',monospace;letter-spacing:3px;color:#7d7f84;margin-top:26px;opacity:0;animation:fadeUp 1s ease 3.4s forwards}
+body.igniting .ignite{transform:scale(1.25);background:var(--acid);border-color:var(--acid);color:#000;box-shadow:0 0 120px var(--acid);transition:all .5s var(--ease)}
+body.igniting #gate .gate-title{animation:shake .12s linear infinite}
+@keyframes shake{0%{transform:translate(0,0)}25%{transform:translate(-3px,2px)}50%{transform:translate(3px,-2px)}75%{transform:translate(-2px,-3px)}100%{transform:translate(0,0)}}
 
-::selection {
-  background: var(--red);
-  color: white;
-}
-
-.container {
-  width: min(var(--container), 88%);
-  margin-inline: auto;
-}
-
-.mono {
-  font-family: 'Space Mono', monospace;
-}
-
-.eyebrow {
-  color: var(--red);
-  font: 11px 'Space Mono', monospace;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-}
-
-.section {
-  padding: 115px 0;
-}
-
-.section-title {
-  font: 800 clamp(55px, 7vw, 100px)/.92 'Barlow Condensed', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: -1px;
-}
-
-.section-title em {
-  color: var(--red);
-  font-style: normal;
-}
-
-.section-description {
-  color: var(--muted);
-  max-width: 550px;
-  line-height: 1.85;
-  font-size: 15px;
-  margin-top: 22px;
-}
-
-.red-line {
-  width: 55px;
-  height: 3px;
-  background: var(--red);
-  margin: 22px 0;
-}
-
-/* =====================================
+/* =====================================================
    LOADER
-===================================== */
+===================================================== */
+#loader{position:fixed;inset:0;z-index:9000;display:none;place-items:center;overflow:hidden}
+body.loading #loader{display:grid}
+.strips{position:absolute;inset:0;display:flex}
+.strip{flex:1;background:var(--black);border-right:1px solid rgba(255,255,255,.03);
+  background-image:linear-gradient(180deg,transparent 70%,rgba(255,42,42,.12));
+  transition:transform 1s var(--ease-io) calc(var(--i)*70ms + 250ms)}
+.strip:nth-child(even){background-image:linear-gradient(0deg,transparent 70%,rgba(200,255,0,.08))}
+#loader.open .strip{transform:translateY(-101%)}
+#loader.open .strip:nth-child(even){transform:translateY(101%)}
+.loader-content{position:relative;z-index:2;text-align:center;padding:0 5%;transition:opacity .5s ease,transform .7s var(--ease),filter .5s}
+#loader.fade .loader-content{opacity:0;transform:scale(.88);filter:blur(10px)}
+.by{font:11px 'Space Mono',monospace;letter-spacing:10px;color:var(--acid);opacity:0;transform:translateY(10px)}
+#loader.go .by{animation:fadeUp .9s var(--ease) .1s forwards}
+.name{position:relative;display:inline-block;font:900 clamp(62px,15vw,190px)/.85 'Barlow Condensed',sans-serif;letter-spacing:-3px;text-transform:uppercase;margin:16px 0 10px;perspective:700px}
+.name .l{display:inline-block;opacity:0;transform:translateY(80px) rotateX(-90deg) scale(.5);filter:blur(12px);
+  background:linear-gradient(180deg,#fff 30%,var(--red));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+#loader.go .name .l{animation:letterIn 1s var(--ease) forwards;animation-delay:calc(var(--i)*.1s + .25s)}
+@keyframes letterIn{to{opacity:1;transform:none;filter:none}}
+.name::before,.name::after{content:attr(data-text);position:absolute;left:0;top:0;width:100%;opacity:0;pointer-events:none}
+.name::before{color:var(--cyan);animation:glitchA 2.6s linear 1.6s infinite}
+.name::after{color:var(--pink);animation:glitchB 2.6s linear 1.6s infinite}
+@keyframes glitchA{0%,86%,100%{opacity:0}88%{opacity:.9;transform:translate(-6px,2px);clip-path:inset(8% 0 62% 0)}92%{opacity:.9;transform:translate(5px,-2px);clip-path:inset(58% 0 12% 0)}96%{opacity:0}}
+@keyframes glitchB{0%,87%,100%{opacity:0}90%{opacity:.9;transform:translate(6px,-2px);clip-path:inset(40% 0 30% 0)}94%{opacity:.9;transform:translate(-5px,3px);clip-path:inset(5% 0 75% 0)}97%{opacity:0}}
+.name-bar{height:4px;width:0;margin:0 auto 34px;background:linear-gradient(90deg,var(--red),var(--pink),var(--acid));box-shadow:0 0 20px var(--red)}
+#loader.go .name-bar{animation:bar 1.4s var(--ease) 1s forwards}
+@keyframes bar{to{width:min(420px,70%)}}
 
-.loader {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: var(--black);
-  display: grid;
-  place-items: center;
-  animation: loaderHide .5s ease 1.4s forwards;
-}
+.gauge{position:relative;width:min(230px,56vw);margin:0 auto}
+.gauge svg{width:100%;height:auto;overflow:visible}
+.g-track{fill:none;stroke:#26282c;stroke-width:8;stroke-linecap:round}
+.g-prog{fill:none;stroke:var(--acid);stroke-width:8;stroke-linecap:round;filter:drop-shadow(0 0 8px var(--acid))}
+.g-prog.redzone{stroke:var(--red);filter:drop-shadow(0 0 10px var(--red))}
+.g-needle{transform-origin:120px 120px}
+.gauge-num{position:absolute;inset:0;display:grid;place-items:center;padding-top:42px;font:800 48px 'Barlow Condensed',sans-serif}
+.gauge-num small{display:block;font:9px 'Space Mono',monospace;letter-spacing:3px;color:var(--muted);text-align:center;margin-top:-4px}
+.status{font:10px 'Space Mono',monospace;letter-spacing:4px;color:var(--muted);margin-top:8px;min-height:18px}
+.loader-corner{position:absolute;z-index:2;font:10px 'Space Mono',monospace;letter-spacing:3px;color:#6b6d72}
+.loader-corner.a{left:32px;bottom:28px}.loader-corner.b{right:32px;bottom:28px}
 
-.loader-logo {
-  font: 900 clamp(55px, 12vw, 110px)/.9 'Barlow Condensed';
-  letter-spacing: -3px;
-}
-
-.loader-logo span {
-  color: var(--red);
-}
-
-.loader p {
-  color: var(--muted);
-  font: 10px 'Space Mono';
-  letter-spacing: 4px;
-  margin-top: 20px;
-  text-align: center;
-}
-
-.loader-bar {
-  height: 2px;
-  width: 180px;
-  background: #333;
-  margin: 20px auto;
-  overflow: hidden;
-}
-
-.loader-bar::after {
-  content: "";
-  display: block;
-  height: 100%;
-  width: 100%;
-  background: var(--red);
-  animation: loading 1.2s ease forwards;
-}
-
-@keyframes loading {
-  to { transform: translateX(0); }
-}
-
-.loader-bar::after {
-  transform: translateX(-100%);
-}
-
-@keyframes loaderHide {
-  to {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
-}
-
-/* =====================================
-   PROGRESS BAR
-===================================== */
-
-.progress {
-  position: fixed;
-  z-index: 2000;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 3px;
-  background: var(--red);
-}
-
-/* =====================================
-   ANNOUNCEMENT
-===================================== */
-
-.announcement {
-  background: var(--red);
-  color: white;
-  text-align: center;
-  padding: 9px 15px;
-  font: 10px 'Space Mono', monospace;
-  letter-spacing: 2px;
-}
-
-/* =====================================
+/* =====================================================
    HEADER
-===================================== */
+===================================================== */
+.announcement{background:var(--red);color:#fff;text-align:center;padding:9px 15px;font:10px 'Space Mono',monospace;letter-spacing:2px;overflow:hidden;white-space:nowrap}
+.header{position:sticky;top:0;z-index:1000;background:rgba(10,10,12,.82);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);transition:transform .6s var(--ease)}
+.header.hide{transform:translateY(-100%)}
+.header-inner{min-height:86px;width:min(var(--container),88%);margin:auto;display:flex;align-items:center;justify-content:space-between;gap:35px}
+.logo{flex-shrink:0;font:900 35px/.85 'Barlow Condensed',sans-serif;letter-spacing:-1px;position:relative}
+.logo span{color:var(--red);display:inline-block;transition:transform .4s var(--ease),text-shadow .3s}
+.logo:hover span{transform:skewX(-12deg);text-shadow:3px 0 var(--cyan),-3px 0 var(--pink)}
+.logo small{display:block;color:var(--muted);font:8px 'Space Mono',monospace;letter-spacing:2px;margin-top:8px}
+.nav{display:flex;align-items:center;gap:clamp(15px,2vw,30px)}
+.nav a{position:relative;font-size:12px;font-weight:600;color:#c2c2c2;padding:6px 0;transition:color .2s}
+.nav a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--red);transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease)}
+.nav a:hover,.nav a.active{color:#fff}
+.nav a:hover::after,.nav a.active::after{transform:scaleX(1);transform-origin:left}
+.menu-toggle{display:none;background:none;border:1px solid var(--line);color:#fff;padding:9px 13px;font-size:20px}
 
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: rgba(16,17,19,.96);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--line);
-}
-
-.header-inner {
-  min-height: 86px;
-  width: min(var(--container), 88%);
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 35px;
-}
-
-.logo {
-  flex-shrink: 0;
-  font: 900 35px/.85 'Barlow Condensed', sans-serif;
-  letter-spacing: -1px;
-}
-
-.logo span {
-  color: var(--red);
-}
-
-.logo small {
-  display: block;
-  color: var(--muted);
-  font: 8px 'Space Mono', monospace;
-  letter-spacing: 2px;
-  margin-top: 8px;
-}
-
-.nav {
-  display: flex;
-  align-items: center;
-  gap: clamp(15px, 2vw, 30px);
-}
-
-.nav a {
-  font-size: 12px;
-  font-weight: 600;
-  color: #c2c2c2;
-  transition: color .2s;
-}
-
-.nav a:hover,
-.nav a.active {
-  color: var(--red);
-}
-
-.menu-toggle {
-  display: none;
-  background: none;
-  border: 1px solid var(--line);
-  color: white;
-  padding: 9px 13px;
-  font-size: 20px;
-}
-
-/* =====================================
+/* =====================================================
    HERO
-===================================== */
-
-.hero {
-  min-height: 690px;
-  height: min(83vh, 900px);
-  position: relative;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  isolation: isolate;
-}
-
-.hero-image {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  background:
-    url("https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=2200&q=90")
-    center 55% / cover no-repeat;
-  animation: heroZoom 15s ease-out forwards;
-}
-
-@keyframes heroZoom {
-  from { transform: scale(1.08); }
-  to { transform: scale(1); }
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background:
-    linear-gradient(90deg,
-      rgba(9,10,12,.96) 0%,
-      rgba(9,10,12,.83) 42%,
-      rgba(9,10,12,.30) 100%),
-    linear-gradient(0deg,
-      rgba(9,10,12,.65),
-      transparent 50%);
-}
-
-.hero-content {
-  width: min(var(--container), 88%);
-  margin: auto;
-  padding: 80px 0;
-  animation: reveal 1s ease .2s both;
-}
-
-@keyframes reveal {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.hero-kicker {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: #dedede;
-  font: 11px 'Space Mono', monospace;
-  letter-spacing: 2px;
-  margin-bottom: 35px;
-}
-
-.hero-kicker span {
-  height: 8px;
-  width: 8px;
-  border-radius: 50%;
-  background: var(--red);
-  box-shadow: 0 0 15px var(--red);
-}
-
-.hero h1 {
-  font: 900 clamp(85px, 12vw, 175px)/.78 'Barlow Condensed', sans-serif;
-  letter-spacing: -3px;
-  text-transform: uppercase;
-}
-
-.hero h1 em {
-  color: var(--red);
-  font-style: normal;
-}
-
-.hero-description {
-  color: #d1d1d1;
-  font-size: 16px;
-  max-width: 470px;
-  line-height: 1.9;
-  margin-top: 35px;
-}
-
-.button {
-  display: inline-flex;
-  align-items: center;
-  gap: 25px;
-  padding: 16px 23px;
-  margin-top: 35px;
-  font: 11px 'Space Mono', monospace;
-  letter-spacing: 1px;
-  transition: .3s;
-}
-
-.button-red {
-  background: var(--red);
-  color: white;
-}
-
-.button-red:hover {
-  background: white;
-  color: var(--black);
-  transform: translateY(-3px);
-}
-
-.hero-index {
-  position: absolute;
-  bottom: 35px;
-  right: 6%;
-  color: #aaa;
-  font: 10px 'Space Mono', monospace;
-  letter-spacing: 2px;
-}
-
-/* =====================================
-   CATEGORY TICKER
-===================================== */
-
-.ticker {
-  overflow: hidden;
-  padding: 24px 0;
-  border-bottom: 1px solid var(--line);
-  background: #151619;
-}
-
-.ticker-track {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 40px;
-  min-width: max-content;
-  animation: ticker 35s linear infinite;
-}
-
-.ticker-track span {
-  font: 700 25px 'Barlow Condensed', sans-serif;
-  letter-spacing: 2px;
-}
-
-.ticker-track i {
-  color: var(--red);
-  font-style: normal;
-}
-
-@keyframes ticker {
-  to { transform: translateX(-30%); }
-}
-
-/* =====================================
-   BRAND STRIP
-===================================== */
-
-.brands {
-  padding: 55px 0;
-  background: #141619;
-  border-bottom: 1px solid var(--line);
-  overflow: hidden;
-}
-
-.brand-heading {
-  text-align: center;
-  margin-bottom: 32px;
-}
-
-.brand-heading p {
-  font: 10px 'Space Mono', monospace;
-  color: var(--muted);
-  letter-spacing: 3px;
-}
-
-.brand-track {
-  display: flex;
-  width: max-content;
-  animation: brandMove 45s linear infinite;
-}
-
-.brand-track:hover {
-  animation-play-state: paused;
-}
-
-.brand-item {
-  font: 800 30px 'Barlow Condensed', sans-serif;
-  color: #77797d;
-  padding: 8px 34px;
-  white-space: nowrap;
-  border-right: 1px solid var(--line);
-  transition: color .2s;
-}
-
-.brand-item:hover {
-  color: white;
-}
-
-.brand-item span {
-  color: var(--red);
-}
-
-@keyframes brandMove {
-  to { transform: translateX(-50%); }
-}
-
-/* =====================================
-   SECTION HEADINGS
-===================================== */
-
-.section-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  gap: 40px;
-  margin-bottom: 45px;
-}
-
-.section-heading h2 {
-  font: 800 clamp(55px, 7vw, 85px)/.9 'Barlow Condensed';
-  text-transform: uppercase;
-}
-
-.section-heading h2 em {
-  color: var(--red);
-  font-style: normal;
-}
-
-.section-note {
-  max-width: 320px;
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.8;
-}
-
-/* =====================================
-   LATEST STORIES
-===================================== */
-
-.latest {
-  background: var(--black);
-}
-
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 35px;
-}
-
-.filter {
-  padding: 11px 18px;
-  color: #aaa;
-  background: transparent;
-  border: 1px solid var(--line);
-  font: 10px 'Space Mono', monospace;
-  transition: .25s;
-}
-
-.filter:hover,
-.filter.active {
-  background: var(--red);
-  border-color: var(--red);
-  color: white;
-}
-
-.story-grid {
-  display: grid;
-  grid-template-columns: repeat(3,minmax(0,1fr));
-  gap: 25px;
-}
-
-.story-card {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  overflow: hidden;
-  transition: .3s;
-}
-
-.story-card:hover {
-  transform: translateY(-7px);
-  border-color: var(--red);
-}
-
-.story-card img {
-  width: 100%;
-  height: 255px;
-  object-fit: cover;
-}
-
-.story-card-content {
-  padding: 25px;
-}
-
-.story-card-content h3 {
-  font: 700 32px/1 'Barlow Condensed';
-  margin: 12px 0;
-}
-
-.story-card-content p {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.8;
-}
-
-.story-card-content a {
-  display: inline-block;
-  color: var(--red);
-  margin-top: 20px;
-  font: 10px 'Space Mono', monospace;
-}
-
-/* =====================================
-   MACHINE FEATURE
-===================================== */
-
-.feature {
-  min-height: 600px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
-
-.feature-image {
-  position: absolute;
-  inset: 0;
-  background:
-    url("https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=2200&q=85")
-    center / cover no-repeat;
-  transition: transform 1s;
-}
-
-.feature:hover .feature-image {
-  transform: scale(1.04);
-}
-
-.feature::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg,rgba(10,11,13,.96),rgba(10,11,13,.35));
-}
-
-.feature-content {
-  width: min(var(--container),88%);
-  margin: auto;
-  position: relative;
-  z-index: 2;
-}
-
-.feature-content h2 {
-  font: 800 clamp(65px,9vw,115px)/.9 'Barlow Condensed';
-  text-transform: uppercase;
-  margin-top: 25px;
-}
-
-.feature-content h2 em {
-  color: var(--red);
-  font-style: normal;
-}
-
-.feature-content p {
-  max-width: 480px;
-  color: #ccc;
-  line-height: 1.9;
-  margin-top: 25px;
-}
-
-.text-link {
-  display: inline-block;
-  color: white;
-  border-bottom: 2px solid var(--red);
-  padding: 10px 0;
-  margin-top: 25px;
-  font: 11px 'Space Mono', monospace;
-}
-
-/* =====================================
-   MACHINE ARCHIVE
-===================================== */
-
-.archive {
-  background: #0d0e10;
-}
-
-.archive-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  gap: 30px;
-  margin-bottom: 50px;
-}
-
-.archive-counter {
-  text-align: right;
-  color: var(--muted);
-  font: 10px 'Space Mono', monospace;
-  letter-spacing: 2px;
-}
-
-.archive-counter strong {
-  display: block;
-  color: var(--red);
-  font: 800 65px 'Barlow Condensed';
-}
-
-.archive-filters {
-  display: flex;
-  gap: 9px;
-  flex-wrap: wrap;
-  margin-bottom: 35px;
-}
-
-.archive-filter {
-  border: 1px solid var(--line);
-  background: transparent;
-  color: #bbb;
-  padding: 12px 17px;
-  font: 10px 'Space Mono', monospace;
-  transition: .2s;
-}
-
-.archive-filter:hover,
-.archive-filter.active {
-  background: var(--red);
-  color: white;
-  border-color: var(--red);
-}
-
-.machine-grid {
-  display: grid;
-  grid-template-columns: repeat(3,minmax(0,1fr));
-  gap: 22px;
-}
-
-.machine-card {
-  position: relative;
-  overflow: hidden;
-  background: var(--surface);
-  border: 1px solid rgba(255,255,255,.08);
-  cursor: pointer;
-  transition: transform .3s,border-color .3s;
-}
-
-.machine-card:hover {
-  transform: translateY(-7px);
-  border-color: var(--red);
-}
-
-.machine-art {
-  height: 260px;
-  position: relative;
-  background: #e9e7df;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-}
-
-.machine-art img {
-  width: 100%;
-  height: 100%;
-  padding: 15px;
-  object-fit: contain;
-  filter: grayscale(1);
-  transition: .5s;
-}
-
-.machine-card:hover .machine-art img {
-  transform: scale(1.08);
-  filter: grayscale(.2);
-}
-
-.machine-placeholder {
-  position: absolute;
-  text-align: center;
-  color: #777;
-  font: 11px 'Space Mono', monospace;
-  padding: 20px;
-  pointer-events: none;
-}
-
-.machine-art img:not([src=""]) {
-  position: relative;
-  z-index: 1;
-}
-
-.machine-art img.broken {
-  display: none;
-}
-
-.machine-info {
-  padding: 23px;
-}
-
-.machine-brand {
-  color: var(--red);
-  font: 10px 'Space Mono', monospace;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.machine-name {
-  font: 800 36px/.95 'Barlow Condensed';
-  text-transform: uppercase;
-  margin: 12px 0 18px;
-}
-
-.machine-meta {
-  border-top: 1px solid var(--line);
-  padding-top: 14px;
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  color: #aaa;
-  font: 9px 'Space Mono', monospace;
-}
-
-.machine-arrow {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: var(--red);
-  padding: 9px 12px;
-  z-index: 3;
-  color: white;
-  opacity: 0;
-  transition: .3s;
-}
-
-.machine-card:hover .machine-arrow {
-  opacity: 1;
-}
-
-.archive-end {
-  text-align: center;
-  margin-top: 50px;
-  color: var(--muted);
-  font: 10px 'Space Mono', monospace;
-  letter-spacing: 2px;
-}
-
-/* =====================================
-   MACHINE DIALOG
-===================================== */
-
-.machine-dialog {
-  width: min(850px,92vw);
-  max-height: 88vh;
-  margin: auto;
-  padding: 0;
-  background: #17191c;
-  color: white;
-  border: 1px solid var(--line);
-}
-
-.machine-dialog::backdrop {
-  background: rgba(0,0,0,.85);
-  backdrop-filter: blur(8px);
-}
-
-.dialog-inner {
-  padding: clamp(25px,5vw,50px);
-}
-
-.dialog-close {
-  float: right;
-  border: 0;
-  background: var(--red);
-  color: white;
-  padding: 11px 16px;
-}
-
-.dialog-title {
-  clear: both;
-  font: 900 clamp(50px,9vw,90px)/.9 'Barlow Condensed';
-  text-transform: uppercase;
-  margin: 30px 0;
-}
-
-.dialog-title em {
-  color: var(--red);
-  font-style: normal;
-}
-
-.dialog-image {
-  width: 100%;
-  height: 320px;
-  object-fit: contain;
-  background: #e9e7df;
-  padding: 15px;
-}
-
-.dialog-details {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 12px;
-  margin-top: 20px;
-}
-
-.dialog-detail {
-  background: #24272b;
-  padding: 18px;
-}
-
-.dialog-detail small {
-  display: block;
-  color: var(--muted);
-  font: 9px 'Space Mono', monospace;
-  margin-bottom: 10px;
-}
-
-.dialog-detail strong {
-  font: 700 22px 'Barlow Condensed';
-}
-
-.dialog-description {
-  color: #bbb;
-  line-height: 1.9;
-  margin-top: 25px;
-}
-
-/* =====================================
+===================================================== */
+.hero{min-height:700px;height:min(88vh,920px);position:relative;display:flex;align-items:center;overflow:hidden;isolation:isolate;
+  --mx:60%;--my:40%}
+.hero-bg{position:absolute;inset:-8% 0;z-index:-3;will-change:transform}
+.hero-image{position:absolute;inset:0;background:url("https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=2200&q=90") center 55%/cover no-repeat;
+  transform:scale(1.15);transition:transform 2.4s var(--ease)}
+body.ready .hero-image{transform:scale(1.02)}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;
+  background:linear-gradient(90deg,rgba(9,10,12,.96) 0%,rgba(9,10,12,.8) 42%,rgba(9,10,12,.25) 100%),linear-gradient(0deg,rgba(9,10,12,.75),transparent 50%)}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(500px circle at var(--mx) var(--my),rgba(255,42,42,.22),transparent 60%);mix-blend-mode:screen}
+#sparks{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.hero-content{position:relative;z-index:2;width:min(var(--container),88%);margin:auto;padding:80px 0}
+.hero-kicker{display:flex;align-items:center;gap:12px;color:#dedede;font:11px 'Space Mono',monospace;letter-spacing:2px;margin-bottom:35px;opacity:0;transform:translateX(-30px);transition:all 1s var(--ease) .1s}
+.hero-kicker span{height:8px;width:8px;border-radius:50%;background:var(--red);box-shadow:0 0 15px var(--red);animation:pulse 1.4s infinite}
+@keyframes pulse{50%{transform:scale(1.8);opacity:.5}}
+.hero h1{font:900 clamp(85px,12vw,175px)/.86 'Barlow Condensed',sans-serif;letter-spacing:-3px;text-transform:uppercase}
+.hero h1 .line{display:block;overflow:hidden;padding:.02em 0 .04em}
+.hero h1 .line.red{color:var(--red);filter:drop-shadow(0 0 28px rgba(255,42,42,.55))}
+.ch{display:inline-block;transform:translateY(118%) rotate(10deg);transition:transform 1.2s var(--ease) calc(var(--base,0ms) + var(--i)*45ms),color .3s,text-shadow .3s}
+body.ready .ch{transform:none}
+body.ready .ch:hover{transform:translateY(-10px) skewX(-10deg);color:var(--acid);transition-delay:0ms;transition-duration:.25s;text-shadow:4px 4px 0 var(--pink)}
+.hero-description,.hero .button,.hero-index{opacity:0;transform:translateY(30px);transition:all 1.1s var(--ease)}
+.hero-description{color:#d1d1d1;font-size:16px;max-width:470px;line-height:1.9;margin-top:35px;transition-delay:.9s}
+.hero .button{transition-delay:1.1s}
+.hero-index{position:absolute;bottom:35px;right:6%;color:#aaa;font:10px 'Space Mono',monospace;letter-spacing:2px;transition-delay:1.3s}
+body.ready .hero-kicker,body.ready .hero-description,body.ready .hero .button,body.ready .hero-index{opacity:1;transform:none}
+
+.float{position:absolute;z-index:1;pointer-events:none;will-change:transform}
+.float.f1{top:16%;right:12%;font-size:90px;color:var(--acid);animation:spin 14s linear infinite}
+.float.f2{bottom:18%;right:30%;width:120px;height:120px;border:2px solid var(--pink);border-radius:50%;animation:bob 6s ease-in-out infinite}
+.float.f3{top:30%;right:34%;width:0;height:0;border-left:30px solid transparent;border-right:30px solid transparent;border-bottom:52px solid var(--cyan);opacity:.7;animation:spin 9s linear infinite reverse}
+.float.f4{bottom:12%;right:8%;font:900 150px/.8 'Barlow Condensed';color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.25);animation:bob 8s ease-in-out infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes bob{50%{transform:translateY(-28px) rotate(8deg)}}
+
+.button{display:inline-flex;align-items:center;gap:25px;padding:17px 24px;margin-top:35px;font:11px 'Space Mono',monospace;letter-spacing:1px;position:relative;overflow:hidden;transition:transform .4s var(--ease),color .3s,opacity 1.1s var(--ease)}
+.button-red{background:var(--red);color:#fff;box-shadow:0 0 0 rgba(255,42,42,0)}
+.button-red::before{content:"";position:absolute;inset:0;background:var(--acid);transform:translateY(101%);transition:transform .5s var(--ease);z-index:0}
+.button-red:hover::before{transform:none}
+.button-red:hover{color:#000;box-shadow:0 12px 40px rgba(255,42,42,.45)}
+.button>*{position:relative;z-index:1}
+
+/* =====================================================
+   BANDS (crossed marquees)
+===================================================== */
+.bands{position:relative;height:190px;margin:-34px 0 0;z-index:5;overflow:hidden}
+.band{position:absolute;left:-6%;width:112%;overflow:hidden;padding:12px 0}
+.band-a{top:34px;background:var(--red);transform:rotate(-2.2deg);color:#000;box-shadow:0 10px 40px rgba(255,42,42,.35)}
+.band-b{top:82px;background:var(--acid);transform:rotate(1.8deg);color:#000}
+.band-track{display:flex;width:max-content;animation:scrollX 28s linear infinite}
+.band-b .band-track{animation-direction:reverse;animation-duration:34s}
+.band-track span{font:900 40px 'Barlow Condensed',sans-serif;letter-spacing:3px;padding:0 22px;white-space:nowrap}
+@keyframes scrollX{to{transform:translateX(-50%)}}
+
+/* =====================================================
+   BRANDS
+===================================================== */
+.brands{padding:55px 0;background:#0e0f12;border-bottom:1px solid var(--line);overflow:hidden}
+.brand-heading{text-align:center;margin-bottom:32px}
+.brand-heading p{font:10px 'Space Mono',monospace;color:var(--muted);letter-spacing:3px}
+.brand-track{display:flex;width:max-content;animation:scrollX 45s linear infinite}
+.brand-track:hover{animation-play-state:paused}
+.brand-item{font:800 34px 'Barlow Condensed',sans-serif;color:transparent;-webkit-text-stroke:1px #6a6c70;padding:8px 34px;white-space:nowrap;border-right:1px solid var(--line);transition:all .3s}
+.brand-item:hover{color:#fff;-webkit-text-stroke-color:#fff;text-shadow:0 0 24px var(--red)}
+
+/* =====================================================
+   REVEALS
+===================================================== */
+.reveal{opacity:0;transform:translateY(50px);filter:blur(8px);transition:opacity .9s var(--ease),transform 1.1s var(--ease),filter .9s var(--ease);transition-delay:var(--d,0ms)}
+.reveal.visible{opacity:1;transform:none;filter:none}
+.red-line{transform:scaleX(0);transition:transform 1s var(--ease) .3s}
+.visible .red-line,.red-line.visible{transform:scaleX(1)}
+@keyframes pop{from{opacity:0;transform:translateY(60px) scale(.92)}to{opacity:1;transform:none}}
+.pop{animation:pop .8s var(--ease) backwards;animation-delay:calc(var(--n,0)*70ms)}
+
+/* =====================================================
+   STORIES
+===================================================== */
+.section-heading,.archive-header{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:45px}
+.section-heading h2{font:800 clamp(55px,7vw,85px)/.9 'Barlow Condensed';text-transform:uppercase}
+.section-note{max-width:320px;color:var(--muted);font-size:14px;line-height:1.8}
+.filters,.archive-filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:35px}
+.filter,.archive-filter{position:relative;overflow:hidden;padding:12px 18px;color:#aaa;background:transparent;border:1px solid var(--line);font:10px 'Space Mono',monospace;transition:color .3s,border-color .3s}
+.filter::before,.archive-filter::before{content:"";position:absolute;inset:0;background:var(--red);transform:translateY(101%);transition:transform .45s var(--ease);z-index:0}
+.filter>*,.archive-filter>*{position:relative}
+.filter:hover::before,.filter.active::before,.archive-filter:hover::before,.archive-filter.active::before{transform:none}
+.filter:hover,.filter.active,.archive-filter:hover,.archive-filter.active{color:#fff;border-color:var(--red)}
+.filter,.archive-filter{isolation:isolate}
+.filter::before,.archive-filter::before{z-index:-1}
+
+.tilt{position:relative;transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--ty,0px));transition:transform .3s ease-out,border-color .3s,box-shadow .3s;will-change:transform}
+.tilt:hover{--ty:-8px;border-color:var(--red);box-shadow:0 30px 60px rgba(0,0,0,.5),0 0 40px rgba(255,42,42,.18)}
+.tilt::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:4;opacity:0;transition:opacity .3s;background:radial-gradient(420px circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.14),transparent 45%)}
+.tilt:hover::after{opacity:1}
+
+.story-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:25px}
+.story-card{background:var(--surface);border:1px solid var(--line);overflow:hidden}
+.story-img{position:relative;height:255px;overflow:hidden}
+.story-img img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease),filter .6s}
+.story-card:hover .story-img img{transform:scale(1.12) rotate(1.2deg)}
+.story-img::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(21,23,26,.9),transparent 60%)}
+.story-no{position:absolute;z-index:2;top:12px;left:16px;font:900 56px/1 'Barlow Condensed';color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.7)}
+.story-tag{position:absolute;z-index:2;bottom:14px;left:16px;font:9px 'Space Mono',monospace;letter-spacing:2px;background:var(--acid);color:#000;padding:4px 9px}
+.story-card-content{padding:25px}
+.story-card-content h3{font:700 32px/1 'Barlow Condensed';margin:6px 0 12px}
+.story-card-content p{font-size:13px;color:var(--muted);line-height:1.8}
+.story-card-content a{display:inline-block;color:var(--red);margin-top:20px;font:10px 'Space Mono',monospace;transition:letter-spacing .4s var(--ease)}
+.story-card:hover .story-card-content a{letter-spacing:3px}
+
+/* =====================================================
+   FEATURE / TOURING (parallax)
+===================================================== */
+.feature,.touring{position:relative;display:flex;align-items:center;overflow:hidden;isolation:isolate}
+.feature{min-height:640px}
+.touring{min-height:700px}
+.parallax{position:absolute;inset:-14% 0;z-index:-2;will-change:transform;background-size:cover;background-position:center;background-repeat:no-repeat}
+.feature .parallax{background-image:url("https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=2200&q=85")}
+.touring .parallax{background-image:url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90")}
+.feature::after,.touring::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(10,11,13,.96),rgba(10,11,13,.3))}
+.feature-content,.touring-content{width:min(var(--container),88%);margin:auto;position:relative;z-index:2}
+.feature-content h2,.touring-content h2{font:900 clamp(65px,10vw,130px)/.88 'Barlow Condensed';text-transform:uppercase;margin-top:25px}
+.feature-content h2 em,.touring-content h2 em{color:var(--red);font-style:normal;filter:drop-shadow(0 0 24px rgba(255,42,42,.5))}
+.feature-content p,.touring-content p{max-width:480px;color:#ccc;line-height:1.9;margin-top:25px}
+.text-link{display:inline-block;position:relative;color:#fff;padding:10px 0;margin-top:25px;font:11px 'Space Mono',monospace}
+.text-link::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:2px;background:var(--red);transform-origin:left;transition:transform .5s var(--ease)}
+.text-link:hover::after{transform:scaleX(.35);background:var(--acid)}
+.bigscroll{position:absolute;left:0;bottom:30px;z-index:1;font:900 clamp(90px,14vw,210px)/.8 'Barlow Condensed';white-space:nowrap;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.22);pointer-events:none;will-change:transform}
+
+/* =====================================================
+   ARCHIVE
+===================================================== */
+.archive{background:#08090b}
+.archive-counter{text-align:right;color:var(--muted);font:10px 'Space Mono',monospace;letter-spacing:2px}
+.archive-counter strong{display:block;color:var(--red);font:800 80px/1 'Barlow Condensed';text-shadow:0 0 30px rgba(255,42,42,.5)}
+.machine-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.machine-card{overflow:hidden;background:var(--surface);border:1px solid rgba(255,255,255,.08);cursor:pointer}
+.machine-art{height:260px;position:relative;background:#e9e7df;display:grid;place-items:center;overflow:hidden}
+.machine-art::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,var(--acid),var(--pink));opacity:0;transition:opacity .5s;mix-blend-mode:multiply;z-index:2;pointer-events:none}
+.machine-card:hover .machine-art::before{opacity:.55}
+.machine-art img{width:100%;height:100%;padding:15px;object-fit:contain;filter:grayscale(1);transition:transform .7s var(--ease),filter .5s}
+.machine-card:hover .machine-art img{transform:scale(1.1) rotate(-2deg);filter:grayscale(.2)}
+.machine-placeholder{position:absolute;text-align:center;color:#777;font:11px 'Space Mono',monospace;padding:20px;pointer-events:none}
+.machine-art img:not([src=""]){position:relative;z-index:1}
+.machine-art img.broken{display:none}
+.machine-info{padding:23px}
+.machine-brand{color:var(--red);font:10px 'Space Mono',monospace;letter-spacing:2px;text-transform:uppercase}
+.machine-name{font:800 36px/.95 'Barlow Condensed';text-transform:uppercase;margin:12px 0 18px}
+.machine-meta{border-top:1px solid var(--line);padding-top:14px;display:flex;justify-content:space-between;gap:10px;color:#aaa;font:9px 'Space Mono',monospace}
+.machine-arrow{position:absolute;top:15px;right:15px;background:var(--red);padding:9px 12px;z-index:3;color:#fff;opacity:0;transform:translate(10px,-10px) rotate(-45deg);transition:all .4s var(--ease)}
+.machine-card:hover .machine-arrow{opacity:1;transform:none}
+.archive-end{text-align:center;margin-top:50px;color:var(--muted);font:10px 'Space Mono',monospace;letter-spacing:2px}
+
+.machine-dialog{width:min(850px,92vw);max-height:88vh;margin:auto;padding:0;background:#15171a;color:#fff;border:1px solid var(--red);box-shadow:0 0 80px rgba(255,42,42,.3)}
+.machine-dialog[open]{animation:dlg .6s var(--ease)}
+.machine-dialog[open]::backdrop{animation:fadeBk .4s ease}
+@keyframes dlg{from{opacity:0;transform:scale(.85) rotate(-2deg) translateY(40px)}to{opacity:1;transform:none}}
+@keyframes fadeBk{from{opacity:0}}
+.machine-dialog::backdrop{background:rgba(0,0,0,.85);backdrop-filter:blur(10px)}
+.dialog-inner{padding:clamp(25px,5vw,50px)}
+.dialog-close{float:right;border:0;background:var(--red);color:#fff;padding:11px 16px;font:10px 'Space Mono',monospace;transition:background .3s,color .3s}
+.dialog-close:hover{background:var(--acid);color:#000}
+.dialog-title{clear:both;font:900 clamp(50px,9vw,90px)/.9 'Barlow Condensed';text-transform:uppercase;margin:30px 0}
+.dialog-image{width:100%;height:320px;object-fit:contain;background:#e9e7df;padding:15px}
+.dialog-details{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+.dialog-detail{background:#24272b;padding:18px;border-left:3px solid var(--red)}
+.dialog-detail small{display:block;color:var(--muted);font:9px 'Space Mono',monospace;margin-bottom:10px}
+.dialog-detail strong{font:700 22px 'Barlow Condensed'}
+.dialog-description{color:#bbb;line-height:1.9;margin-top:25px}
+
+/* =====================================================
    ENGINEERING
-===================================== */
+===================================================== */
+.engineering{background:var(--surface);overflow:hidden}
+.engineering-layout{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:80px}
+.technical-box{border:1px solid var(--line);padding:55px;position:relative;overflow:hidden;
+  background:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:35px 35px}
+.technical-box::before{content:"";position:absolute;left:0;right:0;height:120px;top:-120px;background:linear-gradient(180deg,transparent,rgba(255,42,42,.25),transparent);animation:scan 4s linear infinite}
+@keyframes scan{to{transform:translateY(700px)}}
+.technical-box strong{display:block;font:900 clamp(75px,10vw,140px)/.82 'Barlow Condensed';margin:35px 0}
+.technical-box strong span{color:var(--red);display:inline-block;animation:wob 2.4s ease-in-out infinite}
+@keyframes wob{0%,100%{transform:rotate(-8deg) scale(1)}50%{transform:rotate(8deg) scale(1.25)}}
+.technical-bottom{font:10px 'Space Mono',monospace;color:var(--muted)}
 
-.engineering {
-  background: var(--surface);
+.blueprint-art{position:relative;min-height:440px;background:linear-gradient(rgba(0,0,0,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.06) 1px,transparent 1px),#e9e7df;background-size:25px 25px;display:grid;place-items:center;overflow:hidden}
+.blueprint-art svg{width:78%;max-width:420px;overflow:visible}
+.blueprint-art .wheel{transform-origin:120px 120px;animation:spin 6s linear infinite}
+.blueprint-art .draw{fill:none;stroke:#111;stroke-width:2.2;stroke-dasharray:900;stroke-dashoffset:900;animation:draw 3s var(--ease) forwards}
+.blueprint-art .red{stroke:var(--red)}
+@keyframes draw{to{stroke-dashoffset:0}}
+.blueprint-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:25px;filter:grayscale(1);background:#e9e7df}
+.spec-list{border-top:1px solid var(--line);margin-top:30px}
+.spec-row{display:flex;justify-content:space-between;gap:15px;padding:17px 12px;border-bottom:1px solid var(--line);font:10px 'Space Mono',monospace;transition:background .3s,padding .4s var(--ease)}
+.spec-row:hover{background:rgba(255,42,42,.1);padding-left:24px}
+.spec-row span:last-child{color:var(--red);text-align:right}
+
+/* =====================================================
+   RIDER
+===================================================== */
+.rider{background:var(--surface)}
+.rider-layout{display:grid;grid-template-columns:.9fr 1.1fr;gap:80px;align-items:center}
+.rider-image{min-height:560px;position:relative;overflow:hidden;clip-path:inset(0 0 100% 0);transition:clip-path 1.4s var(--ease-io)}
+.rider-image.visible{clip-path:inset(0 0 0 0)}
+.rider-image::before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.7),transparent 55%),url("https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1000&q=85") center/cover;transform:scale(1.25);transition:transform 2s var(--ease)}
+.rider-image.visible::before{transform:scale(1)}
+.rider-image::after{content:"350";position:absolute;bottom:15px;left:20px;font:900 160px/.8 'Barlow Condensed';color:rgba(255,255,255,.2)}
+.rider-stamp{position:absolute;top:20px;right:20px;padding:15px;background:var(--red);font:11px 'Space Mono',monospace;line-height:1.7;z-index:2;animation:stamp 5s ease-in-out infinite}
+@keyframes stamp{50%{transform:rotate(5deg) scale(1.06)}}
+.rider-copy h2{font:800 clamp(50px,6vw,76px)/.92 'Barlow Condensed';margin:20px 0 25px}
+.rider-copy h2 em{color:var(--red);font-style:normal}
+.rider-copy p{color:#bcbec0;font-size:14px;line-height:1.95;margin-bottom:18px}
+.rider-intro{font-size:18px!important;color:#fff!important}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:30px 0}
+.stat{background:#1d2024;padding:20px;border-top:3px solid var(--red);transition:transform .4s var(--ease),border-color .3s}
+.stat:hover{transform:translateY(-6px);border-color:var(--acid)}
+.stat strong{display:block;font:900 54px/1 'Barlow Condensed'}
+.stat small{font:9px 'Space Mono',monospace;letter-spacing:2px;color:var(--muted)}
+.signature{border-top:1px solid var(--line);padding-top:20px;margin-top:30px;display:flex;justify-content:space-between;gap:20px;font:10px 'Space Mono',monospace}
+.signature strong{color:var(--red)}
+
+/* =====================================================
+   NEWSLETTER / FOOTER
+===================================================== */
+.newsletter{background:#0d0e10}
+.newsletter-layout{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.newsletter h2{font:800 clamp(60px,8vw,95px)/.9 'Barlow Condensed';margin-top:20px}
+.newsletter h2 em{color:var(--red);font-style:normal}
+.newsletter p{color:var(--muted);margin-top:20px;max-width:450px;line-height:1.8}
+.newsletter-form label{display:block;font:10px 'Space Mono',monospace;margin-bottom:15px}
+.email-row{display:flex;border-bottom:1px solid #666;position:relative}
+.email-row::after{content:"";position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:linear-gradient(90deg,var(--red),var(--acid));transform:scaleX(0);transform-origin:left;transition:transform .7s var(--ease)}
+.email-row:focus-within::after{transform:scaleX(1)}
+.email-row input{flex:1;min-width:0;padding:17px 5px;color:#fff;background:transparent;border:0;outline:none}
+.email-row button{background:var(--red);color:#fff;border:0;padding:0 25px;font-size:22px;transition:background .3s,color .3s}
+.email-row button:hover{background:var(--acid);color:#000}
+.form-message{font-size:11px!important}
+.shake{animation:shake .4s}
+
+.footer{background:#060607;padding:70px 0 25px;overflow:hidden;position:relative}
+.footer-top{display:flex;justify-content:space-between;align-items:start;gap:40px;padding-bottom:30px}
+.footer-description{color:var(--muted);font-size:13px;line-height:1.9}
+.footer-mega{font:900 clamp(80px,23vw,380px)/.78 'Barlow Condensed';letter-spacing:-6px;text-transform:uppercase;white-space:nowrap;text-align:center;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.18);margin:10px 0 30px;transition:all .6s;user-select:none}
+.footer-mega:hover{-webkit-text-stroke-color:var(--red);text-shadow:0 0 60px rgba(255,42,42,.5)}
+.footer-mega em{font-style:normal;color:var(--red);-webkit-text-stroke:0}
+.credit{text-align:center;font:11px 'Space Mono',monospace;letter-spacing:4px;color:var(--acid);margin-bottom:30px}
+.footer-bottom{border-top:1px solid var(--line);padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:15px;color:#858585;font:9px 'Space Mono',monospace;letter-spacing:1px}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+@media(max-width:1050px){
+  .nav{gap:15px}.nav a{font-size:11px}
+  .machine-grid,.story-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rider-layout,.engineering-layout{gap:45px}
 }
-
-.engineering-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 80px;
+@media(max-width:760px){
+  .container,.header-inner{width:90%}
+  .section{padding:80px 0}
+  .header-inner{min-height:75px}
+  .menu-toggle{display:block}
+  .nav{display:none;position:absolute;top:75px;left:0;width:100%;padding:25px 5%;background:#111316;border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;gap:0}
+  .nav.open{display:flex;animation:fadeUp .5s var(--ease)}
+  .nav a{padding:14px 0;border-bottom:1px solid var(--line);font-size:13px}
+  .hero{min-height:640px;height:80vh}
+  .hero::before{background:linear-gradient(90deg,rgba(9,10,12,.93),rgba(9,10,12,.55))}
+  .hero h1{font-size:clamp(75px,15vw,115px)}
+  .float.f1,.float.f3,.float.f4{display:none}
+  .section-heading,.archive-header{align-items:start;flex-direction:column}
+  .archive-counter{text-align:left}
+  .rider-layout,.engineering-layout,.newsletter-layout{grid-template-columns:1fr}
+  .rider-image{min-height:430px}
+  .feature{min-height:540px}
+  .gate-hud.tr,.gate-hud.br{display:none}
+  .loader-corner{display:none}
 }
-
-.engineering-art {
-  min-height: 420px;
-  background:
-    linear-gradient(rgba(0,0,0,.05) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,0,0,.05) 1px,transparent 1px),
-    #e9e7df;
-  background-size: 25px 25px;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
+@media(max-width:520px){
+  .announcement{font-size:8px;letter-spacing:1px}
+  .logo{font-size:30px}
+  .hero h1{font-size:76px;letter-spacing:-2px}
+  .hero-description{font-size:14px}
+  .machine-grid,.story-grid{grid-template-columns:1fr}
+  .dialog-details{grid-template-columns:1fr}
+  .dialog-image{height:240px}
+  .technical-box{padding:30px 20px}
+  .footer-top,.footer-bottom{flex-direction:column}
+  .stats{grid-template-columns:1fr}
+  .band-track span{font-size:30px}
 }
-
-.engineering-art img {
-  width: 100%;
-  height: 420px;
-  object-fit: contain;
-  padding: 25px;
-  filter: grayscale(1);
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
-
-.spec-list {
-  border-top: 1px solid var(--line);
-  margin-top: 30px;
-}
-
-.spec-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  padding: 17px 0;
-  border-bottom: 1px solid var(--line);
-  font: 10px 'Space Mono', monospace;
-}
-
-.spec-row span:last-child {
-  color: var(--red);
-  text-align: right;
-}
-
-/* =====================================
-   ENGINEERING FEATURE
-===================================== */
-
-.technical {
-  background: #111315;
-}
-
-.technical-box {
-  border: 1px solid var(--line);
-  padding: 55px;
-  position: relative;
-  background:
-    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
-  background-size: 35px 35px;
-}
-
-.technical-box strong {
-  display: block;
-  font: 900 clamp(75px,12vw,155px)/.8 'Barlow Condensed';
-  margin: 35px 0;
-}
-
-.technical-box strong span {
-  color: var(--red);
-}
-
-.technical-bottom {
-  font: 10px 'Space Mono', monospace;
-  color: var(--muted);
-}
-
-/* =====================================
-   TOURING
-===================================== */
-
-.touring {
-  min-height: 620px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
-
-.touring-image {
-  position: absolute;
-  inset: 0;
-  background:
-    url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90")
-    center / cover no-repeat;
-}
-
-.touring::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg,rgba(10,11,13,.95),rgba(10,11,13,.35));
-}
-
-.touring-content {
-  width: min(var(--container),88%);
-  margin: auto;
-  position: relative;
-  z-index: 2;
-}
-
-.touring-content h2 {
-  font: 900 clamp(75px,11vw,135px)/.83 'Barlow Condensed';
-  text-transform: uppercase;
-  margin-top: 25px;
-}
-
-.touring-content h2 em {
-  color: var(--red);
-  font-style: normal;
-}
-
-.touring-content p {
-  color: #ddd;
-  max-width: 450px;
-  margin-top: 25px;
-  line-height: 1.9;
-}
-
-/* =====================================
-   RIDER PROFILE
-===================================== */
-
-.rider {
-  background: var(--surface);
-}
-
-.rider-layout {
-  display: grid;
-  grid-template-columns: .9fr 1.1fr;
-  gap: 80px;
-  align-items: center;
-}
-
-.rider-image {
-  min-height: 550px;
-  position: relative;
-  background:
-    linear-gradient(0deg,rgba(0,0,0,.7),transparent 55%),
-    url("https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1000&q=85")
-    center / cover;
-}
-
-.rider-image::after {
-  content: "350";
-  position: absolute;
-  bottom: 15px;
-  left: 20px;
-  font: 900 150px/.8 'Barlow Condensed';
-  color: rgba(255,255,255,.17);
-}
-
-.rider-stamp {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  padding: 15px;
-  background: var(--red);
-  font: 11px 'Space Mono', monospace;
-  line-height: 1.7;
-}
-
-.rider-copy h2 {
-  font: 800 clamp(50px,6vw,76px)/.92 'Barlow Condensed';
-  margin: 20px 0 25px;
-}
-
-.rider-copy h2 em {
-  color: var(--red);
-  font-style: normal;
-}
-
-.rider-copy p {
-  color: #bcbec0;
-  font-size: 14px;
-  line-height: 1.95;
-  margin-bottom: 18px;
-}
-
-.rider-intro {
-  font-size: 18px !important;
-  color: white !important;
-}
-
-.signature {
-  border-top: 1px solid var(--line);
-  padding-top: 20px;
-  margin-top: 30px;
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  font: 10px 'Space Mono', monospace;
-}
-
-.signature strong {
-  color: var(--red);
-}
-
-/* =====================================
-   NEWSLETTER
-===================================== */
-
-.newsletter {
-  background: #111315;
-}
-
-.newsletter-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 70px;
-  align-items: center;
-}
-
-.newsletter h2 {
-  font: 800 clamp(60px,8vw,95px)/.9 'Barlow Condensed';
-  margin-top: 20px;
-}
-
-.newsletter h2 em {
-  color: var(--red);
-  font-style: normal;
-}
-
-.newsletter p {
-  color: var(--muted);
-  margin-top: 20px;
-  max-width: 450px;
-  line-height: 1.8;
-}
-
-.newsletter-form label {
-  display: block;
-  font: 10px 'Space Mono', monospace;
-  margin-bottom: 15px;
-}
-
-.email-row {
-  display: flex;
-  border-bottom: 1px solid #666;
-}
-
-.email-row input {
-  flex: 1;
-  min-width: 0;
-  padding: 17px 5px;
-  color: white;
-  background: transparent;
-  border: 0;
-  outline: none;
-}
-
-.email-row button {
-  background: var(--red);
-  color: white;
-  border: 0;
-  padding: 0 25px;
-  font-size: 22px;
-}
-
-.form-message {
-  font-size: 11px !important;
-}
-
-/* =====================================
-   FOOTER
-===================================== */
-
-.footer {
-  background: #090a0b;
-  padding: 70px 0 25px;
-}
-
-.footer-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-  gap: 40px;
-  padding-bottom: 65px;
-}
-
-.footer-description {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.9;
-}
-
-.footer-bottom {
-  border-top: 1px solid var(--line);
-  padding-top: 22px;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 15px;
-  color: #858585;
-  font: 9px 'Space Mono', monospace;
-  letter-spacing: 1px;
-}
-
-/* =====================================
-   REVEAL ANIMATIONS
-===================================== */
-
-.reveal {
-  opacity: 0;
-  transform: translateY(25px);
-  transition: opacity .7s, transform .7s;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* =====================================
-   RESPONSIVE DESIGN
-===================================== */
-
-@media(max-width:1050px) {
-
-  .nav {
-    gap: 15px;
-  }
-
-  .nav a {
-    font-size: 11px;
-  }
-
-  .machine-grid,
-  .story-grid {
-    grid-template-columns: repeat(2,minmax(0,1fr));
-  }
-
-  .rider-layout,
-  .engineering-layout {
-    gap: 45px;
-  }
-
-}
-
-@media(max-width:760px) {
-
-  .container,
-  .header-inner {
-    width: 90%;
-  }
-
-  .section {
-    padding: 80px 0;
-  }
-
-  .header-inner {
-    min-height: 75px;
-  }
-
-  .menu-toggle {
-    display: block;
-  }
-
-  .nav {
-    display: none;
-    position: absolute;
-    top: 75px;
-    left: 0;
-    width: 100%;
-    padding: 25px 5%;
-    background: #141619;
-    border-bottom: 1px solid var(--line);
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-  }
-
-  .nav.open {
-    display: flex;
-  }
-
-  .nav a {
-    padding: 14px 0;
-    border-bottom: 1px solid var(--line);
-    font-size: 13px;
-  }
-
-  .hero {
-    min-height: 620px;
-    height: 78vh;
-  }
-
-  .hero::before {
-    background: linear-gradient(90deg,rgba(9,10,12,.93),rgba(9,10,12,.55));
-  }
-
-  .hero h1 {
-    font-size: clamp(75px,14vw,115px);
-  }
-
-  .section-heading,
-  .archive-header {
-    align-items: start;
-    flex-direction: column;
-  }
-
-  .archive-counter {
-    text-align: left;
-  }
-
-  .rider-layout,
-  .engineering-layout,
-  .newsletter-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .rider-image {
-    min-height: 430px;
-  }
-
-  .feature {
-    min-height: 520px;
-  }
-
-}
-
-@media(max-width:520px) {
-
-  .announcement {
-    font-size: 8px;
-    letter-spacing: 1px;
-  }
-
-  .logo {
-    font-size: 30px;
-  }
-
-  .hero h1 {
-    font-size: 76px;
-    letter-spacing: -2px;
-  }
-
-  .hero-description {
-    font-size: 14px;
-  }
-
-  .machine-grid,
-  .story-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .machine-art {
-    height: 260px;
-  }
-
-  .dialog-details {
-    grid-template-columns: 1fr;
-  }
-
-  .dialog-image {
-    height: 240px;
-  }
-
-  .technical-box {
-    padding: 30px 20px;
-  }
-
-  .technical-box strong {
-    font-size: 75px;
-  }
-
-  .footer-top {
-    flex-direction: column;
-  }
-
-  .footer-bottom {
-    flex-direction: column;
-  }
-
-}
-
-/* =====================================
-   ACCESSIBILITY
-===================================== */
-
-@media(prefers-reduced-motion:reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    animation-duration: .01ms !important;
-    transition-duration: .01ms !important;
-  }
-}
-
 </style>
 </head>
 
-<body>
+<body class="locked">
 
-<div class="loader">
-  <div>
-    <div class="loader-logo">REDLINE<span>.</span></div>
-    <div class="loader-bar"></div>
-    <p>MACHINES. ROADS. STORIES.</p>
+<!-- ============ ENTRY GATE ============ -->
+<div id="gate" aria-label="Entry screen">
+  <canvas id="warp"></canvas>
+
+  <div class="gate-hud tl">VOL. 01 <b>/</b> INDIA</div>
+  <div class="gate-hud tr">SYS <b>●</b> ONLINE</div>
+  <div class="gate-hud bl">ESTD. ON TWO WHEELS</div>
+  <div class="gate-hud br">© JATAYIU</div>
+
+  <div class="gate-ui">
+    <p class="gate-pre">THE INDEPENDENT MOTORCYCLE JOURNAL</p>
+    <h1 class="gate-title flick" id="gate-title" aria-label="Redline Pages"></h1>
+
+    <div class="boot" aria-hidden="true">
+      <span><i>&gt;</i> CHECKING FUEL .......... OK</span>
+      <span><i>&gt;</i> WARMING THE ENGINE ..... OK</span>
+      <span><i>&gt;</i> CHAIN, TYRES, STORIES .. OK</span>
+    </div>
+    <br>
+    <button class="ignite" id="ignite" aria-label="Enter the site">
+      <span>IGNITE<small>ENTER</small></span>
+    </button>
+    <p class="gate-hint">CLICK TO START THE ENGINE · SOUND ON FOR THE FULL RIDE</p>
   </div>
 </div>
 
-<div class="progress" id="progress"></div>
+<!-- ============ LOADER ============ -->
+<div id="loader" aria-hidden="true">
+  <div class="strips" id="strips"></div>
 
-<div class="announcement">
-  AN INDEPENDENT JOURNAL FOR THE INDIAN MOTORCYCLING ENTHUSIAST
+  <div class="loader-content">
+    <div class="by">CREATED BY</div>
+    <div class="name" id="name" data-text="JATAYIU"></div><br>
+    <div class="name-bar"></div>
+
+    <div class="gauge">
+      <svg viewBox="0 0 240 240" id="gauge-svg">
+        <g id="ticks"></g>
+        <circle class="g-track" cx="120" cy="120" r="100" stroke-dasharray="471.2 628.3" transform="rotate(135 120 120)"/>
+        <circle class="g-prog" id="g-prog" cx="120" cy="120" r="100" stroke-dasharray="471.2 628.3" stroke-dashoffset="471.2" transform="rotate(135 120 120)"/>
+        <g class="g-needle" id="needle" style="transform:rotate(-135deg)">
+          <line x1="120" y1="120" x2="120" y2="36" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="120" cy="120" r="9" fill="var(--red)"/>
+        </g>
+      </svg>
+      <div class="gauge-num"><div><span id="pct">0</span><small>% / RPM</small></div></div>
+    </div>
+    <div class="status" id="status">WARMING UP THE ENGINE</div>
+  </div>
+
+  <div class="loader-corner a">REDLINE PAGES</div>
+  <div class="loader-corner b">MACHINES. ROADS. STORIES.</div>
 </div>
 
-<header class="header">
+<div class="cursor-dot" id="cursor-dot"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+<div class="progress" id="progress"></div>
 
+<div class="announcement">AN INDEPENDENT JOURNAL FOR THE INDIAN MOTORCYCLING ENTHUSIAST</div>
+
+<header class="header" id="header">
   <div class="header-inner">
-
-    <a href="#" class="logo">
-      REDLINE <span>PAGES</span>
-      <small>MACHINES. ROADS. STORIES.</small>
-    </a>
-
-    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-      ☰
-    </button>
-
+    <a href="#" class="logo">REDLINE <span>PAGES</span><small>MACHINES. ROADS. STORIES.</small></a>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
     <nav class="nav" id="nav">
       <a href="#latest">Latest Stories</a>
       <a href="#machines">Machines</a>
@@ -1463,881 +559,760 @@ img {
       <a href="#touring">Touring</a>
       <a href="#rider">About</a>
     </nav>
-
   </div>
-
 </header>
 
 <main>
 
 <!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg" data-speed=".22"><div class="hero-image"></div></div>
+  <canvas id="sparks"></canvas>
 
-<section class="hero">
-
-  <div class="hero-image"></div>
+  <div class="float f1">✳</div>
+  <div class="float f2"></div>
+  <div class="float f3"></div>
+  <div class="float f4">01</div>
 
   <div class="hero-content">
-
-    <p class="hero-kicker">
-      <span></span>
-      THE INDEPENDENT MOTORCYCLE JOURNAL
-    </p>
+    <p class="hero-kicker"><span></span>THE INDEPENDENT MOTORCYCLE JOURNAL</p>
 
     <h1>
-      BEYOND<br>
-      THE <em>REDLINE.</em>
+      <span class="line" data-split style="--base:0ms">BEYOND</span>
+      <span class="line" data-split style="--base:220ms">THE</span>
+      <span class="line red" data-split style="--base:440ms">REDLINE.</span>
     </h1>
 
-    <p class="hero-description">
-      Machines, roads and the stories that connect them.
-      Exploring the engineering, culture and people shaping
-      India's motorcycling landscape.
-    </p>
+    <p class="hero-description">Machines, roads and the stories that connect them. Exploring the engineering, culture and people shaping India's motorcycling landscape.</p>
 
-    <a href="#latest" class="button button-red">
-      EXPLORE THE JOURNAL <span>↗</span>
-    </a>
-
+    <a href="#latest" class="button button-red magnetic"><span>EXPLORE THE JOURNAL</span> <span>↗</span></a>
   </div>
 
   <div class="hero-index">VOL. 01 / INDIA</div>
-
 </section>
 
-<!-- TICKER -->
-
-<section class="ticker">
-  <div class="ticker-track">
-    <span>MACHINES</span><i>✳</i>
-    <span>ENGINEERING</span><i>✳</i>
-    <span>ROADS</span><i>✳</i>
-    <span>PEOPLE</span><i>✳</i>
-    <span>CULTURE</span><i>✳</i>
-    <span>MACHINES</span><i>✳</i>
-    <span>ENGINEERING</span><i>✳</i>
-    <span>ROADS</span><i>✳</i>
-    <span>PEOPLE</span><i>✳</i>
-    <span>CULTURE</span><i>✳</i>
-  </div>
+<!-- CROSSED BANDS -->
+<section class="bands" aria-hidden="true">
+  <div class="band band-a"><div class="band-track">
+    <span>MACHINES ✳</span><span>ENGINEERING ✳</span><span>ROADS ✳</span><span>PEOPLE ✳</span><span>CULTURE ✳</span>
+  </div></div>
+  <div class="band band-b"><div class="band-track">
+    <span>RIDE FAR ✺</span><span>STAY CURIOUS ✺</span><span>JATAYIU ✺</span><span>REDLINE ✺</span><span>TWO WHEELS ✺</span>
+  </div></div>
 </section>
 
 <!-- BRANDS -->
-
 <section class="brands">
-
-  <div class="brand-heading">
-    <p>THE MANUFACTURERS. THE MACHINES. THE LEGACY.</p>
-  </div>
-
+  <div class="brand-heading"><p>THE MANUFACTURERS. THE MACHINES. THE LEGACY.</p></div>
   <div class="brand-track" id="brand-track">
-
-    <div class="brand-item">ROYAL <span>ENFIELD</span></div>
-    <div class="brand-item">HONDA</div>
-    <div class="brand-item">BAJAJ</div>
-    <div class="brand-item">KTM</div>
-    <div class="brand-item">YAMAHA</div>
-    <div class="brand-item">SUZUKI</div>
-    <div class="brand-item">KAWASAKI</div>
-    <div class="brand-item">BMW MOTORRAD</div>
-    <div class="brand-item">DUCATI</div>
-    <div class="brand-item">APRILIA</div>
-    <div class="brand-item">TRIUMPH</div>
-    <div class="brand-item">TVS</div>
-    <div class="brand-item">HERO</div>
-
+    <div class="brand-item">ROYAL ENFIELD</div><div class="brand-item">HONDA</div><div class="brand-item">BAJAJ</div>
+    <div class="brand-item">KTM</div><div class="brand-item">YAMAHA</div><div class="brand-item">SUZUKI</div>
+    <div class="brand-item">KAWASAKI</div><div class="brand-item">BMW MOTORRAD</div><div class="brand-item">DUCATI</div>
+    <div class="brand-item">APRILIA</div><div class="brand-item">TRIUMPH</div><div class="brand-item">TVS</div><div class="brand-item">HERO</div>
   </div>
-
 </section>
 
 <!-- LATEST STORIES -->
-
 <section class="section latest" id="latest">
-
   <div class="container">
-
     <div class="section-heading reveal">
-
       <div>
         <p class="eyebrow">01 / THE JOURNAL</p>
         <div class="red-line"></div>
         <h2>THE LATEST <em>STORIES.</em></h2>
       </div>
-
-      <p class="section-note">
-        Thoughtful reads for people who see more than a machine.
-        Discover the stories behind the motorcycles.
-      </p>
-
+      <p class="section-note">Thoughtful reads for people who see more than a machine. Discover the stories behind the motorcycles.</p>
     </div>
 
-    <div class="filters" id="filters">
-      <button class="filter active" data-filter="All">ALL STORIES</button>
-      <button class="filter" data-filter="Machines">MACHINES</button>
-      <button class="filter" data-filter="Engineering">ENGINEERING</button>
-      <button class="filter" data-filter="Touring">TOURING</button>
-      <button class="filter" data-filter="Industry">INDUSTRY</button>
+    <div class="filters reveal" id="filters" style="--d:100ms">
+      <button class="filter active" data-filter="All"><span>ALL STORIES</span></button>
+      <button class="filter" data-filter="Machines"><span>MACHINES</span></button>
+      <button class="filter" data-filter="Engineering"><span>ENGINEERING</span></button>
+      <button class="filter" data-filter="Touring"><span>TOURING</span></button>
+      <button class="filter" data-filter="Industry"><span>INDUSTRY</span></button>
     </div>
 
     <div class="story-grid" id="story-grid"></div>
-
   </div>
-
 </section>
 
 <!-- MACHINE FEATURE -->
-
 <section class="feature" id="machines">
-
-  <div class="feature-image"></div>
-
-  <div class="feature-content">
-
+  <div class="parallax" data-speed=".18"></div>
+  <div class="feature-content reveal">
     <p class="eyebrow">02 / THE MACHINES</p>
-
-    <h2>
-      NOT JUST<br>
-      NUMBERS.<br>
-      <em>CHARACTER.</em>
-    </h2>
-
-    <p>
-      Specifications tell you what a motorcycle is.
-      The details tell you why it matters.
-      Explore the engineering, design and decisions
-      behind the machines.
-    </p>
-
-    <a href="#archive" class="text-link">
-      EXPLORE THE MACHINE ARCHIVE ↗
-    </a>
-
+    <h2>NOT JUST<br>NUMBERS.<br><em>CHARACTER.</em></h2>
+    <p>Specifications tell you what a motorcycle is. The details tell you why it matters. Explore the engineering, design and decisions behind the machines.</p>
+    <a href="#archive" class="text-link">EXPLORE THE MACHINE ARCHIVE ↗</a>
   </div>
-
 </section>
 
 <!-- ARCHIVE -->
-
 <section class="section archive" id="archive">
-
   <div class="container">
-
     <div class="archive-header reveal">
-
       <div>
         <p class="eyebrow">03 / THE MACHINE ARCHIVE</p>
         <div class="red-line"></div>
-
-        <h2 class="section-title">
-          ICONS OF<br>
-          <em>THE ROAD.</em>
-        </h2>
-
-        <p class="section-description">
-          Every machine has a story. Explore the design,
-          engineering and character of motorcycles that
-          define generations.
-        </p>
+        <h2 class="section-title">ICONS OF<br><em>THE ROAD.</em></h2>
+        <p class="section-description">Every machine has a story. Explore the design, engineering and character of motorcycles that define generations.</p>
       </div>
-
-      <div class="archive-counter">
-        <strong id="machine-count">0</strong>
-        MACHINES ARCHIVED
-      </div>
-
+      <div class="archive-counter"><strong id="machine-count">0</strong>MACHINES ARCHIVED</div>
     </div>
 
-    <div class="archive-filters" id="archive-filters">
-      <button class="archive-filter active" data-brand="All">ALL MACHINES</button>
-      <button class="archive-filter" data-brand="Royal Enfield">ROYAL ENFIELD</button>
-      <button class="archive-filter" data-brand="Bajaj">BAJAJ</button>
-      <button class="archive-filter" data-brand="Honda">HONDA</button>
-      <button class="archive-filter" data-brand="KTM">KTM</button>
-      <button class="archive-filter" data-brand="Yamaha">YAMAHA</button>
-      <button class="archive-filter" data-brand="Other">OTHERS</button>
+    <div class="archive-filters reveal" id="archive-filters" style="--d:100ms">
+      <button class="archive-filter active" data-brand="All"><span>ALL MACHINES</span></button>
+      <button class="archive-filter" data-brand="Royal Enfield"><span>ROYAL ENFIELD</span></button>
+      <button class="archive-filter" data-brand="Bajaj"><span>BAJAJ</span></button>
+      <button class="archive-filter" data-brand="Honda"><span>HONDA</span></button>
+      <button class="archive-filter" data-brand="KTM"><span>KTM</span></button>
+      <button class="archive-filter" data-brand="Yamaha"><span>YAMAHA</span></button>
+      <button class="archive-filter" data-brand="Other"><span>OTHERS</span></button>
     </div>
 
     <div class="machine-grid" id="machine-grid"></div>
-
-    <p class="archive-end">
-      REDLINE PAGES / MACHINE ARCHIVE / ALWAYS EVOLVING
-    </p>
-
+    <p class="archive-end">REDLINE PAGES / MACHINE ARCHIVE / ALWAYS EVOLVING</p>
   </div>
-
 </section>
 
-<!-- MACHINE DIALOG -->
-
 <dialog class="machine-dialog" id="machine-dialog">
-
   <div class="dialog-inner">
-
     <button class="dialog-close" id="dialog-close">CLOSE ✕</button>
-
     <p class="eyebrow" id="dialog-brand">MACHINE ARCHIVE</p>
-
     <h2 class="dialog-title" id="dialog-title">MACHINE NAME</h2>
-
     <img class="dialog-image" id="dialog-image" alt="Motorcycle">
-
     <div class="dialog-details">
-
-      <div class="dialog-detail">
-        <small>ENGINE</small>
-        <strong id="dialog-engine">—</strong>
-      </div>
-
-      <div class="dialog-detail">
-        <small>CONFIGURATION</small>
-        <strong id="dialog-config">—</strong>
-      </div>
-
-      <div class="dialog-detail">
-        <small>CLASS</small>
-        <strong id="dialog-class">—</strong>
-      </div>
-
+      <div class="dialog-detail"><small>ENGINE</small><strong id="dialog-engine">—</strong></div>
+      <div class="dialog-detail"><small>CONFIGURATION</small><strong id="dialog-config">—</strong></div>
+      <div class="dialog-detail"><small>CLASS</small><strong id="dialog-class">—</strong></div>
     </div>
-
     <p class="dialog-description" id="dialog-description"></p>
-
   </div>
-
 </dialog>
 
 <!-- ENGINEERING -->
-
 <section class="section engineering" id="engineering">
-
   <div class="container engineering-layout">
-
     <div class="reveal">
-
       <p class="eyebrow">04 / ENGINEERING</p>
       <div class="red-line"></div>
-
-      <h2 class="section-title">
-        UNDERSTAND<br>
-        WHAT MOVES<br>
-        <em>YOU.</em>
-      </h2>
-
-      <p class="section-description">
-        From engine architecture and torque curves to
-        suspension geometry, braking systems and chassis
-        design. Making motorcycle engineering accessible.
-      </p>
-
-      <a href="#blueprint" class="text-link">
-        EXPLORE ENGINEERING ↗
-      </a>
-
+      <h2 class="section-title">UNDERSTAND<br>WHAT MOVES<br><em>YOU.</em></h2>
+      <p class="section-description">From engine architecture and torque curves to suspension geometry, braking systems and chassis design. Making motorcycle engineering accessible.</p>
+      <a href="#blueprint" class="text-link">EXPLORE ENGINEERING ↗</a>
     </div>
 
-    <div class="technical-box reveal">
-
+    <div class="technical-box reveal" style="--d:150ms">
       <p class="eyebrow">THE DETAILS MATTER</p>
-
-      <strong>
-        TORQUE<br>
-        <span>≠</span><br>
-        POWER
-      </strong>
-
-      <div class="technical-bottom">
-        ENGINEERING NOTES / 001
-      </div>
-
+      <strong>TORQUE<br><span>≠</span><br>POWER</strong>
+      <div class="technical-bottom">ENGINEERING NOTES / 001</div>
     </div>
-
   </div>
-
 </section>
 
 <!-- BLUEPRINT -->
-
 <section class="section" id="blueprint">
-
   <div class="container engineering-layout">
-
-    <div class="engineering-art">
-      <img
-        src="assets/sketches/classic-350.webp"
-        alt="Classic 350 engineering illustration"
-        loading="lazy"
-        onerror="this.style.display='none'">
+    <div class="blueprint-art reveal">
+      <svg viewBox="0 0 240 240" aria-hidden="true">
+        <g class="wheel">
+          <circle class="draw" cx="120" cy="120" r="104"/>
+          <circle class="draw red" cx="120" cy="120" r="84" style="animation-delay:.3s"/>
+          <circle class="draw" cx="120" cy="120" r="14" style="animation-delay:.6s"/>
+          <g class="draw" style="animation-delay:.9s;stroke-dasharray:none;stroke-dashoffset:0;opacity:1">
+            <line x1="120" y1="16" x2="120" y2="224"/><line x1="16" y1="120" x2="224" y2="120"/>
+            <line x1="46" y1="46" x2="194" y2="194"/><line x1="194" y1="46" x2="46" y2="194"/>
+            <line x1="82" y1="24" x2="158" y2="216"/><line x1="158" y1="24" x2="82" y2="216"/>
+          </g>
+        </g>
+      </svg>
+      <img src="assets/sketches/classic-350.webp" alt="Classic 350 engineering illustration" loading="lazy" onerror="this.style.display='none'">
     </div>
 
-    <div class="reveal">
-
+    <div class="reveal" style="--d:150ms">
       <p class="eyebrow">DESIGN / MECHANICS / ENGINEERING</p>
-
       <div class="red-line"></div>
-
-      <h2 class="section-title">
-        BEAUTY IN<br>
-        <em>THE DETAILS.</em>
-      </h2>
-
-      <p class="section-description">
-        A motorcycle is a collection of engineering decisions.
-        From the geometry of a frame to the movement of a piston,
-        every detail has a purpose.
-      </p>
-
+      <h2 class="section-title">BEAUTY IN<br><em>THE DETAILS.</em></h2>
+      <p class="section-description">A motorcycle is a collection of engineering decisions. From the geometry of a frame to the movement of a piston, every detail has a purpose.</p>
       <div class="spec-list">
-
-        <div class="spec-row">
-          <span>DESIGN</span>
-          <span>FORM & FUNCTION</span>
-        </div>
-
-        <div class="spec-row">
-          <span>ENGINE</span>
-          <span>POWER & TORQUE</span>
-        </div>
-
-        <div class="spec-row">
-          <span>CHASSIS</span>
-          <span>STABILITY & CONTROL</span>
-        </div>
-
-        <div class="spec-row">
-          <span>RIDING</span>
-          <span>FEEL & CHARACTER</span>
-        </div>
-
+        <div class="spec-row"><span>DESIGN</span><span>FORM &amp; FUNCTION</span></div>
+        <div class="spec-row"><span>ENGINE</span><span>POWER &amp; TORQUE</span></div>
+        <div class="spec-row"><span>CHASSIS</span><span>STABILITY &amp; CONTROL</span></div>
+        <div class="spec-row"><span>RIDING</span><span>FEEL &amp; CHARACTER</span></div>
       </div>
-
     </div>
-
   </div>
-
 </section>
 
 <!-- TOURING -->
-
 <section class="touring" id="touring">
-
-  <div class="touring-image"></div>
-
-  <div class="touring-content">
-
+  <div class="parallax" data-speed=".2"></div>
+  <div class="bigscroll" id="bigscroll">RIDE FAR ✳ STAY CURIOUS ✳ RIDE FAR ✳ STAY CURIOUS ✳</div>
+  <div class="touring-content reveal">
     <p class="eyebrow">05 / THE LONG WAY ROUND</p>
-
-    <h2>
-      SOME ROADS<br>
-      STAY WITH<br>
-      <em>YOU.</em>
-    </h2>
-
-    <p>
-      Rider journals, routes, touring guides and the
-      places in between. Because the best stories
-      rarely happen at the destination.
-    </p>
-
-    <a href="#latest" class="button button-red">
-      FIND YOUR NEXT READ ↗
-    </a>
-
+    <h2>SOME ROADS<br>STAY WITH<br><em>YOU.</em></h2>
+    <p>Rider journals, routes, touring guides and the places in between. Because the best stories rarely happen at the destination.</p>
+    <a href="#latest" class="button button-red magnetic"><span>FIND YOUR NEXT READ</span> <span>↗</span></a>
   </div>
-
 </section>
 
-<!-- RIDER PROFILE -->
-
+<!-- RIDER -->
 <section class="section rider" id="rider">
-
   <div class="container rider-layout">
-
-    <div class="rider-image">
-      <div class="rider-stamp">
-        BUILT ON<br>
-        ROADS &<br>
-        STORIES.
-      </div>
+    <div class="rider-image" id="rider-image">
+      <div class="rider-stamp">BUILT ON<br>ROADS &amp;<br>STORIES.</div>
     </div>
 
     <div class="rider-copy reveal">
-
       <p class="eyebrow">06 / BEHIND THE REDLINE</p>
-
       <div class="red-line"></div>
+      <h2>MEET THE RIDER.<br><em>RISHAV AKA JATAYIU.</em></h2>
 
-      <h2>
-        MEET THE RIDER.<br>
-        <em>RISHAV AKA JATAYIU.</em>
-      </h2>
+      <p class="rider-intro">Not just about the destination. Always about the journey.</p>
+      <p>I'm Rishav, known on the road as Jatayiu — a motorcycle enthusiast, solo rider and storyteller with an enduring love for machines and the open road.</p>
+      <p>My journey has taken me across the winding roads of Uttarakhand, through Himalayan landscapes, unfamiliar towns and some seriously long days in the saddle. From covering 1,400 kilometres in a solo 20-hour ride to exploring the mountains and camping along the way, every ride has left something behind.</p>
 
-      <p class="rider-intro">
-        Not just about the destination.
-        Always about the journey.
-      </p>
-
-      <p>
-        I'm Rishav, known on the road as Jatayiu —
-        a motorcycle enthusiast, solo rider and storyteller
-        with an enduring love for machines and the open road.
-      </p>
-
-      <p>
-        My journey has taken me across the winding roads of
-        Uttarakhand, through Himalayan landscapes, unfamiliar
-        towns and some seriously long days in the saddle.
-        From covering 1,400 kilometres in a solo 20-hour ride
-        to exploring the mountains and camping along the way,
-        every ride has left something behind.
-      </p>
-
-      <p>
-        My Royal Enfield Classic 350 has been more than just
-        a motorcycle. It's been a companion through countless
-        kilometres, changing landscapes and lessons that
-        no specification sheet can explain.
-      </p>
-
-      <p>
-        Away from the road, I'm fascinated by motorcycle
-        engineering, design, mechanical character and the
-        history behind iconic machines.
-      </p>
-
-      <p>
-        That's what REDLINE PAGES is about — documenting
-        motorcycles, understanding engineering, exploring
-        riding culture and telling stories that deserve
-        to be told.
-      </p>
-
-      <div class="signature">
-        <span>RIDE FAR. STAY CURIOUS.</span>
-        <strong>— JATAYIU</strong>
+      <div class="stats">
+        <div class="stat"><strong data-count="1400">0</strong><small>KM IN ONE SOLO RIDE</small></div>
+        <div class="stat"><strong data-count="20">0</strong><small>HOURS IN THE SADDLE</small></div>
+        <div class="stat"><strong data-count="350">0</strong><small>CC OF COMPANION</small></div>
       </div>
 
+      <p>My Royal Enfield Classic 350 has been more than just a motorcycle. It's been a companion through countless kilometres, changing landscapes and lessons that no specification sheet can explain.</p>
+      <p>Away from the road, I'm fascinated by motorcycle engineering, design, mechanical character and the history behind iconic machines.</p>
+      <p>That's what REDLINE PAGES is about — documenting motorcycles, understanding engineering, exploring riding culture and telling stories that deserve to be told.</p>
+
+      <div class="signature"><span>RIDE FAR. STAY CURIOUS.</span><strong>— JATAYIU</strong></div>
     </div>
-
   </div>
-
 </section>
 
 <!-- NEWSLETTER -->
-
 <section class="section newsletter">
-
   <div class="container newsletter-layout">
-
-    <div>
-
+    <div class="reveal">
       <p class="eyebrow">THE REDLINE DISPATCH</p>
-
-      <h2>
-        GOOD STORIES.<br>
-        <em>NO NOISE.</em>
-      </h2>
-
-      <p>
-        A considered round-up of motorcycle stories,
-        engineering insights and industry developments.
-        Join the list when subscriptions go live.
-      </p>
-
+      <h2>GOOD STORIES.<br><em>NO NOISE.</em></h2>
+      <p>A considered round-up of motorcycle stories, engineering insights and industry developments. Join the list when subscriptions go live.</p>
     </div>
 
-    <form class="newsletter-form" id="newsletter-form">
-
+    <form class="newsletter-form reveal" id="newsletter-form" style="--d:150ms">
       <label for="email">YOUR EMAIL ADDRESS</label>
-
       <div class="email-row">
-
-        <input
-          id="email"
-          type="email"
-          placeholder="rider@example.com"
-          required>
-
-        <button type="submit">↗</button>
-
+        <input id="email" type="email" placeholder="rider@example.com" required>
+        <button type="submit" aria-label="Subscribe">↗</button>
       </div>
-
-      <p class="form-message" id="form-message">
-        Newsletter subscriptions are not active yet.
-      </p>
-
+      <p class="form-message" id="form-message">Newsletter subscriptions are not active yet.</p>
     </form>
-
   </div>
-
 </section>
 
 </main>
 
-<!-- FOOTER -->
-
 <footer class="footer">
-
   <div class="container">
-
     <div class="footer-top">
-
-      <div>
-        <a href="#" class="logo">
-          REDLINE <span>PAGES</span>
-          <small>MACHINES. ROADS. STORIES.</small>
-        </a>
-      </div>
-
-      <p class="footer-description">
-        An independent motorcycle journal.<br>
-        Built for the curious. Made for the ride.<br>
-        India.
-      </p>
-
+      <a href="#" class="logo">REDLINE <span>PAGES</span><small>MACHINES. ROADS. STORIES.</small></a>
+      <p class="footer-description">An independent motorcycle journal.<br>Built for the curious. Made for the ride.<br>India.</p>
     </div>
-
-    <div class="footer-bottom">
-
-      <span>© <span id="year"></span> REDLINE PAGES</span>
-
-      <span>INDIA · INDEPENDENT BY DESIGN</span>
-
-      <span>EDITORIAL PROJECT / VOL. 01</span>
-
-    </div>
-
   </div>
-
+  <div class="footer-mega">RED<em>LINE</em></div>
+  <div class="credit">✳ CREATED BY JATAYIU ✳</div>
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> REDLINE PAGES</span>
+      <span>INDIA · INDEPENDENT BY DESIGN</span>
+      <span>EDITORIAL PROJECT / VOL. 01</span>
+    </div>
+  </div>
 </footer>
 
-<script src="script.js"></script>
-
 <script>
+/* =====================================================
+   REDLINE PAGES — FUNK EDITION · created by Jatayiu
+===================================================== */
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const lerp = (a, b, t) => a + (b - a) * t;
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* =====================================
-   MACHINE DATABASE
-===================================== */
+/* ---------- Build gate title + loader name ---------- */
+$('#gate-title').innerHTML = [...'REDLINE'].map((c, i) =>
+  `<span class="g" style="--i:${i}">${c}</span>`).join('') + `<span class="g dot" style="--i:7">.</span>`;
 
-const machines = [
+$('#name').innerHTML = [...'JATAYIU'].map((c, i) =>
+  `<span class="l" style="--i:${i}">${c}</span>`).join('');
 
-{brand:"Royal Enfield",name:"Classic 350",engine:"349 cc",config:"Single cylinder",type:"Roadster",category:"Royal Enfield",image:"classic-350.webp",description:"An enduring modern classic. The Classic 350 brings together traditional design, relaxed riding ergonomics and the unmistakable character of Royal Enfield."},
+$('#strips').innerHTML = Array.from({ length: 8 }, (_, i) => `<div class="strip" style="--i:${i}"></div>`).join('');
 
-{brand:"Royal Enfield",name:"Bullet 350",engine:"349 cc",config:"Single cylinder",type:"Roadster",category:"Royal Enfield",image:"bullet-350.webp",description:"One of motorcycling's most recognisable names, with a long-running legacy of simple, characterful road machines."},
+/* ---------- Hero char splitting ---------- */
+$$('[data-split]').forEach(el => {
+  el.innerHTML = [...el.textContent.trim()].map((c, i) =>
+    `<span class="ch" style="--i:${i}">${c === ' ' ? '&nbsp;' : c}</span>`).join('');
+});
 
-{brand:"Royal Enfield",name:"Hunter 350",engine:"349 cc",config:"Single cylinder",type:"Urban roadster",category:"Royal Enfield",image:"hunter-350.webp",description:"A compact roadster designed around urban riding and everyday versatility."},
+/* ---------- Gauge ticks ---------- */
+(function () {
+  const g = $('#ticks'); let h = '';
+  for (let i = 0; i <= 27; i++) {
+    const p = i / 27, a = (-135 + 270 * p) * Math.PI / 180;
+    const big = i % 3 === 0, r1 = big ? 106 : 110, r2 = 118;
+    const x1 = 120 + r1 * Math.sin(a), y1 = 120 - r1 * Math.cos(a);
+    const x2 = 120 + r2 * Math.sin(a), y2 = 120 - r2 * Math.cos(a);
+    h += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${p > .8 ? '#ff2a2a' : '#5a5c62'}" stroke-width="${big ? 2.5 : 1.5}"/>`;
+  }
+  g.innerHTML = h;
+})();
 
-{brand:"Royal Enfield",name:"Interceptor 650",engine:"648 cc",config:"Parallel twin",type:"Roadster",category:"Royal Enfield",image:"interceptor-650.webp",description:"A modern interpretation of the classic twin-cylinder roadster."},
+/* =====================================================
+   WARP CANVAS (gate)
+===================================================== */
+let gateSpeed = 0.004;
+function warp(canvas, speedFn) {
+  const ctx = canvas.getContext('2d'); let W, H, run = true;
+  const S = [], N = 420;
+  const rs = () => { const d = Math.min(devicePixelRatio || 1, 2); W = canvas.width = innerWidth * d; H = canvas.height = innerHeight * d; };
+  rs(); addEventListener('resize', rs);
+  const reset = (s, far) => {
+    s.x = (Math.random() - .5) * 2; s.y = (Math.random() - .5) * 2; s.z = far ? 1 : Math.random();
+    const r = Math.random(); s.c = r < .2 ? '#ff2a2a' : r < .3 ? '#c8ff00' : r < .36 ? '#ff2e93' : '#ffffff';
+  };
+  for (let i = 0; i < N; i++) { const s = {}; reset(s); S.push(s); }
+  (function frame() {
+    if (!run) return;
+    const sp = speedFn();
+    ctx.fillStyle = `rgba(10,10,12,${sp > .03 ? .25 : .4})`;
+    ctx.fillRect(0, 0, W, H);
+    ctx.lineCap = 'round';
+    const k = Math.max(W, H) * .22;
+    for (const s of S) {
+      const pz = s.z; s.z -= sp;
+      if (s.z <= .01) { reset(s, true); continue; }
+      const x1 = W / 2 + s.x / pz * k, y1 = H / 2 + s.y / pz * k;
+      const x2 = W / 2 + s.x / s.z * k, y2 = H / 2 + s.y / s.z * k;
+      ctx.strokeStyle = s.c; ctx.globalAlpha = Math.min(1, 1.1 - s.z);
+      ctx.lineWidth = (1 - s.z) * 2.8 + .3;
+      ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(frame);
+  })();
+  return () => { run = false; removeEventListener('resize', rs); };
+}
+const stopWarp = warp($('#warp'), () => gateSpeed);
 
-{brand:"Royal Enfield",name:"Continental GT 650",engine:"648 cc",config:"Parallel twin",type:"Cafe racer",category:"Royal Enfield",image:"continental-gt-650.webp",description:"A cafe racer-inspired machine with a committed riding position and classic silhouette."},
+/* =====================================================
+   ENGINE REV (WebAudio)
+===================================================== */
+function rev() {
+  try {
+    const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
+    const ctx = new AC(), t = ctx.currentTime;
+    const master = ctx.createGain(); master.gain.setValueAtTime(0, t);
+    master.gain.linearRampToValueAtTime(.35, t + .15);
+    master.gain.setValueAtTime(.35, t + 1.5);
+    master.gain.exponentialRampToValueAtTime(.001, t + 2.6);
+    const lp = ctx.createBiquadFilter(); lp.type = 'lowpass';
+    lp.frequency.setValueAtTime(300, t); lp.frequency.exponentialRampToValueAtTime(2400, t + 1.6);
+    const o1 = ctx.createOscillator(); o1.type = 'sawtooth';
+    o1.frequency.setValueAtTime(38, t); o1.frequency.exponentialRampToValueAtTime(210, t + 1.6); o1.frequency.exponentialRampToValueAtTime(70, t + 2.5);
+    const o2 = ctx.createOscillator(); o2.type = 'square';
+    o2.frequency.setValueAtTime(19, t); o2.frequency.exponentialRampToValueAtTime(105, t + 1.6); o2.frequency.exponentialRampToValueAtTime(35, t + 2.5);
+    const chug = ctx.createOscillator(), chugG = ctx.createGain();
+    chug.frequency.setValueAtTime(14, t); chug.frequency.linearRampToValueAtTime(40, t + 1.6);
+    chugG.gain.value = .25; chug.connect(chugG); chugG.connect(master.gain);
+    o1.connect(lp); o2.connect(lp); lp.connect(master); master.connect(ctx.destination);
+    [o1, o2, chug].forEach(o => { o.start(t); o.stop(t + 2.7); });
+    setTimeout(() => ctx.close(), 3200);
+  } catch (e) {}
+}
 
-{brand:"Royal Enfield",name:"Himalayan 450",engine:"452 cc",config:"Liquid-cooled single",type:"Adventure",category:"Royal Enfield",image:"himalayan-450.webp",description:"A purpose-built adventure motorcycle designed for long-distance exploration."},
+/* =====================================================
+   FLOW: GATE → LOADER → CURTAIN → SITE
+===================================================== */
+const gate = $('#gate'), loader = $('#loader');
+let started = false;
 
-{brand:"Royal Enfield",name:"Super Meteor 650",engine:"648 cc",config:"Parallel twin",type:"Cruiser",category:"Royal Enfield",image:"super-meteor-650.webp",description:"A relaxed cruiser with a twin-cylinder engine and touring-oriented character."},
+function ignite() {
+  if (started) return; started = true;
+  document.body.classList.add('igniting');
+  rev();
+  const t0 = performance.now();
+  (function ramp(now) {
+    const p = Math.min((now - t0) / 1100, 1);
+    gateSpeed = lerp(.004, .12, p * p);
+    if (p < 1) requestAnimationFrame(ramp);
+  })(t0);
+  setTimeout(() => {
+    gate.classList.add('out');
+    document.body.classList.remove('igniting');
+    document.body.classList.add('loading');
+    requestAnimationFrame(() => requestAnimationFrame(() => { loader.classList.add('go'); runLoader(); }));
+    setTimeout(() => { stopWarp(); gate.remove(); }, 1400);
+  }, 1100);
+}
+$('#ignite').addEventListener('click', ignite);
+addEventListener('keydown', e => { if (!started && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); ignite(); } });
+$('#ignite').addEventListener('mouseenter', () => { if (!started) gateSpeed = .014; });
+$('#ignite').addEventListener('mouseleave', () => { if (!started) gateSpeed = .004; });
 
-{brand:"Royal Enfield",name:"Shotgun 650",engine:"648 cc",config:"Parallel twin",type:"Custom roadster",category:"Royal Enfield",image:"shotgun-650.webp",description:"A contemporary custom-inspired motorcycle built around the 650 twin platform."},
+function runLoader() {
+  const pctEl = $('#pct'), prog = $('#g-prog'), needle = $('#needle'), status = $('#status');
+  const msgs = [[0, 'WARMING UP THE ENGINE'], [25, 'LOADING MACHINES'], [50, 'MAPPING THE ROADS'], [75, 'TUNING THE STORIES'], [96, 'REDLINE.']];
+  const DUR = 3400, start = performance.now();
+  let pageLoaded = document.readyState === 'complete';
+  addEventListener('load', () => pageLoaded = true);
 
-{brand:"Bajaj",name:"Pulsar NS200",engine:"199.5 cc",config:"Single cylinder",type:"Street naked",category:"Bajaj",image:"pulsar-ns200.webp",description:"An important performance-oriented name in the Indian street motorcycle segment."},
+  (function tick(now) {
+    let t = Math.min((now - start) / DUR, 1);
+    // ease with a little "gear shift" stutter
+    let p = t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    p += Math.sin(t * 28) * .012 * (1 - t);
+    p = Math.max(0, Math.min(1, p));
+    if (!pageLoaded && p > .92) p = .92;
+    const pct = Math.round(p * 100);
+    pctEl.textContent = pct;
+    prog.style.strokeDashoffset = 471.2 * (1 - p);
+    prog.classList.toggle('redzone', p > .8);
+    const flutter = Math.sin(now * .04) * 2.2 * p;
+    needle.style.transform = `rotate(${-135 + 270 * p + flutter}deg)`;
+    for (const [k, m] of msgs) if (pct >= k) status.textContent = m;
+    if (t < 1 || !pageLoaded) return requestAnimationFrame(tick);
+    pctEl.textContent = 100; needle.style.transform = 'rotate(137deg)';
+    finishLoader();
+  })(start);
+}
 
-{brand:"Bajaj",name:"Pulsar N250",engine:"249 cc",config:"Single cylinder",type:"Street naked",category:"Bajaj",image:"pulsar-n250.webp",description:"A modern street motorcycle focused on everyday usability."},
+function finishLoader() {
+  setTimeout(() => loader.classList.add('fade'), 450);
+  setTimeout(() => loader.classList.add('open'), 650);
+  setTimeout(() => {
+    document.body.classList.remove('locked', 'loading');
+    document.body.classList.add('ready');
+    emit(innerWidth * .6, innerHeight * .5, 90, true);
+  }, 1250);
+  setTimeout(() => loader.remove(), 2800);
+}
 
-{brand:"Bajaj",name:"Dominar 400",engine:"373 cc",config:"Single cylinder",type:"Sport tourer",category:"Bajaj",image:"dominar-400.webp",description:"A muscular touring-oriented motorcycle known for highway performance."},
+/* =====================================================
+   CURSOR + MAGNETIC
+===================================================== */
+if (matchMedia('(pointer:fine)').matches) {
+  document.documentElement.classList.add('has-cursor');
+  const dot = $('#cursor-dot'), ring = $('#cursor-ring');
+  let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my;
+  addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = `translate(${mx}px,${my}px)`;
+  }, { passive: true });
+  (function loop() {
+    rx = lerp(rx, mx, .16); ry = lerp(ry, my, .16);
+    ring.style.transform = `translate(${rx}px,${ry}px)`;
+    requestAnimationFrame(loop);
+  })();
+  document.addEventListener('mouseover', e => {
+    ring.classList.toggle('hot', !!e.target.closest('a,button,.machine-card,.story-card,input'));
+  });
+  $$('.magnetic').forEach(el => {
+    el.addEventListener('mousemove', e => {
+      const r = el.getBoundingClientRect();
+      el.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .3}px,${(e.clientY - r.top - r.height / 2) * .4}px)`;
+    });
+    el.addEventListener('mouseleave', () => el.style.transform = '');
+  });
+}
 
-{brand:"Bajaj",name:"Pulsar RS200",engine:"199.5 cc",config:"Single cylinder",type:"Sports",category:"Bajaj",image:"pulsar-rs200.webp",description:"A fully faired sports motorcycle from the Pulsar family."},
+/* =====================================================
+   HERO SPARKS
+===================================================== */
+const hero = $('#hero'), sc = $('#sparks'), sx = sc.getContext('2d');
+let sw, sh, parts = [], heroVisible = true;
+function sresize() { sw = sc.width = hero.offsetWidth; sh = sc.height = hero.offsetHeight; }
+sresize(); addEventListener('resize', sresize);
+function emit(x, y, n, burst) {
+  for (let i = 0; i < n && parts.length < 600; i++) {
+    const r = Math.random();
+    parts.push({
+      x, y, vx: (Math.random() - .5) * (burst ? 11 : 3.2), vy: (Math.random() - .8) * (burst ? 11 : 3.2) - 1,
+      l: 0, m: 40 + Math.random() * 55, s: Math.random() * 2.4 + .6,
+      c: r < .25 ? '200,255,0' : r < .55 ? '255,46,147' : '255,70,40'
+    });
+  }
+}
+hero.addEventListener('mousemove', e => {
+  const r = hero.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+  hero.style.setProperty('--mx', x + 'px'); hero.style.setProperty('--my', y + 'px');
+  emit(x, y, 2);
+  const nx = (e.clientX / innerWidth - .5), ny = (e.clientY / innerHeight - .5);
+  $$('.float', hero).forEach((f, i) => f.style.translate = `${-nx * (20 + i * 14)}px ${-ny * (20 + i * 14)}px`);
+}, { passive: true });
+hero.addEventListener('click', e => { const r = hero.getBoundingClientRect(); emit(e.clientX - r.left, e.clientY - r.top, 40, true); });
+new IntersectionObserver(en => heroVisible = en[0].isIntersecting).observe(hero);
+(function sparkLoop() {
+  if (heroVisible && !reduce) {
+    sx.clearRect(0, 0, sw, sh);
+    if (Math.random() < .4) emit(Math.random() * sw, sh + 5, 1);
+    sx.globalCompositeOperation = 'lighter';
+    for (let i = parts.length - 1; i >= 0; i--) {
+      const p = parts[i];
+      p.x += p.vx; p.y += p.vy; p.vy += .035; p.vx *= .985; p.l++;
+      const a = 1 - p.l / p.m;
+      if (a <= 0) { parts.splice(i, 1); continue; }
+      sx.fillStyle = `rgba(${p.c},${a})`;
+      sx.shadowColor = `rgba(${p.c},1)`; sx.shadowBlur = 10;
+      sx.beginPath(); sx.arc(p.x, p.y, p.s * a + .3, 0, 6.283); sx.fill();
+    }
+    sx.shadowBlur = 0; sx.globalCompositeOperation = 'source-over';
+  }
+  requestAnimationFrame(sparkLoop);
+})();
 
-{brand:"Honda",name:"H'ness CB350",engine:"348.36 cc",config:"Single cylinder",type:"Classic roadster",category:"Honda",image:"hness-cb350.webp",description:"Honda's modern take on the retro roadster."},
-
-{brand:"Honda",name:"CB350RS",engine:"348.36 cc",config:"Single cylinder",type:"Sport roadster",category:"Honda",image:"cb350rs.webp",description:"A sportier interpretation of Honda's 350 platform."},
-
-{brand:"Honda",name:"CB650R",engine:"649 cc",config:"Inline four",type:"Naked sports",category:"Honda",image:"cb650r.webp",description:"A middleweight naked motorcycle with a distinctive four-cylinder engine."},
-
-{brand:"Honda",name:"Africa Twin",engine:"1084 cc",config:"Parallel twin",type:"Adventure",category:"Honda",image:"africa-twin.webp",description:"A globally recognised adventure touring motorcycle."},
-
-{brand:"KTM",name:"390 Duke",engine:"398.7 cc",config:"Single cylinder",type:"Street naked",category:"KTM",image:"390-duke.webp",description:"A performance-focused naked motorcycle with aggressive design."},
-
-{brand:"KTM",name:"390 Adventure",engine:"398.7 cc",config:"Single cylinder",type:"Adventure",category:"KTM",image:"390-adventure.webp",description:"A versatile adventure platform designed for touring and mixed-road riding."},
-
-{brand:"KTM",name:"RC 390",engine:"373 cc",config:"Single cylinder",type:"Sports",category:"KTM",image:"rc-390.webp",description:"A track-inspired fully faired motorcycle."},
-
-{brand:"Yamaha",name:"R15",engine:"155 cc",config:"Single cylinder",type:"Sports",category:"Yamaha",image:"yamaha-r15.webp",description:"A popular entry-level sports motorcycle inspired by Yamaha's racing heritage."},
-
-{brand:"Yamaha",name:"MT-15",engine:"155 cc",config:"Single cylinder",type:"Street naked",category:"Yamaha",image:"yamaha-mt15.webp",description:"A compact naked motorcycle with aggressive styling."},
-
-{brand:"Yamaha",name:"R3",engine:"321 cc",config:"Parallel twin",type:"Sports",category:"Yamaha",image:"yamaha-r3.webp",description:"A twin-cylinder lightweight sportbike."},
-
-{brand:"Other",name:"Hayabusa",engine:"1340 cc",config:"Inline four",type:"Hyper sport",category:"Other",image:"hayabusa.webp",description:"A legendary high-performance motorcycle synonymous with speed."},
-
-{brand:"Other",name:"Ninja ZX-10R",engine:"998 cc",config:"Inline four",type:"Superbike",category:"Other",image:"zx10r.webp",description:"A superbike developed around Kawasaki's WorldSBK racing experience."},
-
-{brand:"Other",name:"BMW S1000RR",engine:"999 cc",config:"Inline four",type:"Superbike",category:"Other",image:"bmw-s1000rr.webp",description:"BMW Motorrad's flagship superbike."},
-
-{brand:"Other",name:"Aprilia RS 457",engine:"457 cc",config:"Parallel twin",type:"Sports",category:"Other",image:"aprilia-rs457.webp",description:"A modern lightweight sportbike with Italian design."},
-
-{brand:"Other",name:"Triumph Speed 400",engine:"398 cc",config:"Single cylinder",type:"Modern classic",category:"Other",image:"speed-400.webp",description:"A modern classic roadster combining British design influences."},
-
-{brand:"Other",name:"Ducati Panigale V4",engine:"1103 cc",config:"V4",type:"Superbike",category:"Other",image:"panigale-v4.webp",description:"An Italian superbike showcasing Ducati's racing-derived technology."},
-
-{brand:"Other",name:"TVS Apache RTR 310",engine:"312 cc",config:"Single cylinder",type:"Street naked",category:"Other",image:"apache-310.webp",description:"A technology-rich street motorcycle from TVS."},
-
-{brand:"Other",name:"Hero XPulse 200 4V",engine:"199.6 cc",config:"Single cylinder",type:"Adventure",category:"Other",image:"xpulse-200.webp",description:"An accessible adventure motorcycle built for exploring beyond paved roads."}
-
+/* =====================================================
+   DATA — STORIES (sample copy: replace with your own)
+===================================================== */
+const stories = [
+  { cat: 'Machines', title: 'Why the Classic 350 still feels like a conversation', text: 'The thump, the posture, the pace. A look at what keeps a simple single-cylinder roadster relevant.', img: 'photo-1558981806-ec527fa84c39', pos: '30% 50%', read: '6 MIN' },
+  { cat: 'Engineering', title: 'Torque is not power: reading a curve without the jargon', text: 'Two numbers on a spec sheet, two very different riding experiences. Here is how to tell them apart.', img: 'photo-1558981806-ec527fa84c39', pos: '70% 60%', read: '8 MIN' },
+  { cat: 'Touring', title: '1,400 km in 20 hours: what a solo ride teaches you', text: 'Fatigue, fuel stops and the strange calm of the long night stretch.', img: 'photo-1464822759023-fed622ff2c3b', pos: 'center', read: '10 MIN' },
+  { cat: 'Industry', title: "India's 350cc battleground, explained", text: 'Why this one displacement band keeps pulling in new rivals and new riders.', img: 'photo-1558981806-ec527fa84c39', pos: '50% 30%', read: '7 MIN' },
+  { cat: 'Touring', title: 'Uttarakhand roads worth the detour', text: 'Switchbacks, silence and the small towns that make the mountain miles memorable.', img: 'photo-1464822759023-fed622ff2c3b', pos: '20% 40%', read: '9 MIN' },
+  { cat: 'Engineering', title: 'Single, twin or four: the cylinder-count conversation', text: 'How engine layout shapes sound, smoothness and the way a motorcycle delivers its power.', img: 'photo-1558981806-ec527fa84c39', pos: '80% 40%', read: '7 MIN' }
 ];
 
-
-/* =====================================
-   RENDER ARCHIVE
-===================================== */
-
-const machineGrid = document.getElementById("machine-grid");
-const machineCount = document.getElementById("machine-count");
-
-function renderMachines(category = "All") {
-
-  const filtered = category === "All"
-    ? machines
-    : machines.filter(m => m.category === category);
-
-  machineCount.textContent = filtered.length;
-
-  machineGrid.innerHTML = filtered.map(m => {
-
-    const index = machines.indexOf(m);
-
-    return `
-      <article class="machine-card"
-        data-index="${index}"
-        tabindex="0"
-        role="button"
-        aria-label="Explore ${m.name}">
-
-        <div class="machine-art">
-
-          <span class="machine-placeholder">
-            TECHNICAL ARCHIVE<br>
-            ${m.name.toUpperCase()}
-          </span>
-
-          <img
-            src="assets/sketches/${m.image}"
-            alt="${m.brand} ${m.name}"
-            loading="lazy"
-            onerror="this.classList.add('broken')">
-
-          <span class="machine-arrow">↗</span>
-
-        </div>
-
-        <div class="machine-info">
-
-          <p class="machine-brand">${m.brand}</p>
-
-          <h3 class="machine-name">${m.name}</h3>
-
-          <div class="machine-meta">
-            <span>${m.engine}</span>
-            <span>${m.type.toUpperCase()}</span>
-          </div>
-
-        </div>
-
-      </article>
-    `;
-
-  }).join("");
-
+const storyGrid = $('#story-grid');
+function renderStories(f = 'All') {
+  const list = stories.map((s, i) => ({ ...s, no: i + 1 })).filter(s => f === 'All' || s.cat === f);
+  storyGrid.innerHTML = list.map((s, n) => `
+    <article class="story-card tilt pop" style="--n:${n}">
+      <div class="story-img">
+        <img src="https://images.unsplash.com/${s.img}?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy" style="object-position:${s.pos}">
+        <span class="story-no">0${s.no}</span>
+        <span class="story-tag">${s.cat.toUpperCase()}</span>
+      </div>
+      <div class="story-card-content">
+        <p class="eyebrow">${s.read} READ</p>
+        <h3>${s.title}</h3>
+        <p>${s.text}</p>
+        <a href="#latest">READ STORY →</a>
+      </div>
+    </article>`).join('');
 }
+renderStories();
+$('#filters').addEventListener('click', e => {
+  const b = e.target.closest('.filter'); if (!b) return;
+  $$('.filter').forEach(x => x.classList.remove('active')); b.classList.add('active');
+  renderStories(b.dataset.filter);
+});
 
+/* =====================================================
+   DATA — MACHINES
+===================================================== */
+const machines = [
+{brand:"Royal Enfield",name:"Classic 350",engine:"349 cc",config:"Single cylinder",type:"Roadster",category:"Royal Enfield",image:"classic-350.webp",description:"An enduring modern classic. The Classic 350 brings together traditional design, relaxed riding ergonomics and the unmistakable character of Royal Enfield."},
+{brand:"Royal Enfield",name:"Bullet 350",engine:"349 cc",config:"Single cylinder",type:"Roadster",category:"Royal Enfield",image:"bullet-350.webp",description:"One of motorcycling's most recognisable names, with a long-running legacy of simple, characterful road machines."},
+{brand:"Royal Enfield",name:"Hunter 350",engine:"349 cc",config:"Single cylinder",type:"Urban roadster",category:"Royal Enfield",image:"hunter-350.webp",description:"A compact roadster designed around urban riding and everyday versatility."},
+{brand:"Royal Enfield",name:"Interceptor 650",engine:"648 cc",config:"Parallel twin",type:"Roadster",category:"Royal Enfield",image:"interceptor-650.webp",description:"A modern interpretation of the classic twin-cylinder roadster."},
+{brand:"Royal Enfield",name:"Continental GT 650",engine:"648 cc",config:"Parallel twin",type:"Cafe racer",category:"Royal Enfield",image:"continental-gt-650.webp",description:"A cafe racer-inspired machine with a committed riding position and classic silhouette."},
+{brand:"Royal Enfield",name:"Himalayan 450",engine:"452 cc",config:"Liquid-cooled single",type:"Adventure",category:"Royal Enfield",image:"himalayan-450.webp",description:"A purpose-built adventure motorcycle designed for long-distance exploration."},
+{brand:"Royal Enfield",name:"Super Meteor 650",engine:"648 cc",config:"Parallel twin",type:"Cruiser",category:"Royal Enfield",image:"super-meteor-650.webp",description:"A relaxed cruiser with a twin-cylinder engine and touring-oriented character."},
+{brand:"Royal Enfield",name:"Shotgun 650",engine:"648 cc",config:"Parallel twin",type:"Custom roadster",category:"Royal Enfield",image:"shotgun-650.webp",description:"A contemporary custom-inspired motorcycle built around the 650 twin platform."},
+{brand:"Bajaj",name:"Pulsar NS200",engine:"199.5 cc",config:"Single cylinder",type:"Street naked",category:"Bajaj",image:"pulsar-ns200.webp",description:"An important performance-oriented name in the Indian street motorcycle segment."},
+{brand:"Bajaj",name:"Pulsar N250",engine:"249 cc",config:"Single cylinder",type:"Street naked",category:"Bajaj",image:"pulsar-n250.webp",description:"A modern street motorcycle focused on everyday usability."},
+{brand:"Bajaj",name:"Dominar 400",engine:"373 cc",config:"Single cylinder",type:"Sport tourer",category:"Bajaj",image:"dominar-400.webp",description:"A muscular touring-oriented motorcycle known for highway performance."},
+{brand:"Bajaj",name:"Pulsar RS200",engine:"199.5 cc",config:"Single cylinder",type:"Sports",category:"Bajaj",image:"pulsar-rs200.webp",description:"A fully faired sports motorcycle from the Pulsar family."},
+{brand:"Honda",name:"H'ness CB350",engine:"348.36 cc",config:"Single cylinder",type:"Classic roadster",category:"Honda",image:"hness-cb350.webp",description:"Honda's modern take on the retro roadster."},
+{brand:"Honda",name:"CB350RS",engine:"348.36 cc",config:"Single cylinder",type:"Sport roadster",category:"Honda",image:"cb350rs.webp",description:"A sportier interpretation of Honda's 350 platform."},
+{brand:"Honda",name:"CB650R",engine:"649 cc",config:"Inline four",type:"Naked sports",category:"Honda",image:"cb650r.webp",description:"A middleweight naked motorcycle with a distinctive four-cylinder engine."},
+{brand:"Honda",name:"Africa Twin",engine:"1084 cc",config:"Parallel twin",type:"Adventure",category:"Honda",image:"africa-twin.webp",description:"A globally recognised adventure touring motorcycle."},
+{brand:"KTM",name:"390 Duke",engine:"398.7 cc",config:"Single cylinder",type:"Street naked",category:"KTM",image:"390-duke.webp",description:"A performance-focused naked motorcycle with aggressive design."},
+{brand:"KTM",name:"390 Adventure",engine:"398.7 cc",config:"Single cylinder",type:"Adventure",category:"KTM",image:"390-adventure.webp",description:"A versatile adventure platform designed for touring and mixed-road riding."},
+{brand:"KTM",name:"RC 390",engine:"373 cc",config:"Single cylinder",type:"Sports",category:"KTM",image:"rc-390.webp",description:"A track-inspired fully faired motorcycle."},
+{brand:"Yamaha",name:"R15",engine:"155 cc",config:"Single cylinder",type:"Sports",category:"Yamaha",image:"yamaha-r15.webp",description:"A popular entry-level sports motorcycle inspired by Yamaha's racing heritage."},
+{brand:"Yamaha",name:"MT-15",engine:"155 cc",config:"Single cylinder",type:"Street naked",category:"Yamaha",image:"yamaha-mt15.webp",description:"A compact naked motorcycle with aggressive styling."},
+{brand:"Yamaha",name:"R3",engine:"321 cc",config:"Parallel twin",type:"Sports",category:"Yamaha",image:"yamaha-r3.webp",description:"A twin-cylinder lightweight sportbike."},
+{brand:"Other",name:"Hayabusa",engine:"1340 cc",config:"Inline four",type:"Hyper sport",category:"Other",image:"hayabusa.webp",description:"A legendary high-performance motorcycle synonymous with speed."},
+{brand:"Other",name:"Ninja ZX-10R",engine:"998 cc",config:"Inline four",type:"Superbike",category:"Other",image:"zx10r.webp",description:"A superbike developed around Kawasaki's WorldSBK racing experience."},
+{brand:"Other",name:"BMW S1000RR",engine:"999 cc",config:"Inline four",type:"Superbike",category:"Other",image:"bmw-s1000rr.webp",description:"BMW Motorrad's flagship superbike."},
+{brand:"Other",name:"Aprilia RS 457",engine:"457 cc",config:"Parallel twin",type:"Sports",category:"Other",image:"aprilia-rs457.webp",description:"A modern lightweight sportbike with Italian design."},
+{brand:"Other",name:"Triumph Speed 400",engine:"398 cc",config:"Single cylinder",type:"Modern classic",category:"Other",image:"speed-400.webp",description:"A modern classic roadster combining British design influences."},
+{brand:"Other",name:"Ducati Panigale V4",engine:"1103 cc",config:"V4",type:"Superbike",category:"Other",image:"panigale-v4.webp",description:"An Italian superbike showcasing Ducati's racing-derived technology."},
+{brand:"Other",name:"TVS Apache RTR 310",engine:"312 cc",config:"Single cylinder",type:"Street naked",category:"Other",image:"apache-310.webp",description:"A technology-rich street motorcycle from TVS."},
+{brand:"Other",name:"Hero XPulse 200 4V",engine:"199.6 cc",config:"Single cylinder",type:"Adventure",category:"Other",image:"xpulse-200.webp",description:"An accessible adventure motorcycle built for exploring beyond paved roads."}
+];
+
+const machineGrid = $('#machine-grid'), machineCount = $('#machine-count');
+let countRaf;
+function animateCount(el, to, dur = 700) {
+  cancelAnimationFrame(countRaf);
+  const from = Number(el.textContent) || 0, t0 = performance.now();
+  (function f(now) {
+    const p = Math.min((now - t0) / dur, 1), e = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(lerp(from, to, e));
+    if (p < 1) countRaf = requestAnimationFrame(f);
+  })(t0);
+}
+function renderMachines(category = 'All') {
+  const filtered = category === 'All' ? machines : machines.filter(m => m.category === category);
+  animateCount(machineCount, filtered.length);
+  machineGrid.innerHTML = filtered.map((m, n) => {
+    const index = machines.indexOf(m);
+    return `
+    <article class="machine-card tilt pop" style="--n:${Math.min(n, 9)}" data-index="${index}" tabindex="0" role="button" aria-label="Explore ${m.name}">
+      <div class="machine-art">
+        <span class="machine-placeholder">TECHNICAL ARCHIVE<br>${m.name.toUpperCase()}</span>
+        <img src="assets/sketches/${m.image}" alt="${m.brand} ${m.name}" loading="lazy" onerror="this.classList.add('broken')">
+        <span class="machine-arrow">↗</span>
+      </div>
+      <div class="machine-info">
+        <p class="machine-brand">${m.brand}</p>
+        <h3 class="machine-name">${m.name}</h3>
+        <div class="machine-meta"><span>${m.engine}</span><span>${m.type.toUpperCase()}</span></div>
+      </div>
+    </article>`;
+  }).join('');
+}
 renderMachines();
 
-
-/* =====================================
-   ARCHIVE FILTERS
-===================================== */
-
-document.getElementById("archive-filters").addEventListener("click", e => {
-
-  const button = e.target.closest(".archive-filter");
-
-  if (!button) return;
-
-  document.querySelectorAll(".archive-filter").forEach(b => {
-    b.classList.remove("active");
-  });
-
-  button.classList.add("active");
-
-  renderMachines(button.dataset.brand);
-
+$('#archive-filters').addEventListener('click', e => {
+  const b = e.target.closest('.archive-filter'); if (!b) return;
+  $$('.archive-filter').forEach(x => x.classList.remove('active')); b.classList.add('active');
+  renderMachines(b.dataset.brand);
 });
 
-
-/* =====================================
-   MACHINE DETAIL POPUP
-===================================== */
-
-const dialog = document.getElementById("machine-dialog");
-
-function openMachine(index) {
-
-  const m = machines[index];
-
-  if (!m) return;
-
-  document.getElementById("dialog-brand").textContent =
-    m.brand.toUpperCase() + " / MACHINE ARCHIVE";
-
-  document.getElementById("dialog-title").textContent = m.name;
-
-  document.getElementById("dialog-image").src =
-    "assets/sketches/" + m.image;
-
-  document.getElementById("dialog-engine").textContent = m.engine;
-
-  document.getElementById("dialog-config").textContent = m.config;
-
-  document.getElementById("dialog-class").textContent = m.type;
-
-  document.getElementById("dialog-description").textContent = m.description;
-
+/* ---------- Dialog ---------- */
+const dialog = $('#machine-dialog'), dImg = $('#dialog-image');
+dImg.addEventListener('error', () => dImg.style.visibility = 'hidden');
+function openMachine(i) {
+  const m = machines[i]; if (!m) return;
+  $('#dialog-brand').textContent = m.brand.toUpperCase() + ' / MACHINE ARCHIVE';
+  $('#dialog-title').textContent = m.name;
+  dImg.style.visibility = 'visible'; dImg.src = 'assets/sketches/' + m.image; dImg.alt = m.brand + ' ' + m.name;
+  $('#dialog-engine').textContent = m.engine;
+  $('#dialog-config').textContent = m.config;
+  $('#dialog-class').textContent = m.type;
+  $('#dialog-description').textContent = m.description;
   dialog.showModal();
-
 }
-
-machineGrid.addEventListener("click", e => {
-
-  const card = e.target.closest(".machine-card");
-
-  if (card) openMachine(Number(card.dataset.index));
-
+machineGrid.addEventListener('click', e => { const c = e.target.closest('.machine-card'); if (c) openMachine(+c.dataset.index); });
+machineGrid.addEventListener('keydown', e => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const c = e.target.closest('.machine-card'); if (!c) return;
+  e.preventDefault(); openMachine(+c.dataset.index);
 });
+$('#dialog-close').addEventListener('click', () => dialog.close());
+dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
 
-machineGrid.addEventListener("keydown", e => {
+/* =====================================================
+   3D TILT (event delegation)
+===================================================== */
+function tilt(container, sel) {
+  container.addEventListener('mousemove', e => {
+    const c = e.target.closest(sel); if (!c) return;
+    const r = c.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+    c.style.setProperty('--ry', ((px - .5) * 14).toFixed(2) + 'deg');
+    c.style.setProperty('--rx', ((.5 - py) * 14).toFixed(2) + 'deg');
+    c.style.setProperty('--gx', (px * 100).toFixed(1) + '%');
+    c.style.setProperty('--gy', (py * 100).toFixed(1) + '%');
+  });
+  container.addEventListener('mouseout', e => {
+    const c = e.target.closest(sel);
+    if (c && !c.contains(e.relatedTarget)) { c.style.setProperty('--rx', '0deg'); c.style.setProperty('--ry', '0deg'); }
+  });
+}
+tilt(machineGrid, '.machine-card');
+tilt(storyGrid, '.story-card');
 
-  if (e.key !== "Enter" && e.key !== " ") return;
+/* =====================================================
+   MARQUEE DUPLICATION
+===================================================== */
+$$('.band-track').forEach(t => t.innerHTML += t.innerHTML + t.innerHTML + t.innerHTML);
+// each track now holds 4 copies; animation moves -50%, which is exactly 2 copies → seamless
+const bt = $('#brand-track'); bt.innerHTML += bt.innerHTML;
 
-  const card = e.target.closest(".machine-card");
-
-  if (!card) return;
-
-  e.preventDefault();
-
-  openMachine(Number(card.dataset.index));
-
-});
-
-document.getElementById("dialog-close").addEventListener("click", () => {
-  dialog.close();
-});
-
-dialog.addEventListener("click", e => {
-  if (e.target === dialog) dialog.close();
-});
-
-
-/* =====================================
-   BRAND MARQUEE
-===================================== */
-
-const brandTrack = document.getElementById("brand-track");
-
-brandTrack.innerHTML += brandTrack.innerHTML;
-
-
-/* =====================================
+/* =====================================================
    MOBILE MENU
-===================================== */
-
-const menuToggle = document.getElementById("menu-toggle");
-const nav = document.getElementById("nav");
-
-menuToggle.addEventListener("click", () => {
-
-  const isOpen = nav.classList.toggle("open");
-
-  menuToggle.setAttribute("aria-expanded", isOpen);
-
-  menuToggle.textContent = isOpen ? "✕" : "☰";
-
+===================================================== */
+const menuToggle = $('#menu-toggle'), nav = $('#nav');
+menuToggle.addEventListener('click', () => {
+  const open = nav.classList.toggle('open');
+  menuToggle.setAttribute('aria-expanded', open);
+  menuToggle.textContent = open ? '✕' : '☰';
 });
+$$('a', nav).forEach(a => a.addEventListener('click', () => {
+  nav.classList.remove('open'); menuToggle.setAttribute('aria-expanded', 'false'); menuToggle.textContent = '☰';
+}));
 
-nav.querySelectorAll("a").forEach(link => {
+/* =====================================================
+   SCROLL: progress, header, parallax, big text
+===================================================== */
+const header = $('#header'), prog = $('#progress'), bigscroll = $('#bigscroll');
+const parallaxEls = $$('[data-speed]');
+let lastY = 0, ticking = false;
+function onScroll() {
+  const y = scrollY, total = document.documentElement.scrollHeight - innerHeight;
+  prog.style.width = (total > 0 ? y / total * 100 : 0) + '%';
+  header.classList.toggle('hide', y > lastY && y > 400 && !nav.classList.contains('open'));
+  lastY = y;
+  if (!reduce) {
+    parallaxEls.forEach(el => {
+      const host = el.parentElement.getBoundingClientRect();
+      if (host.bottom < -200 || host.top > innerHeight + 200) return;
+      const off = (host.top + host.height / 2 - innerHeight / 2) * Number(el.dataset.speed);
+      el.style.transform = `translate3d(0,${off.toFixed(1)}px,0)`;
+    });
+    const tr = $('#touring').getBoundingClientRect();
+    bigscroll.style.transform = `translateX(${(tr.top * .6).toFixed(0)}px)`;
+  }
+  ticking = false;
+}
+addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+onScroll();
 
-  link.addEventListener("click", () => {
+/* ---------- Active nav ---------- */
+const navMap = new Map($$('a', nav).map(a => [a.getAttribute('href').slice(1), a]));
+const secObs = new IntersectionObserver(en => en.forEach(e => {
+  if (e.isIntersecting) { navMap.forEach(a => a.classList.remove('active')); navMap.get(e.target.id)?.classList.add('active'); }
+}), { rootMargin: '-40% 0px -55% 0px' });
+navMap.forEach((_, id) => { const s = document.getElementById(id); if (s) secObs.observe(s); });
 
-    nav.classList.remove("open");
+/* =====================================================
+   REVEALS, SCRAMBLE, COUNTERS
+===================================================== */
+function scramble(el) {
+  const txt = el.dataset.orig || (el.dataset.orig = el.textContent), chars = '█▓▒░/\\<>+*#01';
+  let f = 0; const total = 22;
+  const id = setInterval(() => {
+    el.textContent = [...txt].map((c, i) => c === ' ' || i < f / total * txt.length ? c : chars[Math.random() * chars.length | 0]).join('');
+    if (++f > total) { clearInterval(id); el.textContent = txt; }
+  }, 32);
+}
+function countUp(el) {
+  const to = +el.dataset.count, t0 = performance.now(), dur = 1800;
+  (function f(now) {
+    const p = Math.min((now - t0) / dur, 1), e = 1 - Math.pow(1 - p, 4);
+    el.textContent = Math.round(to * e).toLocaleString('en-IN');
+    if (p < 1) requestAnimationFrame(f);
+  })(t0);
+}
+const revObs = new IntersectionObserver(en => en.forEach(e => {
+  if (!e.isIntersecting) return;
+  e.target.classList.add('visible');
+  $$('.eyebrow', e.target).forEach(scramble);
+  $$('[data-count]', e.target).forEach(countUp);
+  revObs.unobserve(e.target);
+}), { threshold: .12 });
+$$('.reveal, .rider-image').forEach(el => revObs.observe(el));
 
-    menuToggle.setAttribute("aria-expanded", "false");
-
-    menuToggle.textContent = "☰";
-
-  });
-
-});
-
-
-/* =====================================
-   SCROLL PROGRESS
-===================================== */
-
-window.addEventListener("scroll", () => {
-
-  const total =
-    document.documentElement.scrollHeight - window.innerHeight;
-
-  const percentage = total > 0
-    ? (window.scrollY / total) * 100
-    : 0;
-
-  document.getElementById("progress").style.width =
-    percentage + "%";
-
-}, { passive: true });
-
-
-/* =====================================
-   SCROLL REVEALS
-===================================== */
-
-const observer = new IntersectionObserver(entries => {
-
-  entries.forEach(entry => {
-
-    if (entry.isIntersecting) {
-
-      entry.target.classList.add("visible");
-
-      observer.unobserve(entry.target);
-
-    }
-
-  });
-
-}, { threshold: .12 });
-
-document.querySelectorAll(".reveal").forEach(el => {
-  observer.observe(el);
-});
-
-
-/* =====================================
-   FOOTER YEAR
-===================================== */
-
-document.getElementById("year").textContent =
-  new Date().getFullYear();
-
-
-/* =====================================
-   NEWSLETTER DEMO
-===================================== */
-
-document.getElementById("newsletter-form").addEventListener("submit", e => {
-
+/* =====================================================
+   NEWSLETTER (demo)
+===================================================== */
+$('#newsletter-form').addEventListener('submit', e => {
   e.preventDefault();
-
-  document.getElementById("form-message").textContent =
-    "Newsletter subscriptions are not active yet. Please check back soon.";
-
+  const f = e.currentTarget; f.classList.remove('shake'); void f.offsetWidth; f.classList.add('shake');
+  $('#form-message').textContent = 'Newsletter subscriptions are not active yet. Please check back soon.';
 });
 
+/* ---------- Footer year ---------- */
+$('#year').textContent = new Date().getFullYear();
 </script>
 
 </body>
