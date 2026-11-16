@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="REDLINE PAGES — An independent journal exploring motorcycles, engineering, riding culture and the roads that connect them.">
 <meta name="theme-color" content="#0a0a0c">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23101113'/%3E%3Cpath d='M12 13h40v9H23v7h25v9H23v13H12z' fill='%23f5f4f0'/%3E%3Cpath d='M45 13h7v38h-7z' fill='%23ed2929'/%3E%3C/svg%3E">
 <title>REDLINE PAGES — Machines. Roads. Stories.</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -194,7 +195,7 @@ body.loading #loader{display:grid}
 .hero{min-height:700px;height:min(88vh,920px);position:relative;display:flex;align-items:center;overflow:hidden;isolation:isolate;
   --mx:60%;--my:40%}
 .hero-bg{position:absolute;inset:-8% 0;z-index:-3;will-change:transform}
-.hero-image{position:absolute;inset:0;background:url("https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=2200&q=90") center 55%/cover no-repeat;
+.hero-image{position:absolute;inset:0;background:url("assets/photos/classic-350-mountain-overlook.webp") 72% 62%/cover no-repeat;
   transform:scale(1.15);transition:transform 2.4s var(--ease)}
 body.ready .hero-image{transform:scale(1.02)}
 .hero::before{content:"";position:absolute;inset:0;z-index:-2;
@@ -307,8 +308,8 @@ body.ready .hero-kicker,body.ready .hero-description,body.ready .hero .button,bo
 .feature{min-height:640px}
 .touring{min-height:700px}
 .parallax{position:absolute;inset:-14% 0;z-index:-2;will-change:transform;background-size:cover;background-position:center;background-repeat:no-repeat}
-.feature .parallax{background-image:url("https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=2200&q=85")}
-.touring .parallax{background-image:url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90")}
+.feature .parallax{background-image:url("assets/photos/classic-350-forest-stop.webp");background-position:40% 60%}
+.touring .parallax{background-image:url("assets/photos/himalayan-peak-landscape.webp");background-position:center 66%}
 .feature::after,.touring::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(10,11,13,.96),rgba(10,11,13,.3))}
 .feature-content,.touring-content{width:min(var(--container),88%);margin:auto;position:relative;z-index:2}
 .feature-content h2,.touring-content h2{font:900 clamp(65px,10vw,130px)/.88 'Barlow Condensed';text-transform:uppercase;margin-top:25px}
@@ -393,7 +394,7 @@ body.ready .hero-kicker,body.ready .hero-description,body.ready .hero .button,bo
 .rider-layout{display:grid;grid-template-columns:.9fr 1.1fr;gap:80px;align-items:center}
 .rider-image{min-height:560px;position:relative;overflow:hidden;clip-path:inset(0 0 100% 0);transition:clip-path 1.4s var(--ease-io)}
 .rider-image.visible{clip-path:inset(0 0 0 0)}
-.rider-image::before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.7),transparent 55%),url("https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1000&q=85") center/cover;transform:scale(1.25);transition:transform 2s var(--ease)}
+.rider-image::before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.7),transparent 55%),url("assets/photos/jatayiu-classic-350-rider.webp") center 25%/cover;transform:scale(1.25);transition:transform 2s var(--ease)}
 .rider-image.visible::before{transform:scale(1)}
 .rider-image::after{content:"350";position:absolute;bottom:15px;left:20px;font:900 160px/.8 'Barlow Condensed';color:rgba(255,255,255,.2)}
 .rider-stamp{position:absolute;top:20px;right:20px;padding:15px;background:var(--red);font:11px 'Space Mono',monospace;line-height:1.7;z-index:2;animation:stamp 5s ease-in-out infinite}
@@ -440,6 +441,82 @@ body.ready .hero-kicker,body.ready .hero-description,body.ready .hero .button,bo
 /* =====================================================
    RESPONSIVE
 ===================================================== */
+/* =====================================================
+   CRAZY LAYER — dock, rev warp, night ride, game
+===================================================== */
+.hero-content{transition:transform .3s ease-out;will-change:transform}
+#rev-warp{position:fixed;inset:0;width:100%;height:100%;z-index:9970;pointer-events:none;opacity:0}
+.rev-vig{position:fixed;inset:0;z-index:9971;pointer-events:none;opacity:0;background:radial-gradient(ellipse at center,transparent 38%,rgba(255,42,42,.5) 100%)}
+.night{position:fixed;inset:0;z-index:9980;pointer-events:none;opacity:0;transition:opacity .6s;
+  background:radial-gradient(circle 200px at var(--lx,50%) var(--ly,50%),rgba(255,230,170,.1) 0%,rgba(0,0,0,.3) 50%,rgba(0,0,0,.97) 100%)}
+.night.on{opacity:1}
+
+.dock{position:fixed;right:20px;bottom:20px;z-index:9996;display:flex;gap:8px;align-items:stretch;opacity:0;transform:translateY(30px);pointer-events:none;transition:all .9s var(--ease) .4s}
+body.ready .dock{opacity:1;transform:none;pointer-events:auto}
+.dock-btn,.rev-btn{background:rgba(10,10,12,.82);backdrop-filter:blur(10px);border:1px solid var(--line);color:#fff;padding:11px 14px;font:9px 'Space Mono',monospace;letter-spacing:2px;transition:border-color .3s,background .3s,color .3s;user-select:none;touch-action:none}
+.dock-btn b{display:block;color:var(--acid);font-weight:400;margin-top:3px}
+.dock-btn:hover,.dock-btn.on{border-color:var(--acid)}
+.rev-btn{min-width:150px;border-color:var(--red);text-align:left}
+.rev-btn:hover{background:rgba(255,42,42,.25)}
+.rev-btn.on{background:var(--red)}
+.rev-bar{display:block;height:5px;background:#26282c;margin-top:8px}
+.rev-bar u{display:block;height:100%;width:0;background:var(--acid)}
+.toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,24px);z-index:9997;background:var(--acid);color:#000;font:10px 'Space Mono',monospace;letter-spacing:2px;padding:12px 18px;opacity:0;pointer-events:none;transition:all .6s var(--ease);text-align:center;max-width:90vw}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ---- real photos: machine cards, dialog, reel, gallery, lightbox ---- */
+.machine-art img.photo{padding:0;object-fit:cover;filter:none}
+.machine-card:hover .machine-art img.photo{transform:scale(1.08);filter:saturate(1.25)}
+.machine-badge{position:absolute;z-index:3;left:12px;top:12px;background:var(--acid);color:#000;font:9px 'Space Mono',monospace;letter-spacing:2px;padding:5px 9px}
+.dialog-image.photo{object-fit:cover;padding:0;height:420px}
+.dialog-thumbs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.dialog-thumbs button{width:84px;height:60px;padding:0;border:2px solid transparent;background:#e9e7df;opacity:.6;overflow:hidden;transition:opacity .3s,border-color .3s}
+.dialog-thumbs button.on,.dialog-thumbs button:hover{opacity:1;border-color:var(--red)}
+.dialog-thumbs img{width:100%;height:100%;object-fit:cover;display:block}
+
+.reel{position:absolute;right:8%;top:50%;width:min(240px,20vw);aspect-ratio:9/16;z-index:2;transform:translateY(-50%) rotate(4deg);border:1px solid rgba(255,255,255,.25);box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 60px rgba(255,42,42,.25);overflow:hidden;background:#000;transition:transform .8s var(--ease)}
+.reel:hover{transform:translateY(-50%) rotate(0) scale(1.05)}
+.reel video{width:100%;height:100%;object-fit:cover;display:block}
+.reel span{position:absolute;left:10px;bottom:10px;font:9px 'Space Mono',monospace;letter-spacing:2px;background:var(--acid);color:#000;padding:4px 8px}
+@media(max-width:900px){.reel{display:none}}
+
+.gallery{background:#0a0b0d}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:230px;grid-auto-flow:dense;gap:14px}
+.g-item{position:relative;overflow:hidden;cursor:pointer;background:#15171a;border:1px solid var(--line);margin:0}
+.g-item.tall{grid-row:span 2}.g-item.wide{grid-column:span 2}.g-item.big{grid-column:span 2;grid-row:span 2}
+.g-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s var(--ease),filter .6s;filter:saturate(.92) contrast(1.05)}
+.g-item:hover img,.g-item:focus-visible img{transform:scale(1.1);filter:saturate(1.3)}
+.g-item::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(0deg,rgba(0,0,0,.78),transparent 55%);opacity:.7;transition:opacity .4s}
+.g-item:hover{border-color:var(--red)}
+.g-item figcaption{position:absolute;z-index:2;left:16px;right:16px;bottom:14px;font:11px 'Space Mono',monospace;letter-spacing:1px;opacity:0;transform:translateY(8px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.g-item:hover figcaption,.g-item:focus-visible figcaption{opacity:1;transform:none}
+.g-item figcaption b{display:block;color:var(--acid);font-weight:400;letter-spacing:3px;margin-bottom:4px}
+@media(hover:none){.g-item figcaption{opacity:1;transform:none}}
+@media(max-width:760px){.gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:170px}.g-item.big,.g-item.wide{grid-column:span 2}}
+
+.lightbox{width:min(1000px,94vw);max-height:92vh;margin:auto;padding:0;background:#0a0b0d;color:#fff;border:1px solid var(--red);box-shadow:0 0 80px rgba(255,42,42,.3)}
+.lightbox::backdrop{background:rgba(0,0,0,.92);backdrop-filter:blur(10px)}
+.lightbox[open]{animation:dlg .5s var(--ease)}
+.lightbox img{display:block;width:100%;max-height:78vh;object-fit:contain;background:#000}
+.lb-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;font:10px 'Space Mono',monospace;letter-spacing:2px}
+.lb-bar div{display:flex;gap:6px}
+.lb-bar button{background:var(--red);color:#fff;border:0;padding:10px 14px;font:10px 'Space Mono',monospace;transition:background .3s,color .3s}
+.lb-bar button:hover{background:var(--acid);color:#000}
+
+.play{background:#0a0b0d;overflow:hidden}
+.game-wrap{position:relative;border:1px solid var(--line);background:#08090b;transition:border-color .4s,box-shadow .4s}
+.game-wrap:hover{border-color:var(--red);box-shadow:0 0 60px rgba(255,42,42,.2)}
+.game-canvas{display:block;width:100%;height:540px;touch-action:pan-y;cursor:pointer}
+.game-tip{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:14px 18px;border-top:1px solid var(--line);font:10px 'Space Mono',monospace;letter-spacing:2px;color:var(--muted)}
+.game-tip b{color:var(--acid);font-weight:400}
+
+@media(max-width:520px){
+  .dock{right:10px;bottom:10px;gap:6px}
+  .dock-btn,.rev-btn{padding:9px 10px;font-size:8px;letter-spacing:1px}
+  .rev-btn{min-width:110px}
+  .game-canvas{height:440px}
+}
+
 @media(max-width:1050px){
   .nav{gap:15px}.nav a{font-size:11px}
   .machine-grid,.story-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -544,6 +621,17 @@ body.ready .hero-kicker,body.ready .hero-description,body.ready .hero .button,bo
 <div class="cursor-ring" id="cursor-ring"></div>
 <div class="progress" id="progress"></div>
 
+<canvas id="rev-warp"></canvas>
+<div class="rev-vig" id="rev-vig"></div>
+<div class="night" id="night"></div>
+
+<div class="dock" id="dock">
+  <button class="dock-btn" id="snd-btn"><span>SOUND</span><b>ON</b></button>
+  <button class="dock-btn" id="night-btn"><span>NIGHT RIDE</span><b>OFF</b></button>
+  <button class="rev-btn" id="rev-btn"><span>HOLD TO REV [R]</span><i class="rev-bar"><u id="rev-bar"></u></i></button>
+</div>
+<div class="toast" id="toast"></div>
+
 <div class="announcement">AN INDEPENDENT JOURNAL FOR THE INDIAN MOTORCYCLING ENTHUSIAST</div>
 
 <header class="header" id="header">
@@ -556,6 +644,8 @@ body.ready .hero-kicker,body.ready .hero-description,body.ready .hero .button,bo
       <a href="#archive">Archive</a>
       <a href="#engineering">Engineering</a>
       <a href="#touring">Touring</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#play">Play</a>
       <a href="#rider">About</a>
     </nav>
   </div>
@@ -638,6 +728,10 @@ body.ready .hero-kicker,body.ready .hero-description,body.ready .hero .button,bo
 <!-- MACHINE FEATURE -->
 <section class="feature" id="machines">
   <div class="parallax" data-speed=".18"></div>
+  <div class="reel" aria-label="Classic 350 reel">
+    <video id="reel-video" src="assets/video/classic-350-mountain-detail.mp4" muted loop playsinline preload="metadata"></video>
+    <span>CLASSIC 350 / REEL</span>
+  </div>
   <div class="feature-content reveal">
     <p class="eyebrow">02 / THE MACHINES</p>
     <h2>NOT JUST<br>NUMBERS.<br><em>CHARACTER.</em></h2>
@@ -680,6 +774,7 @@ body.ready .hero-kicker,body.ready .hero-description,body.ready .hero .button,bo
     <p class="eyebrow" id="dialog-brand">MACHINE ARCHIVE</p>
     <h2 class="dialog-title" id="dialog-title">MACHINE NAME</h2>
     <img class="dialog-image" id="dialog-image" alt="Motorcycle">
+    <div class="dialog-thumbs" id="dialog-thumbs"></div>
     <div class="dialog-details">
       <div class="dialog-detail"><small>ENGINE</small><strong id="dialog-engine">—</strong></div>
       <div class="dialog-detail"><small>CONFIGURATION</small><strong id="dialog-config">—</strong></div>
@@ -754,6 +849,33 @@ body.ready .hero-kicker,body.ready .hero-description,body.ready .hero .button,bo
   </div>
 </section>
 
+<!-- GALLERY -->
+<section class="section gallery" id="gallery">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div>
+        <p class="eyebrow">THE ROAD ARCHIVE</p>
+        <div class="red-line"></div>
+        <h2>FRAMES FROM <em>THE RIDE.</em></h2>
+      </div>
+      <p class="section-note">Real photographs from the saddle: the Classic 350, the mountains and the miles in between. Tap any frame to open it.</p>
+    </div>
+    <div class="gallery-grid" id="gallery-grid"></div>
+  </div>
+</section>
+
+<dialog class="lightbox" id="lightbox">
+  <img id="lb-img" alt="">
+  <div class="lb-bar">
+    <span id="lb-cap"></span>
+    <div>
+      <button id="lb-prev" aria-label="Previous photo">←</button>
+      <button id="lb-next" aria-label="Next photo">→</button>
+      <button id="lb-close">CLOSE ✕</button>
+    </div>
+  </div>
+</dialog>
+
 <!-- RIDER -->
 <section class="section rider" id="rider">
   <div class="container rider-layout">
@@ -781,6 +903,28 @@ body.ready .hero-kicker,body.ready .hero-description,body.ready .hero .button,bo
       <p>That's what REDLINE PAGES is about — documenting motorcycles, understanding engineering, exploring riding culture and telling stories that deserve to be told.</p>
 
       <div class="signature"><span>RIDE FAR. STAY CURIOUS.</span><strong>— JATAYIU</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- PLAY -->
+<section class="section play" id="play">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div>
+        <p class="eyebrow">07 / TAKE THE WHEEL</p>
+        <div class="red-line"></div>
+        <h2>REDLINE <em>RUNNER.</em></h2>
+      </div>
+      <p class="section-note">Dodge the oncoming traffic, grab fuel, and see how long you can hold the redline. Beat your best score.</p>
+    </div>
+
+    <div class="game-wrap reveal" style="--d:100ms">
+      <canvas id="game" class="game-canvas" aria-label="Redline Runner game"></canvas>
+      <div class="game-tip">
+        <span><b>←  →</b> OR <b>A  D</b> TO STEER · <b>DRAG / TAP</b> ON MOBILE</span>
+        <span><b>SPACE</b> OR <b>CLICK</b> TO START</span>
+      </div>
     </div>
   </div>
 </section>
@@ -866,7 +1010,7 @@ $$('[data-split]').forEach(el => {
    WARP CANVAS (gate)
 ===================================================== */
 let gateSpeed = 0.004;
-function warp(canvas, speedFn) {
+function warp(canvas, speedFn, activeFn) {
   const ctx = canvas.getContext('2d'); let W, H, run = true;
   const S = [], N = 240;
   const rs = () => { const d = 1; W = canvas.width = innerWidth * d; H = canvas.height = innerHeight * d; };
@@ -878,6 +1022,7 @@ function warp(canvas, speedFn) {
   for (let i = 0; i < N; i++) { const s = {}; reset(s); S.push(s); }
   (function frame() {
     if (!run) return;
+    if (activeFn && !activeFn()) return requestAnimationFrame(frame);
     const sp = speedFn();
     ctx.fillStyle = `rgba(10,10,12,${sp > .03 ? .25 : .4})`;
     ctx.fillRect(0, 0, W, H);
@@ -988,6 +1133,7 @@ function finishLoader() {
     document.body.classList.remove('locked', 'loading');
     document.body.classList.add('ready');
     emit(innerWidth * .6, innerHeight * .5, 90, true);
+    setTimeout(() => toast('HOLD [R] OR THE REV BUTTON · TYPE “JATAYIU”'), 1400);
   }, 1250);
   setTimeout(() => loader.remove(), 2800);
 }
@@ -1042,6 +1188,7 @@ hero.addEventListener('mousemove', e => {
   hero.style.setProperty('--mx', x + 'px'); hero.style.setProperty('--my', y + 'px');
   emit(x, y, 2);
   const nx = (e.clientX / innerWidth - .5), ny = (e.clientY / innerHeight - .5);
+  $('.hero-content').style.transform = `perspective(1100px) rotateY(${(nx * 7).toFixed(2)}deg) rotateX(${(-ny * 7).toFixed(2)}deg)`;
   $$('.float', hero).forEach((f, i) => f.style.translate = `${-nx * (20 + i * 14)}px ${-ny * (20 + i * 14)}px`);
 }, { passive: true });
 hero.addEventListener('click', e => { const r = hero.getBoundingClientRect(); emit(e.clientX - r.left, e.clientY - r.top, 40, true); });
@@ -1067,30 +1214,99 @@ new IntersectionObserver(en => heroVisible = en[0].isIntersecting).observe(hero)
 /* =====================================================
    DATA — STORIES (sample copy: replace with your own)
 ===================================================== */
+const FALLBACK_IMG = "assets/photos/classic-350-forest-stop.webp";
 const stories = [
-  { cat: 'Machines', title: 'Why the Classic 350 still feels like a conversation', text: 'The thump, the posture, the pace. A look at what keeps a simple single-cylinder roadster relevant.', img: 'photo-1558981806-ec527fa84c39', pos: '30% 50%', read: '6 MIN' },
-  { cat: 'Engineering', title: 'Torque is not power: reading a curve without the jargon', text: 'Two numbers on a spec sheet, two very different riding experiences. Here is how to tell them apart.', img: 'photo-1558981806-ec527fa84c39', pos: '70% 60%', read: '8 MIN' },
-  { cat: 'Touring', title: '1,400 km in 20 hours: what a solo ride teaches you', text: 'Fatigue, fuel stops and the strange calm of the long night stretch.', img: 'photo-1464822759023-fed622ff2c3b', pos: 'center', read: '10 MIN' },
-  { cat: 'Industry', title: "India's 350cc battleground, explained", text: 'Why this one displacement band keeps pulling in new rivals and new riders.', img: 'photo-1558981806-ec527fa84c39', pos: '50% 30%', read: '7 MIN' },
-  { cat: 'Touring', title: 'Uttarakhand roads worth the detour', text: 'Switchbacks, silence and the small towns that make the mountain miles memorable.', img: 'photo-1464822759023-fed622ff2c3b', pos: '20% 40%', read: '9 MIN' },
-  { cat: 'Engineering', title: 'Single, twin or four: the cylinder-count conversation', text: 'How engine layout shapes sound, smoothness and the way a motorcycle delivers its power.', img: 'photo-1558981806-ec527fa84c39', pos: '80% 40%', read: '7 MIN' }
+  {
+    category: "Machines",
+    title: "The Royal Enfield Classic 350: An Indian Icon",
+    excerpt: "From its origins and early production to the modern J-Series Classic. Explore the motorcycle's journey through history.",
+    image: "https://www.royalenfield.com/content/dam/royal-enfield/motorcycles/new-classic-350/revamp/gallery/thumbnail/desktop/gallery_1.jpg",
+    tag: "MOTORCYCLE HISTORY",
+    read: "12 MIN READ",
+    link: "articles/classic-350.html"
+  },
+  {
+    category: "Machines",
+    title: "The middleweight adventure question",
+    excerpt: "What makes a motorcycle genuinely capable beyond the spec sheet? A look at the choices that shape the modern ADV.",
+    image: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=80",
+    tag: "MACHINE NOTES",
+    read: "6 MIN READ",
+    link: "#"
+  },
+  {
+    category: "Engineering",
+    title: "Torque, power and the feel of an engine",
+    excerpt: "Two numbers appear on every spec sheet. Here's what they mean on the road, and why neither tells the whole story.",
+    image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=900&q=80",
+    tag: "TECHNICAL EXPLAINER",
+    read: "5 MIN READ",
+    link: "#"
+  },
+  {
+    category: "Touring",
+    title: "The art of planning a long motorcycle ride",
+    excerpt: "Distance is only one part of the plan. Think fuel, fatigue, weather, road conditions and the space to adapt.",
+    image: "https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=900&q=80",
+    tag: "RIDE JOURNAL",
+    read: "8 MIN READ",
+    link: "#"
+  },
+  {
+    category: "Industry",
+    title: "Reading the Indian motorcycle market",
+    excerpt: "A practical guide to understanding segments, positioning, pricing and the shifts worth watching.",
+    image: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=80",
+    tag: "INDUSTRY WATCH",
+    read: "7 MIN READ",
+    link: "#"
+  },
+  {
+    category: "Machines",
+    title: "What makes a motorcycle touring-worthy?",
+    excerpt: "Ergonomics, range, wind protection, luggage and service support: the details that matter after 300 kilometres.",
+    image: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=80",
+    tag: "BUYER'S NOTE",
+    read: "7 MIN READ",
+    link: "#"
+  },
+  {
+    category: "Engineering",
+    title: "Suspension: the conversation between road and rider",
+    excerpt: "A clear introduction to forks, shock absorbers, damping and why setup changes the ride.",
+    image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=900&q=80",
+    tag: "ENGINEERING",
+    read: "6 MIN READ",
+    link: "#"
+  }
 ];
+
+/* story covers: your own photos, matched to each story */
+[
+  ['classic-350-mountain-overlook', '75% 70%'],  // Classic 350 history
+  ['classic-350-forest-stop',       '55% 65%'],  // middleweight adventure
+  ['classic-350-detail',            '50% 72%'],  // torque / engine feel (engine fins + tank)
+  ['himalayan-peak-landscape',      '50% 62%'],  // planning a long ride
+  ['jatayiu-rider-portrait',        '55% 45%'],  // Indian motorcycle market
+  ['jatayiu-classic-350-rider',     '50% 35%'],  // touring-worthy
+  ['classic-350-forest-stop',       '30% 60%']   // suspension
+].forEach(([n, pos], i) => { if (stories[i]) { stories[i].image = `assets/photos/${n}.webp`; stories[i].pos = pos; } });
 
 const storyGrid = $('#story-grid');
 function renderStories(f = 'All') {
-  const list = stories.map((s, i) => ({ ...s, no: i + 1 })).filter(s => f === 'All' || s.cat === f);
+  const list = stories.map((s, i) => ({ ...s, no: i + 1 })).filter(s => f === 'All' || s.category === f);
   storyGrid.innerHTML = list.map((s, n) => `
     <article class="story-card tilt pop" style="--n:${n}">
       <div class="story-img">
-        <img src="https://images.unsplash.com/${s.img}?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy" style="object-position:${s.pos}">
-        <span class="story-no">0${s.no}</span>
-        <span class="story-tag">${s.cat.toUpperCase()}</span>
+        <img src="${s.image}" alt="${s.title}" loading="lazy" style="object-position:${s.pos || 'center'}" onerror="this.onerror=null;this.src=FALLBACK_IMG">
+        <span class="story-no">${String(s.no).padStart(2, '0')}</span>
+        <span class="story-tag">${s.tag}</span>
       </div>
       <div class="story-card-content">
-        <p class="eyebrow">${s.read} READ</p>
+        <p class="eyebrow">${s.read}</p>
         <h3>${s.title}</h3>
-        <p>${s.text}</p>
-        <a href="#latest">READ STORY →</a>
+        <p>${s.excerpt}</p>
+        <a href="${s.link}">READ THE STORY ↗</a>
       </div>
     </article>`).join('');
 }
@@ -1105,7 +1321,7 @@ $('#filters').addEventListener('click', e => {
    DATA — MACHINES
 ===================================================== */
 const machines = [
-{brand:"Royal Enfield",name:"Classic 350",engine:"349 cc",config:"Single cylinder",type:"Roadster",category:"Royal Enfield",image:"classic-350.webp",description:"An enduring modern classic. The Classic 350 brings together traditional design, relaxed riding ergonomics and the unmistakable character of Royal Enfield."},
+{brand:"Royal Enfield",name:"Classic 350",engine:"349 cc",config:"Single cylinder",type:"Roadster",category:"Royal Enfield",image:"classic-350.webp",photos:["assets/photos/classic-350-mountain-overlook.webp","assets/photos/classic-350-forest-stop.webp","assets/photos/classic-350-detail.webp"],description:"An enduring modern classic. The Classic 350 brings together traditional design, relaxed riding ergonomics and the unmistakable character of Royal Enfield."},
 {brand:"Royal Enfield",name:"Bullet 350",engine:"349 cc",config:"Single cylinder",type:"Roadster",category:"Royal Enfield",image:"bullet-350.webp",description:"One of motorcycling's most recognisable names, with a long-running legacy of simple, characterful road machines."},
 {brand:"Royal Enfield",name:"Hunter 350",engine:"349 cc",config:"Single cylinder",type:"Urban roadster",category:"Royal Enfield",image:"hunter-350.webp",description:"A compact roadster designed around urban riding and everyday versatility."},
 {brand:"Royal Enfield",name:"Interceptor 650",engine:"648 cc",config:"Parallel twin",type:"Roadster",category:"Royal Enfield",image:"interceptor-650.webp",description:"A modern interpretation of the classic twin-cylinder roadster."},
@@ -1157,7 +1373,8 @@ function renderMachines(category = 'All') {
     <article class="machine-card tilt pop" style="--n:${Math.min(n, 9)}" data-index="${index}" tabindex="0" role="button" aria-label="Explore ${m.name}">
       <div class="machine-art">
         <span class="machine-placeholder">TECHNICAL ARCHIVE<br>${m.name.toUpperCase()}</span>
-        <img src="assets/sketches/${m.image}" alt="${m.brand} ${m.name}" loading="lazy" onerror="this.classList.add('broken')">
+        <img ${m.photos ? `class="photo" src="${m.photos[0]}"` : `src="assets/sketches/${m.image}"`} alt="${m.brand} ${m.name}" loading="lazy" onerror="this.classList.add('broken')">
+        ${m.photos ? '<span class="machine-badge">★ MY RIDE</span>' : ''}
         <span class="machine-arrow">↗</span>
       </div>
       <div class="machine-info">
@@ -1183,7 +1400,16 @@ function openMachine(i) {
   const m = machines[i]; if (!m) return;
   $('#dialog-brand').textContent = m.brand.toUpperCase() + ' / MACHINE ARCHIVE';
   $('#dialog-title').textContent = m.name;
-  dImg.style.visibility = 'visible'; dImg.src = 'assets/sketches/' + m.image; dImg.alt = m.brand + ' ' + m.name;
+  const sources = m.photos ? [...m.photos, 'assets/sketches/' + m.image] : ['assets/sketches/' + m.image];
+  const thumbs = $('#dialog-thumbs');
+  const showSrc = src => {
+    dImg.style.visibility = 'visible'; dImg.src = src; dImg.alt = m.brand + ' ' + m.name;
+    dImg.classList.toggle('photo', !src.includes('/sketches/'));
+    $$('button', thumbs).forEach(b => b.classList.toggle('on', b.dataset.src === src));
+  };
+  thumbs.innerHTML = sources.length > 1 ? sources.map(s => `<button type="button" data-src="${s}" aria-label="Show photo"><img src="${s}" alt="" onerror="this.parentElement.remove()"></button>`).join('') : '';
+  thumbs.onclick = e => { const b = e.target.closest('button'); if (b) showSrc(b.dataset.src); };
+  showSrc(sources[0]);
   $('#dialog-engine').textContent = m.engine;
   $('#dialog-config').textContent = m.config;
   $('#dialog-class').textContent = m.type;
@@ -1308,6 +1534,289 @@ $('#newsletter-form').addEventListener('submit', e => {
   const f = e.currentTarget; f.classList.remove('shake'); void f.offsetWidth; f.classList.add('shake');
   $('#form-message').textContent = 'Newsletter subscriptions are not active yet. Please check back soon.';
 });
+
+/* =====================================================
+   GALLERY + LIGHTBOX + REEL
+   Paste public Google Drive file IDs below to add more photos:
+   share the file as "Anyone with the link", then copy the ID from
+   https://drive.google.com/file/d/<THIS-PART>/view
+===================================================== */
+const DRIVE_IDS = [];
+const driveUrl = id => `https://lh3.googleusercontent.com/d/${id}=w1800`;
+const galleryPhotos = [
+  { src: 'assets/photos/classic-350-mountain-overlook.webp', tag: 'THE MACHINE', cap: 'Classic 350 above the clouds', cls: 'big', pos: '75% 70%' },
+  { src: 'assets/photos/jatayiu-classic-350-rider.webp', tag: 'THE RIDER', cap: 'Jatayiu with the Classic 350', cls: 'tall', pos: '50% 30%' },
+  { src: 'assets/photos/himalayan-peak-landscape.webp', tag: 'THE ROAD', cap: 'Snow peaks on the horizon', cls: 'tall', pos: '50% 65%' },
+  { src: 'assets/photos/classic-350-forest-stop.webp', tag: 'THE STOP', cap: 'Forest stop, bags packed', cls: 'wide', pos: '45% 60%' },
+  { src: 'assets/photos/jatayiu-mountain-portrait.webp', tag: 'THE VIEW', cap: 'Looking at the range', cls: 'tall', pos: '55% 70%' },
+  { src: 'assets/photos/classic-350-detail.webp', tag: 'THE DETAIL', cap: 'Tank, prayer flags and a view', cls: 'tall', pos: '50% 60%' },
+  { src: 'assets/photos/jatayiu-rider-portrait.webp', tag: 'THE GEAR', cap: 'Gloves, helmet, next stretch', cls: 'wide', pos: '55% 45%' }
+].concat(DRIVE_IDS.map((id, i) => ({ src: driveUrl(id), tag: 'FROM THE DRIVE', cap: 'Photo ' + (i + 1), cls: '', pos: 'center' })));
+
+const gGrid = $('#gallery-grid');
+gGrid.innerHTML = galleryPhotos.map((p, i) => `
+  <figure class="g-item ${p.cls} reveal" style="--d:${(i % 4) * 80}ms" tabindex="0" role="button" aria-label="Open photo: ${p.cap}" data-cap="${p.tag} · ${p.cap}">
+    <img src="${p.src}" alt="${p.cap}" loading="lazy" style="object-position:${p.pos}" onerror="this.closest('figure').remove()">
+    <figcaption><b>${p.tag}</b>${p.cap}</figcaption>
+  </figure>`).join('');
+$$('.g-item', gGrid).forEach(el => revObs.observe(el));
+
+const lb = $('#lightbox'), lbImg = $('#lb-img'), lbCap = $('#lb-cap');
+let lbI = 0;
+const lbItems = () => $$('.g-item', gGrid);
+function lbShow() {
+  const items = lbItems(); if (!items.length) return;
+  lbI = (lbI + items.length) % items.length;
+  lbImg.src = $('img', items[lbI]).src; lbCap.textContent = items[lbI].dataset.cap;
+}
+function lbOpen(el) { lbI = lbItems().indexOf(el); lbShow(); if (!lb.open) lb.showModal(); }
+gGrid.addEventListener('click', e => { const f = e.target.closest('.g-item'); if (f) lbOpen(f); });
+gGrid.addEventListener('keydown', e => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const f = e.target.closest('.g-item'); if (f) { e.preventDefault(); lbOpen(f); }
+});
+$('#lb-prev').addEventListener('click', () => { lbI--; lbShow(); });
+$('#lb-next').addEventListener('click', () => { lbI++; lbShow(); });
+$('#lb-close').addEventListener('click', () => lb.close());
+lb.addEventListener('click', e => { if (e.target === lb) lb.close(); });
+addEventListener('keydown', e => {
+  if (!lb.open) return;
+  if (e.key === 'ArrowLeft') { lbI--; lbShow(); } else if (e.key === 'ArrowRight') { lbI++; lbShow(); }
+});
+
+// play the reel only while it's on screen
+const reel = $('#reel-video');
+if (reel) new IntersectionObserver(en => { en[0].isIntersecting ? reel.play().catch(() => {}) : reel.pause(); }, { threshold: .3 }).observe(reel);
+
+/* =====================================================
+   CRAZY LAYER — REV ENGINE
+===================================================== */
+let throttle = 0, revHeld = false, overdrive = 0, soundOn = true, actx, o1, o2, lpf, mg;
+const revCanvas = $('#rev-warp'), revVig = $('#rev-vig'), revBtn = $('#rev-btn'), revBar = $('#rev-bar');
+warp(revCanvas, () => .004 + throttle * .12, () => throttle > .02);
+
+function audioStart() {
+  try {
+    if (actx) { if (actx.state === 'suspended') actx.resume(); return; }
+    const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
+    actx = new AC(); mg = actx.createGain(); mg.gain.value = 0;
+    lpf = actx.createBiquadFilter(); lpf.type = 'lowpass'; lpf.frequency.value = 400;
+    o1 = actx.createOscillator(); o1.type = 'sawtooth'; o1.frequency.value = 38;
+    o2 = actx.createOscillator(); o2.type = 'square'; o2.frequency.value = 19;
+    o1.connect(lpf); o2.connect(lpf); lpf.connect(mg); mg.connect(actx.destination);
+    o1.start(); o2.start();
+  } catch (e) {}
+}
+function revDown() { revHeld = true; audioStart(); revBtn.classList.add('on'); }
+function revUp() { revHeld = false; revBtn.classList.remove('on'); }
+revBtn.addEventListener('pointerdown', e => { e.preventDefault(); revDown(); });
+['pointerup', 'pointercancel', 'pointerleave'].forEach(ev => revBtn.addEventListener(ev, revUp));
+addEventListener('keydown', e => {
+  if (e.key.toLowerCase() === 'r' && !e.ctrlKey && !e.metaKey && !/INPUT|TEXTAREA/.test(e.target.tagName)) revDown();
+});
+addEventListener('keyup', e => { if (e.key.toLowerCase() === 'r') revUp(); });
+addEventListener('blur', revUp);
+
+$('#snd-btn').addEventListener('click', e => {
+  soundOn = !soundOn; e.currentTarget.querySelector('b').textContent = soundOn ? 'ON' : 'OFF';
+  e.currentTarget.classList.toggle('on', !soundOn);
+});
+
+function boost(ms) { audioStart(); overdrive = ms; }
+function toast(t) {
+  const el = $('#toast'); el.textContent = t; el.classList.add('show');
+  clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('show'), 2800);
+}
+let kb = '';
+addEventListener('keydown', e => {
+  if (e.key.length !== 1) return;
+  kb = (kb + e.key.toLowerCase()).slice(-7);
+  if (kb === 'jatayiu') { boost(2800); toast('✳ JATAYIU MODE UNLOCKED · SEND IT ✳'); emit(innerWidth * .5, innerHeight * .5, 120, true); }
+});
+
+let rt = performance.now();
+(function revLoop(now) {
+  const dt = Math.min(now - rt, 50); rt = now;
+  if (overdrive > 0) overdrive -= dt;
+  const target = (revHeld || overdrive > 0) ? 1 : 0;
+  throttle = lerp(throttle, target, target ? .05 : .035);
+  if (!target && throttle < .003) throttle = 0;
+  revCanvas.style.opacity = Math.min(.6, throttle * .9).toFixed(3);
+  revVig.style.opacity = throttle.toFixed(3);
+  revBar.style.width = (throttle * 100).toFixed(0) + '%';
+  revBar.style.background = throttle > .8 ? '#ff2a2a' : '#c8ff00';
+  if (actx && o1) {
+    const t = actx.currentTime, f = 38 + throttle * 200 + Math.sin(now * .03) * 3 * throttle;
+    o1.frequency.setTargetAtTime(f, t, .05); o2.frequency.setTargetAtTime(f / 2, t, .05);
+    lpf.frequency.setTargetAtTime(300 + throttle * 2400, t, .05);
+    mg.gain.setTargetAtTime(soundOn ? throttle * .2 : 0, t, .05);
+  }
+  requestAnimationFrame(revLoop);
+})(rt);
+
+/* =====================================================
+   NIGHT RIDE (headlight cursor)
+===================================================== */
+const night = $('#night'), nightBtn = $('#night-btn');
+let nightOn = false;
+nightBtn.addEventListener('click', () => {
+  nightOn = !nightOn;
+  night.classList.toggle('on', nightOn); nightBtn.classList.toggle('on', nightOn);
+  $('b', nightBtn).textContent = nightOn ? 'ON' : 'OFF';
+  if (nightOn) toast('NIGHT RIDE · FOLLOW YOUR HEADLIGHT');
+});
+const setLight = (x, y) => { night.style.setProperty('--lx', x + 'px'); night.style.setProperty('--ly', y + 'px'); };
+addEventListener('mousemove', e => { if (nightOn) setLight(e.clientX, e.clientY); }, { passive: true });
+addEventListener('touchmove', e => { if (nightOn && e.touches[0]) setLight(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
+
+/* =====================================================
+   SCROLL VELOCITY: skew titles, speed up marquees
+===================================================== */
+const skewEls = $$('.section-title,.footer-mega');
+const anims = $$('.band-track,.brand-track').map(t => t.getAnimations()[0]).filter(Boolean);
+let pY = scrollY, sv = 0, lastSk = 0, lastRate = 1;
+(function velLoop() {
+  const y = scrollY; sv = lerp(sv, y - pY, .12); pY = y;
+  if (!reduce) {
+    const sk = Math.max(-7, Math.min(7, sv * .18)), skr = Math.abs(sk) < .05 ? 0 : +sk.toFixed(2);
+    if (skr !== lastSk) { lastSk = skr; skewEls.forEach(el => el.style.transform = skr ? `skewY(${skr}deg)` : ''); }
+    const rate = +(1 + Math.min(Math.abs(sv) * .35, 8) + throttle * 7).toFixed(2);
+    if (Math.abs(rate - lastRate) > .03) { lastRate = rate; anims.forEach(a => a.playbackRate = rate); }
+  }
+  requestAnimationFrame(velLoop);
+})();
+
+/* =====================================================
+   REDLINE RUNNER (mini game)
+===================================================== */
+(function game() {
+  const c = $('#game'); if (!c) return;
+  const g = c.getContext('2d'), LANES = 4;
+  let W = 0, H = 0, vis = false, state = 'idle', score = 0, best = 0, speed = 5, off = 0, spawn = 0, lane = 1, px = 0;
+  let obs = [], pick = [], boom = [], flash = 0, last = performance.now();
+  try { best = +localStorage.getItem('redline-best') || 0; } catch (e) {}
+
+  const size = () => { W = c.width = c.clientWidth; H = c.height = c.clientHeight; };
+  size(); addEventListener('resize', size);
+  const road = () => { const w = Math.min(W * .86, 440); return { x: (W - w) / 2, w, lw: w / LANES }; };
+  const laneX = i => { const r = road(); return r.x + r.lw * (i + .5); };
+  const PY = () => H - 110;
+  px = laneX(lane);
+
+  function start() {
+    state = 'run'; score = 0; speed = 5; obs = []; pick = []; boom = []; spawn = 60; lane = 1; px = laneX(lane);
+  }
+  function crash() {
+    state = 'over';
+    for (let i = 0; i < 46; i++) boom.push({ x: px, y: PY(), vx: (Math.random() - .5) * 12, vy: (Math.random() - .5) * 12, l: 0, m: 30 + Math.random() * 30, c: Math.random() < .5 ? '#ff2a2a' : '#c8ff00' });
+    if (score > best) { best = Math.floor(score); try { localStorage.setItem('redline-best', best); } catch (e) {} }
+  }
+  const steer = x => { const r = road(); lane = Math.max(0, Math.min(LANES - 1, Math.floor((x - r.x) / r.lw))); };
+
+  c.addEventListener('pointerdown', e => { if (state !== 'run') start(); else steer(e.clientX - c.getBoundingClientRect().left); });
+  c.addEventListener('pointermove', e => { if (state === 'run' && (e.buttons || e.pointerType === 'touch')) steer(e.clientX - c.getBoundingClientRect().left); });
+  addEventListener('keydown', e => {
+    if (!vis || /INPUT|TEXTAREA/.test(e.target.tagName)) return;
+    const k = e.key.toLowerCase();
+    if (k === 'arrowleft' || k === 'a') { lane = Math.max(0, lane - 1); e.preventDefault(); }
+    else if (k === 'arrowright' || k === 'd') { lane = Math.min(LANES - 1, lane + 1); e.preventDefault(); }
+    else if ((k === ' ' || k === 'enter') && state !== 'run') { start(); e.preventDefault(); }
+  });
+  new IntersectionObserver(en => vis = en[0].isIntersecting, { threshold: .25 }).observe(c);
+
+  function update(dt) {
+    if (state === 'run') {
+      speed = Math.min(5 + score / 260, 15);
+      score += speed * dt * .1; off = (off + speed * dt * 1.6) % 60;
+      spawn -= speed * dt;
+      if (spawn <= 0) {
+        spawn = Math.max(140 - speed * 4, 70) + Math.random() * 80;
+        const l = Math.random() * LANES | 0;
+        obs.push({ l, y: -90, c: Math.random() < .5 ? '#ff2e93' : '#00e5ff' });
+        if (Math.random() < .45) pick.push({ l: (l + 1 + (Math.random() * (LANES - 1) | 0)) % LANES, y: -220 });
+      }
+      px = lerp(px, laneX(lane), Math.min(.25 * dt, 1));
+      for (const o of obs) { o.y += speed * dt * 1.6; if (Math.abs(px - laneX(o.l)) < 26 && Math.abs(o.y - PY()) < 56) { crash(); break; } }
+      for (let i = pick.length - 1; i >= 0; i--) {
+        const p = pick[i]; p.y += speed * dt * 1.6;
+        if (Math.abs(px - laneX(p.l)) < 24 && Math.abs(p.y - PY()) < 38) { score += 40; flash = 1; pick.splice(i, 1); }
+        else if (p.y > H + 40) pick.splice(i, 1);
+      }
+      obs = obs.filter(o => o.y < H + 100);
+    }
+    for (let i = boom.length - 1; i >= 0; i--) {
+      const b = boom[i]; b.x += b.vx; b.y += b.vy; b.vy += .2; b.l++;
+      if (b.l > b.m) boom.splice(i, 1);
+    }
+    flash *= .9;
+  }
+
+  function draw(now) {
+    const r = road(), py = PY();
+    g.fillStyle = '#08090b'; g.fillRect(0, 0, W, H);
+    // side speed streaks
+    g.fillStyle = 'rgba(255,255,255,.14)';
+    for (let k = 0; k < 16; k++) {
+      const sx = (k * 97) % W; if (sx > r.x - 6 && sx < r.x + r.w + 6) continue;
+      g.fillRect(sx, ((off * 3 + k * 83) % (H + 80)) - 40, 1.5, 24 + speed * 3);
+    }
+    // road
+    g.fillStyle = '#131518'; g.fillRect(r.x, 0, r.w, H);
+    g.fillStyle = '#ff2a2a'; g.fillRect(r.x - 3, 0, 3, H); g.fillRect(r.x + r.w, 0, 3, H);
+    g.fillStyle = 'rgba(200,255,0,.55)';
+    for (let i = 1; i < LANES; i++) for (let y = -60 + off; y < H; y += 60) g.fillRect(r.x + r.lw * i - 1.5, y, 3, 28);
+    // pickups
+    for (const p of pick) {
+      const x = laneX(p.l);
+      g.fillStyle = '#c8ff00'; g.shadowColor = '#c8ff00'; g.shadowBlur = 14;
+      g.beginPath(); g.arc(x, p.y, 11, 0, 6.283); g.fill(); g.shadowBlur = 0;
+      g.fillStyle = '#000'; g.font = '700 12px Space Mono'; g.textAlign = 'center'; g.fillText('F', x, p.y + 4);
+    }
+    // oncoming cars
+    for (const o of obs) {
+      const x = laneX(o.l);
+      g.fillStyle = o.c; g.fillRect(x - 20, o.y - 35, 40, 70);
+      g.fillStyle = 'rgba(0,0,0,.45)'; g.fillRect(x - 14, o.y - 18, 28, 26);
+      g.fillStyle = '#fff'; g.fillRect(x - 17, o.y + 28, 9, 5); g.fillRect(x + 8, o.y + 28, 9, 5);
+    }
+    // player
+    if (state !== 'over') {
+      const grad = g.createLinearGradient(0, py - 20, 0, py - 190);
+      grad.addColorStop(0, 'rgba(255,240,200,.38)'); grad.addColorStop(1, 'rgba(255,240,200,0)');
+      g.fillStyle = grad; g.beginPath(); g.moveTo(px - 5, py - 24); g.lineTo(px + 5, py - 24); g.lineTo(px + 60, py - 190); g.lineTo(px - 60, py - 190); g.fill();
+      g.fillStyle = '#ff2a2a'; g.fillRect(px - 7, py - 26, 14, 52);
+      g.fillStyle = '#fff'; g.fillRect(px - 13, py - 20, 26, 4);
+      g.fillStyle = '#c8ff00'; g.beginPath(); g.arc(px, py + 2, 7, 0, 6.283); g.fill();
+      g.fillStyle = '#ff2e93'; g.fillRect(px - 4, py + 24, 8, 3);
+    }
+    for (const b of boom) { g.globalAlpha = 1 - b.l / b.m; g.fillStyle = b.c; g.fillRect(b.x, b.y, 4, 4); }
+    g.globalAlpha = 1;
+    if (flash > .02) { g.fillStyle = `rgba(200,255,0,${flash * .14})`; g.fillRect(0, 0, W, H); }
+    // HUD
+    g.textAlign = 'left'; g.fillStyle = '#fff'; g.font = '700 13px Space Mono';
+    g.fillText('SCORE ' + Math.floor(score), 18, 28);
+    g.fillStyle = '#a4a5a8'; g.fillText('BEST ' + Math.floor(best), 18, 48);
+    g.textAlign = 'right'; g.fillStyle = speed > 12 ? '#ff2a2a' : '#c8ff00'; g.fillText(Math.round(speed * 12) + ' KM/H', W - 18, 28);
+    // overlays
+    if (state !== 'run') {
+      g.fillStyle = 'rgba(8,9,11,.72)'; g.fillRect(0, 0, W, H);
+      g.textAlign = 'center';
+      g.fillStyle = state === 'over' ? '#ff2a2a' : '#fff';
+      g.font = '900 ' + Math.min(110, W * .17) + 'px Barlow Condensed';
+      g.fillText(state === 'over' ? 'CRASHED.' : 'REDLINE RUNNER', W / 2, H / 2 - 10);
+      g.fillStyle = '#c8ff00'; g.font = '700 13px Space Mono';
+      g.fillText(state === 'over' ? 'SCORE ' + Math.floor(score) + '  ·  BEST ' + Math.floor(best) : 'DODGE TRAFFIC · COLLECT FUEL', W / 2, H / 2 + 28);
+      if (Math.floor(now / 500) % 2) { g.fillStyle = '#fff'; g.fillText(state === 'over' ? 'CLICK OR PRESS SPACE TO RIDE AGAIN' : 'CLICK OR PRESS SPACE TO START', W / 2, H / 2 + 62); }
+    }
+  }
+
+  (function frame(now) {
+    requestAnimationFrame(frame);
+    const dt = Math.min((now - last) / 16.67, 3); last = now;
+    if (!vis) return;
+    update(dt); draw(now);
+  })(last);
+})();
 
 /* ---------- Footer year ---------- */
 $('#year').textContent = new Date().getFullYear();
